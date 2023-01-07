@@ -10,7 +10,7 @@ namespace Spents.Infra.CrossCutting.Extensions.Kafka
 {
     public static class KafkaExtension
     {
-        private const string topicName = "spent";
+        private const string topicName = "spents";
         private const string producerName = "spent-producer";
 
         public static IServiceCollection AddKafka(this IServiceCollection services, KafkaSettings kafkaSettings)
@@ -21,9 +21,21 @@ namespace Spents.Infra.CrossCutting.Extensions.Kafka
                     .AddCluster(
                         cluster => cluster
                         .AddBrokers(kafkaSettings)
+                        .AddTelemetry(kafkaSettings)
                         .AddProducers(kafkaSettings)
                         ));
             return services;
+        }
+
+        private static IClusterConfigurationBuilder AddTelemetry(
+            this IClusterConfigurationBuilder builder,
+            KafkaSettings settings)
+        {
+            builder
+                .EnableAdminMessages(topicName)
+                .EnableTelemetry(topicName);
+
+            return builder;
         }
 
         private static IClusterConfigurationBuilder AddBrokers(
