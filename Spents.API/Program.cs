@@ -1,6 +1,7 @@
 using Spents.Infra.CrossCutting.Conf;
 using Spents.Infra.CrossCutting.Extensions.Kafka;
 using Spents.Infra.CrossCutting.Extensions.Mongo;
+using Spents.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,7 @@ builder.Services.AddSingleton<ISettings>(applicationSettings);
 builder.Services
     .AddKafka(applicationSettings.KafkaSettings)
     .AddMongo(applicationSettings.MongoSettings)
+    .AddDependecyInjection()
     .AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();

@@ -1,4 +1,4 @@
-﻿namespace Spents.Core.Entities
+﻿namespace Spents.Core.ValueObjects
 {
     public class ReceiptItems
     {
