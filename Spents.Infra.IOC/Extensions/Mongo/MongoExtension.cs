@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using Spents.Infra.CrossCutting.Conf;
 
@@ -12,17 +14,16 @@ namespace Spents.Infra.CrossCutting.Extensions.Mongo
         {
             services.AddSingleton<IMongoClient>(sp =>
             {
-                var client = new MongoClient(mongoSettings.ConnectionString);
-                var db = client?.GetDatabase(mongoSettings?.Database);
-                return client;
+                var configuration = sp.GetService<IConfiguration>();
+                var options = sp.GetService<MongoSettings>();
+                return new MongoClient(mongoSettings.ConnectionString);
             });
 
-            services.AddTransient(sp =>
+            services.AddSingleton(sp =>
             {
-                BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
-                var options = sp.GetService<MongoSettings>();
+                BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
                 var mongoClient = sp.GetService<IMongoClient>();
-                var db = mongoClient?.GetDatabase(options?.Database);
+                var db = mongoClient?.GetDatabase(mongoSettings.Database);
                 return db;
             });
 

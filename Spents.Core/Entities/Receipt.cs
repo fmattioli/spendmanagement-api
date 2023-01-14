@@ -9,8 +9,10 @@ namespace Spents.Core.Entities
             ReceiptName = receiptName;
             ReceiptDate = receiptDate;
             ReceiptItems = receiptItems;
+            Id = Guid.NewGuid();
         }
 
+        public Guid Id { get; set; }
         public string ReceiptName { get; set; }
         public DateTime ReceiptDate { get; set; }
         public IEnumerable<ReceiptItems> ReceiptItems { get; set; }

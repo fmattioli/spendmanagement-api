@@ -1,13 +1,21 @@
 ﻿using MediatR;
 using Spents.Application.Commands.AddSpent;
+using Spents.Core.Interfaces;
 
 namespace Spents.Application.Services
 {
-    public class AddSpentsCommandHandler : IRequestHandler<AddSpentCommand, Unit>
+    public class AddSpentsCommandHandler : IRequestHandler<AddSpentCommand, Guid>
     {
-        public Task<Unit> Handle(AddSpentCommand request, CancellationToken cancellationToken)
+        private readonly ISpentRepository spentRepository;
+
+        public AddSpentsCommandHandler(ISpentRepository spentRepository)
         {
-            throw new NotImplementedException();
+            this.spentRepository = spentRepository;
+        }
+        public async Task<Guid> Handle(AddSpentCommand request, CancellationToken cancellationToken)
+        {
+            var spent = request.addSpentInputModel.ToEntity();
+            return await spentRepository.AddSpent(spent);
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+
 using Spents.Application.Commands.AddSpent;
-using System.Linq;
+using Spents.Application.InputModels;
+
 namespace Spents.API.Controllers
 {
     [Route("api/[controller]")]
@@ -15,10 +17,9 @@ namespace Spents.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddSpent(AddSpentInputModel addSpentInputModel)
+        public async Task<IActionResult> AddSpent([FromBody] AddSpentInputModel addSpentInputModel)
         {
-            var addSpentCommand = addSpentInputModel.ToCommand();
-            await _mediator.Send(addSpentCommand);
+            await _mediator.Send(new AddSpentCommand(addSpentInputModel));
             return Ok();
         } 
     }
