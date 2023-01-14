@@ -10,7 +10,7 @@ namespace Spents.IntegrationTests.Tests
 {
     public class BaseTests<T> where T : class
     {
-        private HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
 
         public BaseTests()
         {
@@ -21,7 +21,7 @@ namespace Spents.IntegrationTests.Tests
         protected async Task<(string response, HttpStatusCode statusCode)> PostAsync(string url, T body)
         {
             var json = JsonConvert.SerializeObject(body);
-            StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            StringContent httpContent = new(json, System.Text.Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync(url, httpContent);
             return new(await response.Content.ReadAsStringAsync(), response.StatusCode);
         }

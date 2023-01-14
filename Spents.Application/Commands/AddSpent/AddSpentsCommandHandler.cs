@@ -14,7 +14,7 @@ namespace Spents.Application.Services
         }
         public async Task<Guid> Handle(AddSpentCommand request, CancellationToken cancellationToken)
         {
-            var spent = request.addSpentInputModel.ToEntity();
+            var spent = request.AddSpentInputModel.ToEntity();
             return await spentRepository.AddReceipt(spent);
         }
     }

@@ -9,7 +9,7 @@ namespace Spents.Application.InputModels
         public IEnumerable<SpentDetailInputModel> ReceiptItems { get; set; } = null!;
 
 
-        public Receipt ToEntity() => new Receipt(
+        public Receipt ToEntity() => new(
                 ReceiptName,
                 ReceiptDate,
                 ReceiptItems.Select(x => new ReceiptItems(x.Name, x.Quantity, x.ItemPrice, x.Observation))

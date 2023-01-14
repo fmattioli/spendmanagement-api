@@ -21,15 +21,14 @@ namespace Spents.Infra.CrossCutting.Extensions.Kafka
                     .AddCluster(
                         cluster => cluster
                         .AddBrokers(kafkaSettings)
-                        .AddTelemetry(kafkaSettings)
+                        .AddTelemetry()
                         .AddProducers(kafkaSettings)
                         ));
             return services;
         }
 
         private static IClusterConfigurationBuilder AddTelemetry(
-            this IClusterConfigurationBuilder builder,
-            KafkaSettings settings)
+            this IClusterConfigurationBuilder builder)
         {
             builder
                 .EnableAdminMessages(topicName)
