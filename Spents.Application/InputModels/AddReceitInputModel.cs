@@ -2,7 +2,7 @@
 using Spents.Core.ValueObjects;
 namespace Spents.Application.InputModels
 {
-    public class AddSpentInputModel
+    public class AddReceitInputModel
     {
         public string ReceiptName { get; set; } = null!;
         public DateTime ReceiptDate { get; set; }

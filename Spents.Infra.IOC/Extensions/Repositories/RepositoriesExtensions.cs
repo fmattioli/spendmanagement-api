@@ -9,7 +9,7 @@ namespace Spents.Infra.CrossCutting.Extensions.Repositories
     {
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
-            services.AddScoped<ISpentRepository, SpentRepository>();
+            services.AddScoped<IReceiptRepository, ReceiptRepository>();
             return services;
         }
     }

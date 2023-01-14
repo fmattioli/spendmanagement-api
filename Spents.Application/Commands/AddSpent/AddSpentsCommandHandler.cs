@@ -6,16 +6,16 @@ namespace Spents.Application.Services
 {
     public class AddSpentsCommandHandler : IRequestHandler<AddSpentCommand, Guid>
     {
-        private readonly ISpentRepository spentRepository;
+        private readonly IReceiptRepository spentRepository;
 
-        public AddSpentsCommandHandler(ISpentRepository spentRepository)
+        public AddSpentsCommandHandler(IReceiptRepository spentRepository)
         {
             this.spentRepository = spentRepository;
         }
         public async Task<Guid> Handle(AddSpentCommand request, CancellationToken cancellationToken)
         {
             var spent = request.addSpentInputModel.ToEntity();
-            return await spentRepository.AddSpent(spent);
+            return await spentRepository.AddReceipt(spent);
         }
     }
 }

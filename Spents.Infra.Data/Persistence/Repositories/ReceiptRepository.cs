@@ -5,16 +5,16 @@ using Spents.Core.Interfaces;
 
 namespace Spents.Infra.Data.Persistence.Repositories
 {
-    public class SpentRepository : ISpentRepository
+    public class ReceiptRepository : Core.Interfaces.IReceiptRepository
     {
         private readonly IMongoCollection<Receipt> _receiptCollection;
 
-        public SpentRepository(IMongoDatabase database)
+        public ReceiptRepository(IMongoDatabase database)
         {
             _receiptCollection = database.GetCollection<Receipt>("receipts");
         }
 
-        public async Task<Guid> AddSpent(Receipt receipt)
+        public async Task<Guid> AddReceipt(Receipt receipt)
         {
             await _receiptCollection.InsertOneAsync(receipt);
             return receipt.Id;
