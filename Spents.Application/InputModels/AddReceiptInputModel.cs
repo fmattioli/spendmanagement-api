@@ -2,11 +2,11 @@
 using Spents.Core.ValueObjects;
 namespace Spents.Application.InputModels
 {
-    public class AddReceitInputModel
+    public class AddReceiptInputModel
     {
         public string ReceiptName { get; set; } = null!;
         public DateTime ReceiptDate { get; set; }
-        public IEnumerable<SpentDetailInputModel> ReceiptItems { get; set; } = null!;
+        public IEnumerable<ReceiptItemsDetail> ReceiptItems { get; set; } = null!;
 
 
         public Receipt ToEntity() => new(
@@ -16,7 +16,7 @@ namespace Spents.Application.InputModels
             );
     }
 
-    public class SpentDetailInputModel
+    public class ReceiptItemsDetail
     {
         public string Name { get; set; } = null!;
         public short Quantity { get; set; }

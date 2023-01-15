@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
     <PackageReference Include="KafkaFlow" Version="2.2.14" />
     <PackageReference Include="KafkaFlow.Abstractions" Version="2.2.14" />
     <PackageReference Include="KafkaFlow.Admin" Version="2.2.14" />

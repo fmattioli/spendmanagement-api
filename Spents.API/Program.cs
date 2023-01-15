@@ -1,11 +1,10 @@
+using Spents.API.Extensions;
 using Spents.Infra.CrossCutting.Conf;
 using Spents.Infra.CrossCutting.Extensions.Kafka;
 using Spents.Infra.CrossCutting.Extensions.Mongo;
-using Spents.API.Extensions;
 using Spents.Infra.CrossCutting.Extensions.Repositories;
-using System.Text.Json.Serialization;
-using System.Text.Json;
-using Microsoft.OpenApi.Models;
+using Spents.Infra.CrossCutting.Extensions.Validators;
+using Spents.Infra.CrossCutting.Middlewares.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +29,15 @@ builder.Services
     .AddMongo(applicationSettings.MongoSettings)
     .AddRepositories()
     .AddDependecyInjection()
-    .AddControllers();
+    .AddValidators()
+    .AddControllers((options =>
+    {
+        options.Filters.Add(typeof(CustomValidationAttribute));
+    }))
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.SuppressModelStateInvalidFilter = true;
+    });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

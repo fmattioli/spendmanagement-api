@@ -6,6 +6,7 @@ using Spents.Application.InputModels;
 
 namespace Spents.API.Controllers
 {
+    [ApiController]
     [Route("api/spents")]
     public class ReceiptController : ControllerBase
     {
@@ -18,7 +19,7 @@ namespace Spents.API.Controllers
 
         [HttpPost]
         [Route("/addReceipt", Name = nameof(ReceiptController.AddReceipt))]
-        public async Task<IActionResult> AddReceipt([FromBody] AddReceitInputModel addSpentInputModel)
+        public async Task<IActionResult> AddReceipt([FromBody] AddReceiptInputModel addSpentInputModel)
         {
             var receiptId = await _mediator.Send(new AddSpentCommand(addSpentInputModel));
             return Created("/addReceipt", receiptId);
