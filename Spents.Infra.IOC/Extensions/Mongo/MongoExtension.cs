@@ -22,8 +22,8 @@ namespace Spents.Infra.CrossCutting.Extensions.Mongo
             services.AddSingleton(sp =>
             {
                 BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
-                var mongoClient = sp.GetService<IMongoClient>();
-                var db = mongoClient?.GetDatabase(mongoSettings.Database);
+                var mongoClient = sp.GetService<IMongoClient>() ?? throw new Exception("MongoDB was not injectable.");
+                var db = mongoClient.GetDatabase(mongoSettings.Database);
                 return db;
             });
 

@@ -33,7 +33,7 @@ namespace Spents.Application.InputModels.Validations
                 .NotEmpty()
                 .WithMessage("The receipt item name  cannot be null or empty");
 
-            RuleFor(x => x.Quantity).Must(x => x >= 1)
+            RuleFor(x => x.ItemPrice).Must(x => x > 0)
                 .WithMessage("Please inform at least one quantity. ");
 
             RuleFor(x => x.Quantity).Must(x => x > 0)
