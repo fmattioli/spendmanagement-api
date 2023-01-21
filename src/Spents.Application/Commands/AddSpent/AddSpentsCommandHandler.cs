@@ -22,7 +22,8 @@ namespace Spents.Application.Services
         {
             var spent = request.AddSpentInputModel.ToEntity();
             var receiptId =  await spentRepository.AddReceipt(spent);
-            await eventProducer.ProduceAsync(KafkaTopics.Events.Receipt, receiptId, request.AddSpentInputModel.ToEvent());
+            var eventReceipt = request.AddSpentInputModel.ToEvent();
+            await eventProducer.ProduceAsync(KafkaTopics.Events.Receipt, receiptId.ToString(), eventReceipt);
             return receiptId;
 
         }
