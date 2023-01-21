@@ -8,7 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.4.0" />
+    <PackageReference Include="KafkaFlow" Version="2.2.14" />
     <PackageReference Include="MediatR" Version="11.1.0" />
+    <PackageReference Include="Spents.Events" Version="1.0.2" />
+    <PackageReference Include="Spents.Topics" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>

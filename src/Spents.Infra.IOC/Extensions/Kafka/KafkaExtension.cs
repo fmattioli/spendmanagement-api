@@ -5,12 +5,12 @@ using Confluent.Kafka;
 using Spents.Infra.CrossCutting.Conf;
 using Spents.Infra.CrossCutting.Middlewares;
 using KafkaFlow.Serializer;
+using Spents.Topics;
 
 namespace Spents.Infra.CrossCutting.Extensions.Kafka
 {
     public static class KafkaExtension
     {
-        private const string topicName = "spents";
         private const string producerName = "spent-producer";
 
         public static IServiceCollection AddKafka(this IServiceCollection services, KafkaSettings kafkaSettings)
@@ -31,8 +31,8 @@ namespace Spents.Infra.CrossCutting.Extensions.Kafka
             this IClusterConfigurationBuilder builder)
         {
             builder
-                .EnableAdminMessages(topicName)
-                .EnableTelemetry(topicName);
+                .EnableAdminMessages(KafkaTopics.Events.Receipt)
+                .EnableTelemetry(KafkaTopics.Events.Receipt);
 
             return builder;
         }
@@ -72,11 +72,11 @@ namespace Spents.Infra.CrossCutting.Extensions.Kafka
                 MessageTimeoutMs = settings.MessageTimeoutMs,
             };
 
-            builder.CreateTopicIfNotExists(topicName, 1, 1)
+            builder.CreateTopicIfNotExists(KafkaTopics.Events.Receipt, 2, 1)
                         .AddProducer(
                             producerName,
                             producer => producer
-                         .DefaultTopic(topicName)
+                         .DefaultTopic(KafkaTopics.Events.Receipt)
                     .AddMiddlewares(m => m
                                 .Add<ProducerRetryMiddleware>()
                                 .AddSerializer<JsonCoreSerializer>())

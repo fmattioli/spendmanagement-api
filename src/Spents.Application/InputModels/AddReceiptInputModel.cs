@@ -1,5 +1,7 @@
 ﻿using Spents.Core.Entities;
 using Spents.Core.ValueObjects;
+using Spents.Events.Events.v1;
+
 namespace Spents.Application.InputModels
 {
     public class AddReceiptInputModel
@@ -14,6 +16,19 @@ namespace Spents.Application.InputModels
                 ReceiptDate,
                 ReceiptItems.Select(x => new ReceiptItems(x.Name, x.Quantity, x.ItemPrice, x.Observation))
             );
+
+        public ReceiptCreatedEvent ToEvent() => new ReceiptCreatedEvent(new ReceiptCreated
+        {
+            ReceiptName = ReceiptName,
+            ReceiptDate = ReceiptDate,
+            ReceiptItems = ReceiptItems.Select(x => new Events.Events.v1.ReceiptItemsDetail
+            {
+                ItemPrice = x.ItemPrice,
+                Observation = x.Observation,
+                Name = x.Name,
+                Quantity = x.Quantity,
+            })
+        });
     }
 
     public class ReceiptItemsDetail
