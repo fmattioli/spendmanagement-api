@@ -57,4 +57,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.ShowKafkaDashboard();
+
 app.Run();

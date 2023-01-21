@@ -1,10 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using KafkaFlow;
 using KafkaFlow.Configuration;
+using KafkaFlow.Admin.Dashboard;
+using KafkaFlow.Serializer;
 using Confluent.Kafka;
 using Spents.Infra.CrossCutting.Conf;
 using Spents.Infra.CrossCutting.Middlewares;
-using KafkaFlow.Serializer;
 using Spents.Topics;
 using Spents.Events.Events.v1;
 
@@ -12,7 +14,7 @@ namespace Spents.Infra.CrossCutting.Extensions.Kafka
 {
     public static class KafkaExtension
     {
-        private const string producerName = "spent-producer";
+        public static IApplicationBuilder ShowKafkaDashboard(this IApplicationBuilder app) => app.UseKafkaFlowDashboard();
 
         public static IServiceCollection AddKafka(this IServiceCollection services, KafkaSettings kafkaSettings)
         {

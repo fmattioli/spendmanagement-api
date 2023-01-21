@@ -2,11 +2,11 @@
 
 namespace Spents.Application.InputModels.Validations
 {
-    public class AddReceiptValidator : AbstractValidator<AddReceiptInputModel>
+    public class AddReceiptValidator : AbstractValidator<ReceiptInputModel>
     {
         public AddReceiptValidator()
         {
-            RuleFor(x => x.ReceiptName)
+            RuleFor(x => x.EstablishmentName)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Receipt name cannot be null");
