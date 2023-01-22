@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Spents.Infra.CrossCutting.Middlewares.Validators
 {
-    public class CustomValidationAttribute : ActionFilterAttribute
+    public class FilterRequestAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
@@ -21,7 +21,7 @@ namespace Spents.Infra.CrossCutting.Middlewares.Validators
                     Errors = errors
                 })
                 {
-                    StatusCode = 200
+                    StatusCode = 400
                 };
             }
         }

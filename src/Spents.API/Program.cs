@@ -32,7 +32,7 @@ builder.Services
     .AddValidators()
     .AddControllers((options =>
     {
-        options.Filters.Add(typeof(CustomValidationAttribute));
+        options.Filters.Add(typeof(FilterRequestAttribute));
     }))
     .ConfigureApiBehaviorOptions(options =>
     {
