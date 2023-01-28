@@ -1,6 +1,6 @@
-﻿using Spents.Core.ValueObjects;
+﻿using Spents.Domain.ValueObjects;
 
-namespace Spents.Core.Entities
+namespace Spents.Domain.Entities
 {
     public class Receipt
     {

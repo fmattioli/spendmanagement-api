@@ -1,11 +1,11 @@
 ﻿using MongoDB.Driver;
 
-using Spents.Core.Entities;
-using Spents.Core.Interfaces;
+using Spents.Domain.Entities;
+using Spents.Domain.Interfaces;
 
 namespace Spents.Infra.Data.Persistence.Repositories
 {
-    public class ReceiptRepository : Core.Interfaces.IReceiptRepository
+    public class ReceiptRepository : IReceiptRepository
     {
         private readonly IMongoCollection<Receipt> _receiptCollection;
 

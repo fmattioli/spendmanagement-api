@@ -1,6 +1,6 @@
-﻿using Spents.Core.Entities;
+﻿using Spents.Domain.Entities;
 
-namespace Spents.Core.Interfaces
+namespace Spents.Domain.Interfaces
 {
     public interface IReceiptRepository
     {

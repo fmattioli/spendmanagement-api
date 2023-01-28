@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Spents.API\Spents.API.csproj" />
-    <ProjectReference Include="..\Spents.Core\Spents.Core.csproj" />
     <ProjectReference Include="..\Spents.Infra.Data\Spents.Infra.Data.csproj" />
   </ItemGroup>
 

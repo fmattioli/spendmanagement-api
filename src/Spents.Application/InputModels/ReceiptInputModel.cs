@@ -1,5 +1,5 @@
-﻿using Spents.Core.Entities;
-using Spents.Core.ValueObjects;
+﻿using Spents.Domain.Entities;
+using Spents.Domain.ValueObjects;
 using Spents.Events.Events.v1;
 
 namespace Spents.Application.InputModels

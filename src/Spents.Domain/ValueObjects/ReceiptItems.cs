@@ -1,4 +1,4 @@
-﻿namespace Spents.Core.ValueObjects
+﻿namespace Spents.Domain.ValueObjects
 {
     public class ReceiptItems
     {

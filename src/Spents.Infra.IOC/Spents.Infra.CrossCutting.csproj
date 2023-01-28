@@ -26,7 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Spents.Application\Spents.Application.csproj" />
-    <ProjectReference Include="..\Spents.Core\Spents.Core.csproj" />
+    <ProjectReference Include="..\Spents.Domain\Spents.Domain.csproj" />
   </ItemGroup>
 
 </Project>
