@@ -29,6 +29,8 @@ namespace Spents.Infra.CrossCutting.Middlewares
                         Console.WriteLine(ex);
                     })
                 .ExecuteAndCaptureAsync(() => next(context));
+
+            //TODO: Generate Log wth Microsoft.Logging
         }
     }
 }

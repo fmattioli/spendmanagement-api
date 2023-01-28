@@ -11,6 +11,7 @@
     <PackageReference Include="KafkaFlow" Version="2.2.14" />
     <PackageReference Include="KafkaFlow.Admin.Dashboard" Version="2.2.14" />
     <PackageReference Include="MediatR" Version="11.1.0" />
+    <PackageReference Include="Serilog" Version="2.12.0" />
     <PackageReference Include="Spents.Events" Version="1.0.4" />
     <PackageReference Include="Spents.Topics" Version="1.0.0" />
   </ItemGroup>

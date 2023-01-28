@@ -1,5 +1,6 @@
 using Spents.API.Extensions;
 using Spents.Infra.CrossCutting.Conf;
+using Spents.Infra.CrossCutting.Extensions;
 using Spents.Infra.CrossCutting.Extensions.Kafka;
 using Spents.Infra.CrossCutting.Extensions.Mongo;
 using Spents.Infra.CrossCutting.Extensions.Repositories;
@@ -29,6 +30,7 @@ builder.Services
     .AddMongo(applicationSettings.MongoSettings)
     .AddRepositories()
     .AddDependecyInjection()
+    .AddLoggingDependency()
     .AddValidators()
     .AddControllers((options =>
     {

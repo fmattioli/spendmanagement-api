@@ -1,7 +1,6 @@
 ﻿using KafkaFlow;
-
 using MediatR;
-
+using Serilog;
 using Spents.Application.Commands.AddReceipt;
 using Spents.Core.Interfaces;
 using Spents.Events.Events.v1;
@@ -13,20 +12,30 @@ namespace Spents.Application.Services
     {
         private readonly IReceiptRepository spentRepository;
         private readonly IMessageProducer<ReceiptCreatedEvent> eventProducer;
-        public AddReceiptCommandHandler(IReceiptRepository spentRepository, IMessageProducer<ReceiptCreatedEvent> eventProducer)
+        private readonly ILogger logger;
+        public AddReceiptCommandHandler(IReceiptRepository spentRepository, IMessageProducer<ReceiptCreatedEvent> eventProducer, ILogger log)
         {
             this.spentRepository = spentRepository;
             this.eventProducer = eventProducer;
+            this.logger = log;
         }
 
         public async Task<Guid> Handle(AddReceiptCommand request, CancellationToken cancellationToken)
         {
             var spent = request.AddSpentInputModel.ToEntity();
             var receiptId =  await spentRepository.AddReceipt(spent);
+
             var eventReceipt = request.AddSpentInputModel.ToEvent(receiptId);
             await eventProducer.ProduceAsync(KafkaTopics.Events.Receipt, eventReceipt.MessageKey, eventReceipt);
-            return receiptId;
 
+            this.logger.Information(
+                   $"Kafka message processed to topic {KafkaTopics.Events.Receipt}.",
+                   () => new
+                   {
+                       eventReceipt
+                   });
+
+            return receiptId;
         }
     }
 }
