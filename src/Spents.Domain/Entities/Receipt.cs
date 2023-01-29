@@ -4,7 +4,7 @@ namespace Spents.Domain.Entities
 {
     public class Receipt
     {
-        public Receipt(string receiptName, DateTime receiptDate, IEnumerable<ReceiptItems> receiptItems)
+        public Receipt(string receiptName, DateTime receiptDate, IEnumerable<ReceiptItem> receiptItems)
         {
             ReceiptName = receiptName;
             ReceiptDate = receiptDate;
@@ -15,6 +15,6 @@ namespace Spents.Domain.Entities
         public Guid Id { get; set; }
         public string ReceiptName { get; set; }
         public DateTime ReceiptDate { get; set; }
-        public IEnumerable<ReceiptItems> ReceiptItems { get; set; }
+        public IEnumerable<ReceiptItem> ReceiptItems { get; set; }
     }
 }

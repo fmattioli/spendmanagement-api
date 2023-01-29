@@ -13,13 +13,14 @@ namespace Spents.Application.InputModels
         public Receipt ToEntity() => new(
                 EstablishmentName,
                 ReceiptDate,
-                ReceiptItems.Select(x => new ReceiptItems(x.Name, x.Quantity, x.ItemPrice, x.Observation))
+                ReceiptItems.Select(x => new ReceiptItem(x.Name, x.Quantity, x.ItemPrice, x.Observation))
             );
 
         public ReceiptCreatedEvent ToEvent(Guid messageKey)
         {
             return new ReceiptCreatedEvent(new ReceiptCreated
             {
+                Id = messageKey,
                 EstablishmentName = EstablishmentName,
                 ReceiptDate = ReceiptDate,
                 ReceiptItems = ReceiptItems.Select(x => new Events.Events.v1.ReceiptItemsDetail
@@ -35,6 +36,7 @@ namespace Spents.Application.InputModels
 
     public class ReceiptItemsDetail
     {
+        public Guid Id { get; set; }
         public string Name { get; set; } = null!;
         public short Quantity { get; set; }
         public decimal ItemPrice { get; set; }
