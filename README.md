@@ -5,5 +5,7 @@ Using concepts such as CQRS, Event Sourcing, Repository Pattern, Clean Arch, Mon
 > https://github.com/fmattioli/spents-readmodel
 
 # Related packages
+> https://github.com/fmattioli/spents-eventsourcing <br/>
 > https://github.com/fmattioli/Spents-Topics <br/>
 > https://github.com/fmattioli/Spent-Events
+
