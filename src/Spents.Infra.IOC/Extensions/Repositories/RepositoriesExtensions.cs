@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Spents.Domain.Interfaces;
+using Spents.Core.Domain.Interfaces;
 using Spents.Infra.Data.Persistence.Repositories;
 
 namespace Spents.Infra.CrossCutting.Extensions.Repositories

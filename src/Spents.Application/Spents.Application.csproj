@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Spents.Core.Domain\Spents.Core.Domain.csproj" />
     <ProjectReference Include="..\Spents.Infra.Data\Spents.Infra.Data.csproj" />
   </ItemGroup>
 

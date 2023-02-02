@@ -2,7 +2,7 @@
 using MediatR;
 using Serilog;
 using Spents.Application.Commands.AddReceipt;
-using Spents.Domain.Interfaces;
+using Spents.Core.Domain.Interfaces;
 using Spents.Events.Events.v1;
 using Spents.Topics;
 

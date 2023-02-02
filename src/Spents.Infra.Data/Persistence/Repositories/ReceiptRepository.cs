@@ -1,20 +1,19 @@
 ﻿using MongoDB.Driver;
-
-using Spents.Domain.Entities;
-using Spents.Domain.Interfaces;
+using Spents.Core.Domain.Entities;
+using Spents.Core.Domain.Interfaces;
 
 namespace Spents.Infra.Data.Persistence.Repositories
 {
     public class ReceiptRepository : IReceiptRepository
     {
-        private readonly IMongoCollection<Receipt> _receiptCollection;
+        private readonly IMongoCollection<ReceiptEntity> _receiptCollection;
 
         public ReceiptRepository(IMongoDatabase database)
         {
-            _receiptCollection = database.GetCollection<Receipt>("receipts");
+            _receiptCollection = database.GetCollection<ReceiptEntity>("receipts");
         }
 
-        public async Task<Guid> AddReceipt(Receipt receipt)
+        public async Task<Guid> AddReceipt(ReceiptEntity receipt)
         {
             await _receiptCollection.InsertOneAsync(receipt);
             return receipt.Id;

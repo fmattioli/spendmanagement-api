@@ -1,4 +1,5 @@
-﻿using Spents.Domain.Entities;
+﻿using Spents.Core.Domain.Entities;
+using Spents.Domain.Entities;
 using Spents.Domain.ValueObjects;
 using Spents.Events.Events.v1;
 
@@ -10,10 +11,10 @@ namespace Spents.Application.InputModels
         public DateTime ReceiptDate { get; set; }
         public IEnumerable<ReceiptItemsDetail> ReceiptItems { get; set; } = null!;
 
-        public Receipt ToEntity() => new(
+        public ReceiptEntity ToEntity() => new(
                 EstablishmentName,
                 ReceiptDate,
-                ReceiptItems.Select(x => new ReceiptItem(x.Name, x.Quantity, x.ItemPrice, x.Observation))
+                ReceiptItems.Select(x => new ReceiptItem(Guid.NewGuid(), x.Name, x.Quantity, x.ItemPrice, x.Observation))
             );
 
         public ReceiptCreatedEvent ToEvent(Guid messageKey)
