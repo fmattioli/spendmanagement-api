@@ -18,5 +18,7 @@ namespace Spents.Core.Domain.Entities
         public string EstablishmentName { get; set; }
         public virtual DateTime ReceiptDate { get; set; }
         public IEnumerable<ReceiptItemsDetailValueObject> ReceiptItems { get; set; }
+
+
     }
 }
