@@ -76,7 +76,7 @@ namespace Spents.Infra.CrossCutting.Extensions.Kafka
             };
 
             builder.CreateTopicIfNotExists(KafkaTopics.Events.Receipt, 2, 1)
-                        .AddProducer<ReceiptCreatedEvent>(p => p
+                        .AddProducer<ReceiptEvents>(p => p
                         .DefaultTopic(KafkaTopics.Events.Receipt)
                         .AddMiddlewares(m => m
                                 .Add<ProducerRetryMiddleware>()
