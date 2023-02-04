@@ -6,7 +6,7 @@ Using concepts and technologies such as CQRS, Event Sourcing, Repository Pattern
 > https://github.com/fmattioli/spents-eventsourcing <br/>
 
 # Related packages
-> https://github.com/fmattioli/Spents-Topics <br/>
-> https://github.com/fmattioli/Spent-Events <br/>
+> https://github.com/fmattioli/spents-topics <br/>
+> https://github.com/fmattioli/spent-events <br/>
 > https://github.com/fmattioli/spents-domain
 
