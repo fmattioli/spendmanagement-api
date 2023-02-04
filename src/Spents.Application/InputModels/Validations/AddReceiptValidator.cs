@@ -16,19 +16,19 @@ namespace Spents.Application.InputModels.Validations
                 .NotEmpty()
                 .WithMessage("ReceiptDate cannot be null");
 
-            RuleFor(x => x.ReceiptItems)
+            RuleFor(x => x.ReceiptItemsDetail)
                 .NotNull()
                 .WithMessage("Receipt items cannot be null");
 
-            RuleForEach(x => x.ReceiptItems).SetValidator(new ReceiptItemsValidator());
+            RuleForEach(x => x.ReceiptItemsDetail).SetValidator(new ReceiptItemsValidator());
         }
     }
 
-    public class ReceiptItemsValidator : AbstractValidator<ReceiptItemsDetail>
+    public class ReceiptItemsValidator : AbstractValidator<ReceiptItemsDetailInputModel>
     {
         public ReceiptItemsValidator()
         {
-            RuleFor(x => x.Name)
+            RuleFor(x => x.ItemName)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("The receipt item name  cannot be null or empty");

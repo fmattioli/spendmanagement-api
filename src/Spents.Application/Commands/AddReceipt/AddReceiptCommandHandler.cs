@@ -3,7 +3,7 @@ using MediatR;
 using Serilog;
 using Spents.Application.Commands.AddReceipt;
 using Spents.Core.Domain.Interfaces;
-using Spents.Events.Events.v1;
+using Spents.Events.v1;
 using Spents.Topics;
 
 namespace Spents.Application.Services
@@ -22,10 +22,10 @@ namespace Spents.Application.Services
 
         public async Task<Guid> Handle(AddReceiptCommand request, CancellationToken cancellationToken)
         {
-            var spent = request.AddSpentInputModel.ToEntity();
-            var receiptId =  await spentRepository.AddReceipt(spent);
+            var spentEntity = request.AddSpentInputModel.ToEntity();
+            var receiptId =  await spentRepository.AddReceipt(spentEntity);
 
-            var eventReceipt = request.AddSpentInputModel.ToEvent(receiptId);
+            var eventReceipt = request.AddSpentInputModel.ToEvent(spentEntity);
             await eventProducer.ProduceAsync(KafkaTopics.Events.Receipt, eventReceipt.MessageKey, eventReceipt);
 
             this.logger.Information(

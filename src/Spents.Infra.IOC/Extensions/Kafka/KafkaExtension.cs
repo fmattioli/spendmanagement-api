@@ -8,7 +8,7 @@ using Confluent.Kafka;
 using Spents.Infra.CrossCutting.Conf;
 using Spents.Infra.CrossCutting.Middlewares;
 using Spents.Topics;
-using Spents.Events.Events.v1;
+using Spents.Events.v1;
 
 namespace Spents.Infra.CrossCutting.Extensions.Kafka
 {
