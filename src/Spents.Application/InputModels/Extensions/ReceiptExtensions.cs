@@ -21,9 +21,7 @@ namespace Spents.Application.InputModels.Extensions
             );
         public static ReceiptEventCreated ToCreatedEvent(this ReceiptEntity receiptEntity)
         {
-            return new ReceiptEventCreated()
-            {
-                Receipt = new Receipt(
+            return new ReceiptEventCreated(new Receipt(
                     receiptEntity.Id,
                     receiptEntity.EstablishmentName,
                     receiptEntity.ReceiptDate,
@@ -34,10 +32,9 @@ namespace Spents.Application.InputModels.Extensions
                         x.Quantity,
                         x.ItemPrice,
                         x.TotalPrice,
-                        x.Observation))),
-                MessageKey = receiptEntity.Id.ToString(),
-                ReceiptStatus = Events.v1.ValueObjects.ReceiptEventType.ReceiptCreated
-            };
+                        x.Observation))
+                    )
+                );
         }
     }
 }
