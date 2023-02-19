@@ -9,6 +9,7 @@ using Spents.Infra.CrossCutting.Conf;
 using Spents.Infra.CrossCutting.Middlewares;
 using Spents.Topics;
 using Spents.Events.v1;
+using Spents.Core.Domain.Entities;
 
 namespace Spents.Infra.CrossCutting.Extensions.Kafka
 {
@@ -76,7 +77,7 @@ namespace Spents.Infra.CrossCutting.Extensions.Kafka
             };
 
             builder.CreateTopicIfNotExists(KafkaTopics.Events.Receipt, 2, 1)
-                        .AddProducer<ReceiptEventCreated>(p => p
+                        .AddProducer<ReceiptEvent<ReceiptEntity>>(p => p
                         .DefaultTopic(KafkaTopics.Events.Receipt)
                         .AddMiddlewares(m => m
                                 .Add<ProducerRetryMiddleware>()

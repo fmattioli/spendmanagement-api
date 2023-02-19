@@ -1,22 +1,17 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using Spents.Core.Domain.ValueObjects;
+using Spents.Domain.Entities;
+using Spents.Domain.ValueObjects;
 
 namespace Spents.Core.Domain.Entities
 {
-    public class ReceiptEntity
+    public class ReceiptEntity : Receipt
     {
-        public ReceiptEntity(Guid id,string establishmentName, DateTime receiptDate, IEnumerable<ReceiptItemsDetailValueObject> receiptItems)
+        public ReceiptEntity(Guid id, string establishmentName, DateTime receiptDate, IEnumerable<ReceiptItem> receiptItems)
         {
             Id = id;
             EstablishmentName = establishmentName;
             ReceiptDate = receiptDate;
             ReceiptItems = receiptItems;
         }
-
-        [BsonId]
-        public Guid Id { get; set; }
-        public string EstablishmentName { get; set; }
-        public virtual DateTime ReceiptDate { get; set; }
-        public IEnumerable<ReceiptItemsDetailValueObject> ReceiptItems { get; set; }
     }
 }

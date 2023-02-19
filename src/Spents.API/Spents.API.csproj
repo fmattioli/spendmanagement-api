@@ -24,7 +24,6 @@
 	</ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Spents.Application\Spents.Application.csproj" />
     <ProjectReference Include="..\Spents.Infra.IOC\Spents.Infra.CrossCutting.csproj" />
   </ItemGroup>
 

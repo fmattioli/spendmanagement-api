@@ -12,29 +12,19 @@ namespace Spents.Application.InputModels.Extensions
                 receiptInputModel.Id,
                 receiptInputModel.EstablishmentName,
                 receiptInputModel.ReceiptDate,
-                receiptInputModel.ReceiptItemsDetail.Select(x => new ReceiptItemsDetailValueObject(
-                    x.ItemName,
-                    x.Quantity,
-                    x.ItemPrice,
-                    x.TotalPrice,
-                    x.Observation))
+                receiptInputModel.ReceiptItemsDetail.Select(x => new ReceiptItem
+                {
+                    Id = Guid.NewGuid(),
+                    ItemName = x.ItemName,
+                    ItemPrice = x.ItemPrice,
+                    Observation = x.Observation,
+                    Quantity = x.Quantity,
+                    TotalPrice = x.TotalPrice,
+                })
             );
-        public static ReceiptEventCreated ToCreatedEvent(this ReceiptEntity receiptEntity)
+        public static ReceiptEvent<Receipt> ToReceiptCreatedEvent(this ReceiptEntity receiptEntity)
         {
-            return new ReceiptEventCreated(new Receipt(
-                    receiptEntity.Id,
-                    receiptEntity.EstablishmentName,
-                    receiptEntity.ReceiptDate,
-                    receiptEntity.ReceiptItems
-                    .Select(x => new ReceiptItem(
-                        x.Id,
-                        x.ItemName,
-                        x.Quantity,
-                        x.ItemPrice,
-                        x.TotalPrice,
-                        x.Observation))
-                    )
-                );
+            return new ReceiptEvent<Receipt>(receiptEntity.Id, receiptEntity, Events.v1.ValueObjects.EventType.Created, "ReceiptCreated");
         }
     }
 }
