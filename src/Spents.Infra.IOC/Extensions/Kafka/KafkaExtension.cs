@@ -25,20 +25,9 @@ namespace Spents.Infra.CrossCutting.Extensions.Kafka
                     .AddCluster(
                         cluster => cluster
                         .AddBrokers(kafkaSettings)
-                        .AddTelemetry()
                         .AddProducers(kafkaSettings)
                         ));
             return services;
-        }
-
-        private static IClusterConfigurationBuilder AddTelemetry(
-            this IClusterConfigurationBuilder builder)
-        {
-            builder
-                .EnableAdminMessages(KafkaTopics.Events.Receipt)
-                .EnableTelemetry(KafkaTopics.Events.Receipt);
-
-            return builder;
         }
 
         private static IClusterConfigurationBuilder AddBrokers(
@@ -76,14 +65,15 @@ namespace Spents.Infra.CrossCutting.Extensions.Kafka
                 MessageTimeoutMs = settings.MessageTimeoutMs,
             };
 
-            builder.CreateTopicIfNotExists(KafkaTopics.Events.Receipt, 2, 1)
-                        .AddProducer<ReceiptEvent<ReceiptEntity>>(p => p
-                        .DefaultTopic(KafkaTopics.Events.Receipt)
-                        .AddMiddlewares(m => m
-                                .Add<ProducerRetryMiddleware>()
-                                .AddSerializer<JsonCoreSerializer>())
-                    .WithAcks(KafkaFlow.Acks.All)
-                    .WithProducerConfig(producerConfig));
+            builder.
+                CreateTopicIfNotExists(KafkaTopics.Events.Receipt, 2, 1)
+                .AddProducer<ReceiptEvent<ReceiptEntity>>(p => p
+                .DefaultTopic(KafkaTopics.Events.Receipt)
+                .AddMiddlewares(m => m
+                    .Add<ProducerRetryMiddleware>()
+                    .AddSerializer<JsonCoreSerializer>())
+                .WithAcks(KafkaFlow.Acks.All)
+                .WithProducerConfig(producerConfig));
 
             return builder;
         }
