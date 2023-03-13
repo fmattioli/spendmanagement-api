@@ -10,3 +10,5 @@ Using concepts and technologies such as Microservices, CQRS, Event Sourcing, Rep
 > https://github.com/fmattioli/spent-events <br/>
 > https://github.com/fmattioli/spents-domain
 
+# How it works?
+![Alt text](relative%20path/to/img.jpg?raw=true "Title")
