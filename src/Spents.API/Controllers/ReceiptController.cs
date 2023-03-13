@@ -14,6 +14,11 @@ namespace Spents.API.Controllers
 
         public ReceiptController(IMediator mediator) => _mediator = mediator;
 
+        /// <summary>
+        /// Get all receipts bases on pré determined filters.
+        /// Required at least one filter.
+        /// </summary>
+        /// <returns>Return a list of receipts based on the pre determined filter.</returns>
         [HttpGet]
         [Route("/getReceipts", Name = nameof(ReceiptController.GetReceipts))]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -25,6 +30,11 @@ namespace Spents.API.Controllers
             return Created("/addReceipt", receiptId);
         }
 
+        /// <summary>
+        /// Add a new receipt
+        /// Required recept body
+        /// </summary>
+        /// <returns>Add a new receipt to the platform.</returns>
         [HttpPost]
         [Route("/addReceipt", Name = nameof(ReceiptController.AddReceipt))]
         [ProducesResponseType(StatusCodes.Status201Created)]
