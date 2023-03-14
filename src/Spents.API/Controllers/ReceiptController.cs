@@ -15,7 +15,7 @@ namespace Spents.API.Controllers
 
         /// <summary>
         /// Add a new receipt
-        /// Required recept body
+        /// Required receipt body
         /// </summary>
         /// <returns>Add a new receipt to the platform.</returns>
         [HttpPost]

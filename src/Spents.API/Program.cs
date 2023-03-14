@@ -1,3 +1,5 @@
+using Microsoft.OpenApi.Models;
+
 using Spents.API.Extensions;
 using Spents.Infra.CrossCutting.Conf;
 using Spents.Infra.CrossCutting.Extensions;
@@ -21,9 +23,6 @@ var applicationSettings = builder.Configuration.GetSection("Settings").Get<Setti
 
 builder.Services.AddSingleton<ISettings>(applicationSettings);
 
-
-// Add services to the container.
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services
     .AddKafka(applicationSettings.KafkaSettings)
@@ -42,7 +41,11 @@ builder.Services
     });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Spents API", Version = "v1" });
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Spents.API.xml"));
+});
 
 var app = builder.Build();
 
