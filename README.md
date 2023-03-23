@@ -4,6 +4,7 @@ Using concepts and technologies such as Microservices, CQRS, Event Sourcing, Rep
 # Related projects
 > https://github.com/fmattioli/spents-readmodel-writer <br/>
 > https://github.com/fmattioli/spents-eventsourcing <br/>
+> https://github.com/fmattioli/spents-readmodel
 
 # Related packages
 > https://github.com/fmattioli/spents-topics <br/>
