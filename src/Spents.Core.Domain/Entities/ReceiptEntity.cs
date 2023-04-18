@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using Spents.Domain.Entities;
+﻿using Spents.Domain.Entities;
 using Spents.Domain.ValueObjects;
 
 namespace Spents.Core.Domain.Entities
