@@ -10,6 +10,7 @@ using Spents.Infra.CrossCutting.Middlewares;
 using Spents.Topics;
 using Spents.Events.v1;
 using Spents.Core.Domain.Entities;
+using Spents.Domain.Documents;
 
 namespace Spents.Infra.CrossCutting.Extensions.Kafka
 {
@@ -66,9 +67,19 @@ namespace Spents.Infra.CrossCutting.Extensions.Kafka
             };
 
             builder.
-                CreateTopicIfNotExists(KafkaTopics.Events.Receipt, 2, 1)
+                CreateTopicIfNotExists(KafkaTopics.Events.ReceiptEvents, 2, 1)
                 .AddProducer<ReceiptEvent<ReceiptEntity>>(p => p
-                .DefaultTopic(KafkaTopics.Events.Receipt)
+                .DefaultTopic(KafkaTopics.Events.ReceiptEvents)
+                .AddMiddlewares(m => m
+                    .Add<ProducerRetryMiddleware>()
+                    .AddSerializer<JsonCoreSerializer>())
+                .WithAcks(KafkaFlow.Acks.All)
+                .WithProducerConfig(producerConfig));
+
+            builder.
+                CreateTopicIfNotExists(KafkaTopics.Documents.ReceiptDocuments, 2, 1)
+                .AddProducer<ReceiptDocument>(p => p
+                .DefaultTopic(KafkaTopics.Documents.ReceiptDocuments)
                 .AddMiddlewares(m => m
                     .Add<ProducerRetryMiddleware>()
                     .AddSerializer<JsonCoreSerializer>())

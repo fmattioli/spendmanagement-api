@@ -1,6 +1,6 @@
 ﻿namespace Spents.Application.InputModels
 {
-    public record ReceiptItemsDetailInputModel
+    public record ReceiptItemInputModel
     {
         public string ItemName { get; set; } = null!;
         public short Quantity { get; set; }

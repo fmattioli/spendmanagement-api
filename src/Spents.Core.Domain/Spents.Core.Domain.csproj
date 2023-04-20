@@ -8,7 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="MongoDB.Bson" Version="2.19.0" />
-    <PackageReference Include="Spents.Domain" Version="1.2.2" />
+    <PackageReference Include="Spents.Domain" Version="1.2.3" />
+    <PackageReference Include="Spents.Topics" Version="1.0.2" />
   </ItemGroup>
 
 </Project>

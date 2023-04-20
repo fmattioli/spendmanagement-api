@@ -28,10 +28,13 @@ namespace Spents.Application.Services
             var receiptId =  await spentRepository.AddReceipt(spentEntity);
             
             var eventCreatedReceipt = spentEntity.ToReceiptCreatedEvent();
-            await eventProducer.ProduceAsync(KafkaTopics.Events.Receipt, eventCreatedReceipt.MessageKey, eventCreatedReceipt);
+            var receiptDocument = spentEntity.ToReceiptDocument();
+
+            await eventProducer.ProduceAsync(KafkaTopics.Events.ReceiptEvents, receiptId.ToString(), eventCreatedReceipt);
+            await eventProducer.ProduceAsync(KafkaTopics.Documents.ReceiptDocuments, receiptId.ToString(), receiptDocument);
 
             this.logger.Information(
-                   $"Kafka message processed to topic {KafkaTopics.Events.Receipt}.",
+                   $"Spent created with succesfully.",
                    () => new
                    {
                        eventCreatedReceipt

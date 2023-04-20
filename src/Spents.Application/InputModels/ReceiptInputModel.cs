@@ -1,18 +1,10 @@
-﻿using Spents.Core.Domain.Entities;
-using Spents.Core.Domain.ValueObjects;
-
-namespace Spents.Application.InputModels
+﻿namespace Spents.Application.InputModels
 {
     public class ReceiptInputModel
     {
-        public ReceiptInputModel()
-        {
-            Id = Guid.NewGuid();
-        }
-
-        public Guid Id { get; }
+        public Guid Id { get; } = Guid.NewGuid();
         public string EstablishmentName { get; set; } = null!;
         public DateTime ReceiptDate { get; set; }
-        public IEnumerable<ReceiptItemsDetailInputModel> ReceiptItemsDetail { get; set; } = null!;
+        public IEnumerable<ReceiptItemInputModel> ReceiptItems { get; set; } = null!;
     }
 }
