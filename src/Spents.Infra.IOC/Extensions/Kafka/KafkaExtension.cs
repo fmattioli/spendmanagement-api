@@ -10,7 +10,7 @@ using Spents.Infra.CrossCutting.Middlewares;
 using Spents.Topics;
 using Spents.Events.v1;
 using Spents.Core.Domain.Entities;
-using Spents.Domain.Documents;
+using Spents.Contracts.Documents;
 
 namespace Spents.Infra.CrossCutting.Extensions.Kafka
 {

@@ -7,6 +7,7 @@ using Spents.Events.v1;
 using Spents.Topics;
 using Spents.Application.InputModels.Extensions;
 using Spents.Core.Domain.Entities;
+using Spents.Contracts.Documents;
 
 namespace Spents.Application.Services
 {
@@ -14,12 +15,18 @@ namespace Spents.Application.Services
     {
         private readonly IReceiptRepository spentRepository;
         private readonly IMessageProducer<ReceiptEvent<ReceiptEntity>> eventProducer;
+        private readonly IMessageProducer<ReceiptDocument> commandsProducer;
         private readonly ILogger logger;
-        public AddReceiptCommandHandler(IReceiptRepository spentRepository, IMessageProducer<ReceiptEvent<ReceiptEntity>> eventProducer, ILogger log)
+
+        public AddReceiptCommandHandler(IReceiptRepository spentRepository, 
+            IMessageProducer<ReceiptEvent<ReceiptEntity>> eventProducer, 
+            ILogger log,
+            IMessageProducer<ReceiptDocument> commandsProducer)
         {
             this.spentRepository = spentRepository;
             this.eventProducer = eventProducer;
             this.logger = log;
+            this.commandsProducer = commandsProducer;
         }
 
         public async Task<Guid> Handle(AddReceiptCommand request, CancellationToken cancellationToken)
@@ -30,8 +37,8 @@ namespace Spents.Application.Services
             var eventCreatedReceipt = spentEntity.ToReceiptCreatedEvent();
             var receiptDocument = spentEntity.ToReceiptDocument();
 
+            await commandsProducer.ProduceAsync(KafkaTopics.Documents.ReceiptDocuments, receiptId.ToString(), receiptDocument);
             await eventProducer.ProduceAsync(KafkaTopics.Events.ReceiptEvents, receiptId.ToString(), eventCreatedReceipt);
-            await eventProducer.ProduceAsync(KafkaTopics.Documents.ReceiptDocuments, receiptId.ToString(), receiptDocument);
 
             this.logger.Information(
                    $"Spent created with succesfully.",

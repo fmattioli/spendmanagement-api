@@ -1,8 +1,8 @@
 ﻿namespace Spents.Core.Domain.ValueObjects
 {
-    public class ReceiptItemsDetailValueObject
+    public class ReceiptItem
     {
-        public ReceiptItemsDetailValueObject(string itemName, short quantity, decimal itemPrice, decimal totalPrice, string observation)
+        public ReceiptItem(string itemName, short quantity, decimal itemPrice, decimal totalPrice, string observation)
         {
             Id = Guid.NewGuid();
             ItemName = itemName;

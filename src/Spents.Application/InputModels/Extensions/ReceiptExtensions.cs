@@ -1,8 +1,5 @@
-﻿using Spents.Core.Domain.Entities;
-using Spents.Core.Domain.ValueObjects;
-using Spents.Domain.Documents;
-using Spents.Domain.Entities;
-using Spents.Domain.ValueObjects;
+﻿using Spents.Contracts.Documents;
+using Spents.Core.Domain.Entities;
 using Spents.Events.v1;
 
 namespace Spents.Application.InputModels.Extensions
@@ -13,26 +10,29 @@ namespace Spents.Application.InputModels.Extensions
                 receiptInputModel.Id,
                 receiptInputModel.EstablishmentName,
                 receiptInputModel.ReceiptDate,
-                receiptInputModel.ReceiptItems.Select(x => new ReceiptItem
-                {
-                    Id = Guid.NewGuid(),
-                    ItemName = x.ItemName,
-                    ItemPrice = x.ItemPrice,
-                    Observation = x.Observation,
-                    Quantity = x.Quantity,
-                    TotalPrice = x.TotalPrice,
-                })
+                receiptInputModel.ReceiptItems.Select(x => new Core.Domain.ValueObjects.ReceiptItem(x.ItemName, x.Quantity, x.ItemPrice, x.TotalPrice, x.Observation))
             );
-        public static ReceiptEvent<Receipt> ToReceiptCreatedEvent(this ReceiptEntity receiptEntity)
+        public static ReceiptEvent<ReceiptEntity> ToReceiptCreatedEvent(this ReceiptEntity receiptEntity)
         {
-            return new ReceiptEvent<Receipt>(receiptEntity.Id, receiptEntity, Events.v1.ValueObjects.EventType.Created, "ReceiptCreated");
+            return new ReceiptEvent<ReceiptEntity>(receiptEntity.Id, receiptEntity, Events.v1.ValueObjects.EventType.Created, "ReceiptCreated");
         }
 
         public static ReceiptDocument ToReceiptDocument(this ReceiptEntity receiptEntity)
         {
             return new ReceiptDocument
             {
-                Receipt = receiptEntity
+                Id = receiptEntity.Id,
+                EstablishmentName = receiptEntity.EstablishmentName,
+                ReceiptDate = receiptEntity.ReceiptDate,
+                ReceiptItems = receiptEntity.ReceiptItems.Select(x => new Contracts.Documents.ReceiptItem
+                {
+                    Id = x.Id,
+                    ItemName = x.ItemName,
+                    Quantity = x.Quantity,
+                    ItemPrice = x.ItemPrice,
+                    Observation = x.Observation,
+                    TotalPrice = x.TotalPrice
+                })
             };
         }
     }
