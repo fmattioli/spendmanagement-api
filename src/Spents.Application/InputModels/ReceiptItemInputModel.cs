@@ -2,6 +2,7 @@
 {
     public record ReceiptItemInputModel
     {
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string ItemName { get; set; } = null!;
         public short Quantity { get; set; }
         public decimal ItemPrice { get; set; }

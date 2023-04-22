@@ -5,7 +5,6 @@ using Spents.Application.Commands.AddReceipt;
 using Spents.Topics;
 using Spents.Application.InputModels.Extensions;
 using Spents.Contracts.V1.Commands.Interfaces;
-using Spents.Contracts.V1.Commands;
 
 namespace Spents.Application.Services
 {
