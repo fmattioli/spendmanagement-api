@@ -7,7 +7,7 @@ Using concepts and technologies such as Microservices, CQRS, Event Sourcing, Rep
 > https://github.com/fmattioli/spents-readmodel
 
 # Related packages
-> https://github.com/fmattioli/spents-topics <br/>
+> https://github.com/fmattioli/spents-contracts <br/>
 > https://github.com/fmattioli/spent-events <br/>
 > https://github.com/fmattioli/spents-domain
 
