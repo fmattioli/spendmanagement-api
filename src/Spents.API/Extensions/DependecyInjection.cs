@@ -1,5 +1,4 @@
-﻿using MediatR;
-using Spents.Application.Commands.AddReceipt;
+﻿using Spents.Application.Commands.AddReceipt;
 
 namespace Spents.API.Extensions
 {
@@ -7,7 +6,10 @@ namespace Spents.API.Extensions
     {
         public static IServiceCollection AddDependecyInjection(this IServiceCollection services)
         {
-            services.AddMediatR(typeof(AddReceiptCommand));
+            services.AddMediatR(
+                    x => x.RegisterServicesFromAssemblies(
+                        typeof(AddReceiptCommand).Assembly));
+
             return services;
         }
     }

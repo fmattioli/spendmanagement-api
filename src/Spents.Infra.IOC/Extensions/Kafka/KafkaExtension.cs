@@ -1,16 +1,14 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Confluent.Kafka;
 using KafkaFlow;
-using KafkaFlow.Configuration;
 using KafkaFlow.Admin.Dashboard;
+using KafkaFlow.Configuration;
 using KafkaFlow.Serializer;
-using Confluent.Kafka;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Spents.Contracts.V1.Commands.Interfaces;
 using Spents.Infra.CrossCutting.Conf;
 using Spents.Infra.CrossCutting.Middlewares;
 using Spents.Topics;
-using Spents.Events.v1;
-using Spents.Core.Domain.Entities;
-using Spents.Contracts.Documents;
 
 namespace Spents.Infra.CrossCutting.Extensions.Kafka
 {
@@ -67,19 +65,9 @@ namespace Spents.Infra.CrossCutting.Extensions.Kafka
             };
 
             builder.
-                CreateTopicIfNotExists(KafkaTopics.Events.ReceiptEvents, 2, 1)
-                .AddProducer<ReceiptEvent<ReceiptEntity>>(p => p
-                .DefaultTopic(KafkaTopics.Events.ReceiptEvents)
-                .AddMiddlewares(m => m
-                    .Add<ProducerRetryMiddleware>()
-                    .AddSerializer<JsonCoreSerializer>())
-                .WithAcks(KafkaFlow.Acks.All)
-                .WithProducerConfig(producerConfig));
-
-            builder.
-                CreateTopicIfNotExists(KafkaTopics.Documents.ReceiptDocuments, 2, 1)
-                .AddProducer<ReceiptDocument>(p => p
-                .DefaultTopic(KafkaTopics.Documents.ReceiptDocuments)
+                CreateTopicIfNotExists(KafkaTopics.Commands.ReceitCommandTopicName, 2, 1)
+                .AddProducer<ICommand>(p => p
+                .DefaultTopic(KafkaTopics.Commands.ReceitCommandTopicName)
                 .AddMiddlewares(m => m
                     .Add<ProducerRetryMiddleware>()
                     .AddSerializer<JsonCoreSerializer>())

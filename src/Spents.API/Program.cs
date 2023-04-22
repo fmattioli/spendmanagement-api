@@ -1,11 +1,8 @@
 using Microsoft.OpenApi.Models;
-
 using Spents.API.Extensions;
 using Spents.Infra.CrossCutting.Conf;
 using Spents.Infra.CrossCutting.Extensions;
 using Spents.Infra.CrossCutting.Extensions.Kafka;
-using Spents.Infra.CrossCutting.Extensions.Mongo;
-using Spents.Infra.CrossCutting.Extensions.Repositories;
 using Spents.Infra.CrossCutting.Extensions.Validators;
 using Spents.Infra.CrossCutting.Middlewares.Validators;
 
@@ -26,8 +23,6 @@ builder.Services.AddSingleton<ISettings>(applicationSettings);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services
     .AddKafka(applicationSettings.KafkaSettings)
-    .AddMongo(applicationSettings.MongoSettings)
-    .AddRepositories()
     .AddDependecyInjection()
     .AddLoggingDependency()
     .AddValidators()
