@@ -23,9 +23,9 @@ namespace Spents.API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AddReceipt([FromBody] ReceiptInputModel addSpentInputModel)
+        public async Task<IActionResult> AddReceipt([FromBody] ReceiptInputModel addSpentInputModel, CancellationToken cancellationToken)
         {
-            var receiptId = await _mediator.Send(new AddReceiptCommand(addSpentInputModel));
+            var receiptId = await _mediator.Send(new AddReceiptCommand(addSpentInputModel), cancellationToken);
             return Created("/addReceipt", receiptId);
         } 
     }

@@ -10,6 +10,10 @@ namespace Spents.Application.InputModels.Extensions
             receiptInputModel.EstablishmentName,
             receiptInputModel
             .ReceiptItems
-            .Select(x => new ReceiptItem(Guid.NewGuid(), x.ItemName, x.Quantity, x.ItemPrice, x.Observation)));
+            .Select(x => new ReceiptItem(Guid.NewGuid(), 
+                x.ItemName, 
+                x.Quantity, 
+                x.ItemPrice, 
+                x.Observation)));
     }
 }

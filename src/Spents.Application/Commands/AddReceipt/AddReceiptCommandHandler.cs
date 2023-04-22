@@ -5,6 +5,7 @@ using Spents.Application.Commands.AddReceipt;
 using Spents.Topics;
 using Spents.Application.InputModels.Extensions;
 using Spents.Contracts.V1.Commands.Interfaces;
+using Spents.Contracts.V1.Commands;
 
 namespace Spents.Application.Services
 {
@@ -23,14 +24,15 @@ namespace Spents.Application.Services
         public async Task<Guid> Handle(AddReceiptCommand request, CancellationToken cancellationToken)
         {
             var receiptCreateCommand = request.AddSpentInputModel.ToCommand();
-            await commandsProducer.ProduceAsync(KafkaTopics.Documents.ReceiptDocuments, receiptCreateCommand.RoutingKey, receiptCreateCommand);
+
+            await commandsProducer.ProduceAsync(KafkaTopics.Commands.ReceitCommandTopicName, receiptCreateCommand.RoutingKey, receiptCreateCommand);
 
             this.logger.Information(
-                   $"Spent created with succesfully.",
-                   () => new
-                   {
-                       receiptCreateCommand
-                   });
+                $"Spent created with succesfully.",
+                () => new
+                {
+                    receiptCreateCommand
+                });
 
             return receiptCreateCommand.Id;
         }
