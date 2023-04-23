@@ -20,4 +20,8 @@
     <PackageReference Include="xunit.extensibility.core" Version="2.4.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SpendManagement.API\SpendManagement.API.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -7,7 +7,7 @@
     <UserSecretsId>1fc25b7f-c970-4f1c-a036-0a4b9a51427a</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <DocumentationFile>C:\projects\spents-project\src\Spents.API\bin\Debug\net6.0\Spents.API.xml</DocumentationFile>
+    <DocumentationFile>C:\projects\SpendManagement-project\src\SpendManagement.API\bin\Debug\net6.0\SpendManagement.API.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -25,12 +25,15 @@
     </PackageReference>
     <PackageReference Include="MediatR" Version="12.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
-    <PackageReference Include="Spents.Contracts" Version="1.0.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
 	<ItemGroup>
-		<InternalsVisibleTo Include="Spents.IntegrationTests" />
+		<InternalsVisibleTo Include="SpendManagement.IntegrationTests" />
 	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SpendManagement.Infra.IOC\SpendManagement.Infra.CrossCutting.csproj" />
+  </ItemGroup>
 
 </Project>
