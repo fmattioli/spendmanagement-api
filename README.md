@@ -11,7 +11,8 @@ Using concepts and technologies such as Microservices, CQRS, Event Sourcing, Rep
 > https://github.com/fmattioli/spent-topics
 
 # How it works?
-![Alt text](src/SpendManagement - Diagram flow.jpg?raw=true "Title")
+![Alt text](src/SpendManagement%-%Diagram%flow.jpg?raw=true "Title")
+![Alt text](src/SpentsAPI.jpg?raw=true "Title")
 
 # Essential to understand
 For security reasons, the appsettings files are not present on the projects. Therefore, if you wanna compile this project and execute the applications, please send me an e-mail felipe-mattioli98@hotmail.com. 
