@@ -3,6 +3,7 @@ Using concepts and technologies such as Microservices, CQRS, Event Sourcing, Rep
 
 # Related projects
 > https://github.com/fmattioli/spendmanagement-domain
+> https://github.com/fmattioli/spendmanagement-eventhandler
 > https://github.com/fmattioli/spendmanagement-eventsourcing <br/>
 
 # Related packages
