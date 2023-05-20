@@ -4,7 +4,8 @@ using SpendManagement.Infra.CrossCutting.Conf;
 using SpendManagement.Infra.CrossCutting.Extensions;
 using SpendManagement.Infra.CrossCutting.Extensions.Kafka;
 using SpendManagement.Infra.CrossCutting.Extensions.Validators;
-using SpendManagement.Infra.CrossCutting.Middlewares.Validators;
+using SpendManagement.Infra.CrossCutting.Filters;
+using SpendManagement.Infra.CrossCutting.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,7 @@ builder.Services
     .AddDependencyInjection()
     .AddLoggingDependency()
     .AddValidators()
+
     .AddControllers((options =>
     {
         options.Filters.Add(typeof(FilterRequestAttribute));
@@ -44,6 +46,9 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+//Add exception middleware
+app.UseMiddleware<ExceptionHandlerMiddleware>();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -52,11 +57,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.ShowKafkaDashboard();
-
 app.Run();
