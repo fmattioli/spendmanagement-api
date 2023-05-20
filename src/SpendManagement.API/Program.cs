@@ -28,10 +28,11 @@ builder.Services
     .AddLoggingDependency()
     .AddValidators()
 
-    .AddControllers((options =>
+    .AddControllers(options =>
     {
         options.Filters.Add(typeof(FilterRequestAttribute));
-    }))
+    }).AddNewtonsoftJson()
+
     .ConfigureApiBehaviorOptions(options =>
     {
         options.SuppressModelStateInvalidFilter = true;
@@ -42,7 +43,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "SpendManagement API", Version = "v1" });
     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "SpendManagement.API.xml"));
-});
+}).AddSwaggerGenNewtonsoftSupport();
 
 var app = builder.Build();
 

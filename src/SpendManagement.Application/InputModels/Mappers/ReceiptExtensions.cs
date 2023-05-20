@@ -7,7 +7,6 @@ namespace SpendManagement.Application.InputModels.Extensions
     {
         public static CreateReceiptCommand ToCommand(this ReceiptInputModel receiptInputModel)
         {
-            receiptInputModel = null;
             return new CreateReceiptCommand
             {
                 Id = receiptInputModel.Id,
