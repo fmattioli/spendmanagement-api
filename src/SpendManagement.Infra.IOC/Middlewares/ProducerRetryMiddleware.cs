@@ -34,7 +34,6 @@ namespace SpendManagement.Infra.CrossCutting.Middlewares
                     })
                 .ExecuteAndCaptureAsync(() => next(context));
 
-            _logger.Error(polyResult.FinalException.Message);
         }
     }
 }

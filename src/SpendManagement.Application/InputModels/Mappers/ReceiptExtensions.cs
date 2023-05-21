@@ -1,5 +1,6 @@
 ﻿using SpendManagement.Contracts.V1.Base;
 using SpendManagement.Contracts.V1.Commands;
+using SpendManagement.Contracts.V1.Entities;
 
 namespace SpendManagement.Application.InputModels.Extensions
 {
@@ -9,17 +10,13 @@ namespace SpendManagement.Application.InputModels.Extensions
         {
             return new CreateReceiptCommand
             {
-                Id = receiptInputModel.Id,
-                EstablishmentName = receiptInputModel.EstablishmentName,
-                ReceiptDate = receiptInputModel.ReceiptDate,
-                ReceiptItems = receiptInputModel.ReceiptItems.Select(x => new ReceiptItem
-                {
-                    Id = x.Id,
-                    ItemName = x.ItemName,
-                    ItemPrice = x.ItemPrice,
-                    Observation = x.Observation,
-                    Quantity = x.Quantity,
-                }),
+                Receipt = new Receipt(receiptInputModel.Id, receiptInputModel.EstablishmentName, receiptInputModel.ReceiptDate),
+                ReceiptItems = receiptInputModel.ReceiptItems.Select(x => new ReceiptItem(
+                    x.Id, x.ItemName, 
+                    new Category(x.Category.Id, x.Category.Name), 
+                    x.Quantity, 
+                    x.ItemPrice, 
+                    x.Observation))
             };
         }
     }

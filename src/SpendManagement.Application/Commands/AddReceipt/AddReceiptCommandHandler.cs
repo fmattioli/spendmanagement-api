@@ -33,7 +33,7 @@ namespace SpendManagement.Application.Services
                     receiptCreateCommand
                 });
 
-            return receiptCreateCommand.Id;
+            return receiptCreateCommand.Receipt.Id;
         }
     }
 }
