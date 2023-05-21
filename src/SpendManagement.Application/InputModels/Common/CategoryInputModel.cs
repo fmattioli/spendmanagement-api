@@ -1,6 +1,6 @@
-﻿namespace SpendManagement.Application.InputModels
+﻿namespace SpendManagement.Application.InputModels.Common
 {
-    public class AddCategoryInputModel
+    public class CategoryInputModel
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = null!;

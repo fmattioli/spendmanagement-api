@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
+using SpendManagement.Application.InputModels.Common;
 
 namespace SpendManagement.Application.InputModels.Validations
 {
-    public class AddReceiptValidator : AbstractValidator<AddReceiptInputModel>
+    public class AddReceiptValidator : AbstractValidator<ReceiptInputModel>
     {
         public AddReceiptValidator()
         {
@@ -24,7 +25,7 @@ namespace SpendManagement.Application.InputModels.Validations
         }
     }
 
-    public class ReceiptItemsValidator : AbstractValidator<AddReceiptItemInputModel>
+    public class ReceiptItemsValidator : AbstractValidator<ReceiptItemInputModel>
     {
         public ReceiptItemsValidator()
         {

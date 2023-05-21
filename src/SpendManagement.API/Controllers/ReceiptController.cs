@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SpendManagement.Application.Commands.AddReceipt;
 using SpendManagement.Application.Commands.UpdateReceipt;
 using SpendManagement.Application.Commands.UpdateReceiptItem;
-using SpendManagement.Application.InputModels;
+using SpendManagement.Application.InputModels.Common;
 
 namespace SpendManagement.API.Controllers
 {
@@ -24,7 +24,7 @@ namespace SpendManagement.API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AddReceipt([FromBody] AddReceiptInputModel addSpentInputModel, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddReceipt([FromBody] ReceiptInputModel addSpentInputModel, CancellationToken cancellationToken)
         {
             var receiptId = await _mediator.Send(new AddReceiptCommand(addSpentInputModel), cancellationToken);
             return Created("/addReceipt", receiptId);
@@ -39,7 +39,7 @@ namespace SpendManagement.API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AddCategory([FromBody] AddCategoryInputModel categoryInputModel, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddCategory([FromBody] CategoryInputModel categoryInputModel, CancellationToken cancellationToken)
         {
             var receiptId = await _mediator.Send(null, cancellationToken);
             return Created("/addCategory", receiptId);

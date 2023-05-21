@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using SpendManagement.Application.InputModels;
 
 namespace SpendManagement.Application.Commands.UpdateReceiptItem
 {
