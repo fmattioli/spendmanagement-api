@@ -1,13 +1,13 @@
 ﻿using AutoFixture;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SpendManagement.Application.InputModels;
+using SpendManagement.Application.InputModels.Common;
 using System.Net;
 using System.Threading.Tasks;
 
 namespace SpendManagement.IntegrationTests.Tests
 {
     [TestClass]
-    public class ReceiptTests : BaseTests<AddReceiptInputModel>
+    public class ReceiptTests : BaseTests<ReceiptInputModel>
     {
         private readonly Fixture fixture = new();
 
@@ -15,7 +15,7 @@ namespace SpendManagement.IntegrationTests.Tests
         public async Task OnAddAReceipt_ShouldReturnAValidGuid()
         {
             //Arrange
-            var receipt = fixture.Create<AddReceiptInputModel>();
+            var receipt = fixture.Create<ReceiptInputModel>();
 
             //Act
             var response = await PostAsync("/addReceipt", receipt);

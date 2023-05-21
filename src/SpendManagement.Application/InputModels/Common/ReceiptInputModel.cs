@@ -1,10 +1,10 @@
-﻿namespace SpendManagement.Application.InputModels
+﻿namespace SpendManagement.Application.InputModels.Common
 {
-    public class AddReceiptInputModel
+    public class ReceiptInputModel
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public string EstablishmentName { get; set; } = null!;
         public DateTime ReceiptDate { get; set; }
-        public IEnumerable<AddReceiptItemInputModel> ReceiptItems { get; set; } = null!;
+        public IEnumerable<ReceiptItemInputModel> ReceiptItems { get; set; } = null!;
     }
 }

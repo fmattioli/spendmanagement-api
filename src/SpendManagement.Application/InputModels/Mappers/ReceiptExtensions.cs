@@ -1,4 +1,5 @@
-﻿using SpendManagement.Contracts.V1.Base;
+﻿using SpendManagement.Application.InputModels.Common;
+using SpendManagement.Contracts.V1.Base;
 using SpendManagement.Contracts.V1.Commands;
 using SpendManagement.Contracts.V1.Entities;
 
@@ -6,7 +7,7 @@ namespace SpendManagement.Application.InputModels.Extensions
 {
     public static class ReceiptExtensions
     {
-        public static CreateReceiptCommand ToCommand(this AddReceiptInputModel receiptInputModel)
+        public static CreateReceiptCommand ToCommand(this ReceiptInputModel receiptInputModel)
         {
             return new CreateReceiptCommand
             {
