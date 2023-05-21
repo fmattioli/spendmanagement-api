@@ -2,7 +2,7 @@
 
 namespace SpendManagement.Application.Commands.UpdateReceipt
 {
-    public class UpdateReceiptCommandHandler : IRequest
+    public class UpdateReceiptCommandItemHandler : IRequest
     {
         public async Task Handle(UpdateReceiptCommand request, CancellationToken cancellationToken)
         {

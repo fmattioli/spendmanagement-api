@@ -36,12 +36,13 @@ builder.Services
     .ConfigureApiBehaviorOptions(options =>
     {
         options.SuppressModelStateInvalidFilter = true;
+        options.SuppressInferBindingSourcesForParameters = true;
     });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "SpendManagement API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "SpendManagement API", Version = "v1", Description = "The completed platform to handle receipts related to the SpendMagement project." });
     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "SpendManagement.API.xml"));
 }).AddSwaggerGenNewtonsoftSupport();
 

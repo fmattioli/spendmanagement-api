@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SpendManagement.IntegrationTests.Tests
 {
     [TestClass]
-    public class ReceiptTests : BaseTests<ReceiptInputModel>
+    public class ReceiptTests : BaseTests<AddReceiptInputModel>
     {
         private readonly Fixture fixture = new();
 
@@ -15,7 +15,7 @@ namespace SpendManagement.IntegrationTests.Tests
         public async Task OnAddAReceipt_ShouldReturnAValidGuid()
         {
             //Arrange
-            var receipt = fixture.Create<ReceiptInputModel>();
+            var receipt = fixture.Create<AddReceiptInputModel>();
 
             //Act
             var response = await PostAsync("/addReceipt", receipt);

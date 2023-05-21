@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SpendManagement.Application.InputModels
 {
-    public class UpdateReceiptInputModel
+    public class UpdateReceiptItemInputModel
     {
         [FromRoute]
         public Guid Id { get; set; }
 
         [FromBody]
-        public JsonPatchDocument<AddReceiptInputModel> ReceiptPatchDocument { get; set; } = new JsonPatchDocument<AddReceiptInputModel>();
+        public JsonPatchDocument<AddReceiptItemInputModel> ReceiptPatchDocument { get; set; } = new JsonPatchDocument<AddReceiptItemInputModel>();
     }
 }

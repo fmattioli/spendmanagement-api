@@ -2,7 +2,7 @@
 
 namespace SpendManagement.Application.InputModels.Validations
 {
-    public class AddReceiptValidator : AbstractValidator<ReceiptInputModel>
+    public class AddReceiptValidator : AbstractValidator<AddReceiptInputModel>
     {
         public AddReceiptValidator()
         {
@@ -24,7 +24,7 @@ namespace SpendManagement.Application.InputModels.Validations
         }
     }
 
-    public class ReceiptItemsValidator : AbstractValidator<ReceiptItemInputModel>
+    public class ReceiptItemsValidator : AbstractValidator<AddReceiptItemInputModel>
     {
         public ReceiptItemsValidator()
         {

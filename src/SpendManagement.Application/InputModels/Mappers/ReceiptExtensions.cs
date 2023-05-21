@@ -6,7 +6,7 @@ namespace SpendManagement.Application.InputModels.Extensions
 {
     public static class ReceiptExtensions
     {
-        public static CreateReceiptCommand ToCommand(this ReceiptInputModel receiptInputModel)
+        public static CreateReceiptCommand ToCommand(this AddReceiptInputModel receiptInputModel)
         {
             return new CreateReceiptCommand
             {
