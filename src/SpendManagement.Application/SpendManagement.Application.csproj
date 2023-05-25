@@ -25,4 +25,8 @@
 		<PackageReference Include="SpendManagement.Topics" Version="1.0.1" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\SpendManagement.Client\SpendManagement.Client.csproj" />
+	</ItemGroup>
+
 </Project>
