@@ -20,5 +20,13 @@ namespace SpendManagement.Application.InputModels.Extensions
                     x.Observation))
             };
         }
+
+        public static UpdateReceiptCommand ToCommand(Receipt receipt)
+        {
+            return new UpdateReceiptCommand
+            {
+                Receipt = new Receipt(receipt.Id, receipt.EstablishmentName, receipt.ReceiptDate),
+            };
+        }
     }
 }
