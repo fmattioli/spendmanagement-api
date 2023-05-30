@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+
+using SpendManagement.Application.Commands.UpdateReceipt.Exceptions;
+
 using System.Net;
 
 namespace SpendManagement.Infra.CrossCutting.Middlewares
@@ -14,6 +17,8 @@ namespace SpendManagement.Infra.CrossCutting.Middlewares
         {
             var code = exception switch
             {
+                NotFoundException => HttpStatusCode.NotFound,
+                JsonPatchInvalidException => HttpStatusCode.BadRequest,
                 UnauthorizedAccessException => HttpStatusCode.Unauthorized,
                 _ => HttpStatusCode.InternalServerError,
             };

@@ -3,6 +3,8 @@ using SpendManagement.Contracts.V1.Base;
 using SpendManagement.Contracts.V1.Commands;
 using SpendManagement.Contracts.V1.Entities;
 
+using Web.Contracts.UseCases.Common;
+
 namespace SpendManagement.Application.InputModels.Extensions
 {
     public static class ReceiptExtensions
@@ -18,14 +20,6 @@ namespace SpendManagement.Application.InputModels.Extensions
                     x.Quantity, 
                     x.ItemPrice, 
                     x.Observation))
-            };
-        }
-
-        public static UpdateReceiptCommand ToCommand(Receipt receipt)
-        {
-            return new UpdateReceiptCommand
-            {
-                Receipt = new Receipt(receipt.Id, receipt.EstablishmentName, receipt.ReceiptDate),
             };
         }
     }

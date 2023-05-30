@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using SpendManagement.Client.Configuration;
-
-using System.Net.Http.Json;
-
+﻿using SpendManagement.Client.Configuration;
 using Web.Contracts.UseCases.Common;
 
 namespace SpendManagement.Client.SpendManagementReadModel.GetReceipts
@@ -13,7 +9,7 @@ namespace SpendManagement.Client.SpendManagementReadModel.GetReceipts
         {
         }
 
-        public async Task<ReceiptResponse?> GetReceipt(Guid receiptId)
+        public async Task<ReceiptResponse?> GetReceiptAsync(Guid receiptId)
         {
             var queryParams = new Dictionary<string, object>
             {
