@@ -8,7 +8,7 @@ using SpendManagement.Contracts.V1.Commands.Interfaces;
 
 namespace SpendManagement.Application.Services
 {
-    public class AddReceiptCommandHandler : IRequestHandler<AddReceiptCommand, Guid>
+    public class AddReceiptCommandHandler : IRequestHandler<AddReceiptCommand, Unit>
     {
         private readonly IMessageProducer<ICommand> commandsProducer;
         private readonly ILogger logger;
@@ -20,7 +20,7 @@ namespace SpendManagement.Application.Services
             this.commandsProducer = commandsProducer;
         }
 
-        public async Task<Guid> Handle(AddReceiptCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AddReceiptCommand request, CancellationToken cancellationToken)
         {
             var receiptCreateCommand = request.AddSpentInputModel.ToCommand();
 
@@ -33,7 +33,7 @@ namespace SpendManagement.Application.Services
                     receiptCreateCommand
                 });
 
-            return receiptCreateCommand.Receipt.Id;
+            return Unit.Value;
         }
     }
 }

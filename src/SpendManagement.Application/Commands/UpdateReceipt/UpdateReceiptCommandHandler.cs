@@ -9,13 +9,13 @@ using SpendManagement.Contracts.V1.Commands.Interfaces;
 
 namespace SpendManagement.Application.Commands.UpdateReceipt
 {
-    public class UpdateReceiptCommandItemHandler : IRequest
+    public class UpdateReceiptCommandHandler : IRequestHandler<UpdateReceiptCommand, Unit>
     {
         private readonly IMessageProducer<ICommand> _commandsProducer;
         private readonly ILogger _logger;
         private readonly ISpendManagementReadModelClient _spendManagementReadModelClient;
 
-        public UpdateReceiptCommandItemHandler(ILogger log,
+        public UpdateReceiptCommandHandler(ILogger log,
             IMessageProducer<ICommand> commandsProducer,
             ISpendManagementReadModelClient spendManagementReadModelClient)
         {
@@ -24,7 +24,7 @@ namespace SpendManagement.Application.Commands.UpdateReceipt
             this._spendManagementReadModelClient = spendManagementReadModelClient;
         }
 
-        public async Task Handle(UpdateReceiptCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateReceiptCommand request, CancellationToken cancellationToken)
         {
             var receipt = await _spendManagementReadModelClient.GetReceiptAsync(request.UpdateReceiptInputModel.Id) ?? throw new NotFoundException("Any recept was found");
 
@@ -35,6 +35,8 @@ namespace SpendManagement.Application.Commands.UpdateReceipt
             {
                 throw new JsonPatchInvalidException("Any recept was found");
             }
+            
+            return Unit.Value;
         }
 
         private static Action<JsonPatchError> HandlePatchErrors(ValidationResult validationResult)
