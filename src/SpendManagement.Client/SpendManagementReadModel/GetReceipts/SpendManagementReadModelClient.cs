@@ -11,11 +11,7 @@ namespace SpendManagement.Client.SpendManagementReadModel.GetReceipts
 
         public async Task<ReceiptResponse?> GetReceiptAsync(Guid receiptId)
         {
-            var queryParams = new Dictionary<string, object>
-            {
-                 { "Id", receiptId },
-            };
-            var retorno = await GetAsync<ReceiptResponse>(queryParams);
+            var retorno = await GetByIdAsync<ReceiptResponse>("getReceipt", receiptId);
             return retorno;
         }
     }

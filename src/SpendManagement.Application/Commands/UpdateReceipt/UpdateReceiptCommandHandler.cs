@@ -31,9 +31,9 @@ namespace SpendManagement.Application.Commands.UpdateReceipt
             var validationResult = new ValidationResult();
 
             request.UpdateReceiptInputModel.ReceiptPatchDocument.ApplyTo(receipt, HandlePatchErrors(validationResult));
-            if (validationResult.IsValid)
+            if (!validationResult.IsValid)
             {
-                throw new JsonPatchInvalidException("Any recept was found");
+                throw new JsonPatchInvalidException(string.Join(",", validationResult.Errors));
             }
             
             return Unit.Value;

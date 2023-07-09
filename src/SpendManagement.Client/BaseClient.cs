@@ -11,17 +11,24 @@ namespace SpendManagement.Client
         {
             _httpClient = httpClient;
             this.baseUri = new Uri(
-                new Uri(configuration.Endpoint),
-                $"{configuration.Version}");
+                configuration.Endpoint + $"/{configuration.Version}");
         }
 
-        protected async Task<TResponse?> GetAsync<TResponse>(
-            IDictionary<string, object> queryParams)
+        protected async Task<TResponse?> GetByIdAsync<TResponse>(
+            string path,
+            Guid id)
            where TResponse : class
         {
-            var response = await this._httpClient.GetFromJsonAsync<TResponse>($"{baseUri.AbsoluteUri}/GetReceipt/{queryParams}");
+            var uri = BuildUri(path, id);
+            var response = await this._httpClient.GetFromJsonAsync<TResponse>(uri);
 
             return response;
+        }
+
+        private Uri BuildUri(string path, Guid id)
+        {
+            var uriString = $"{baseUri.AbsoluteUri}/{path.TrimStart('/')}/{id}";
+            return new Uri(uriString);
         }
     }
 }

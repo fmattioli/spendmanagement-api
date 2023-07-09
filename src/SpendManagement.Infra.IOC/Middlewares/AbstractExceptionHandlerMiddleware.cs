@@ -24,7 +24,7 @@ namespace SpendManagement.Infra.CrossCutting.Middlewares
             catch (Exception exception)
             {
                 // log the error
-                Log.Error(exception, "error during executing {Context}", context.Request.Path.Value);
+                Log.Error(exception, $"error during executing", context.Request.Path.Value);
                 var response = context.Response;
                 response.ContentType = "application/json";
 

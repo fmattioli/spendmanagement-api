@@ -1,7 +1,5 @@
 ﻿using FluentAssertions.Common;
-
 using Microsoft.Extensions.DependencyInjection;
-
 using SpendManagement.Client.Configuration;
 using SpendManagement.Client.SpendManagementReadModel.GetReceipts;
 using SpendManagement.Infra.CrossCutting.Conf;

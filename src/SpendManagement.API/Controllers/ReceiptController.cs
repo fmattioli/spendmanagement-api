@@ -20,7 +20,7 @@ namespace SpendManagement.API.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpPost]
-        [Route("/addReceipt", Name = nameof(ReceiptController.AddReceipt))]
+        [Route("addReceipt", Name = nameof(ReceiptController.AddReceipt))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -35,7 +35,7 @@ namespace SpendManagement.API.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpPost]
-        [Route("/addCategory", Name = nameof(ReceiptController.AddCategory))]
+        [Route("addCategory", Name = nameof(ReceiptController.AddCategory))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
