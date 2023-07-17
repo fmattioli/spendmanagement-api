@@ -1,30 +1,27 @@
-﻿using KafkaFlow;
-using MediatR;
+﻿using MediatR;
 using Serilog;
 using SpendManagement.Application.Commands.AddReceipt;
-using SpendManagement.Topics;
-using SpendManagement.Application.InputModels.Extensions;
-using SpendManagement.Contracts.V1.Commands.Interfaces;
+using SpendManagement.Application.Mappers;
+using SpendManagement.Application.Producers;
 
 namespace SpendManagement.Application.Services
 {
-    public class AddReceiptCommandHandler : IRequestHandler<AddReceiptCommand, Guid>
+    public class AddReceiptCommandHandler : IRequestHandler<AddReceiptCommand, Unit>
     {
-        private readonly IMessageProducer<ICommand> commandsProducer;
+        private readonly ICommandProducer _receiptProducer;
         private readonly ILogger logger;
 
-        public AddReceiptCommandHandler(ILogger log,
-            IMessageProducer<ICommand> commandsProducer)
+        public AddReceiptCommandHandler(ILogger log, ICommandProducer receiptProducer)
         {
             this.logger = log;
-            this.commandsProducer = commandsProducer;
+            this._receiptProducer = receiptProducer;
         }
 
-        public async Task<Guid> Handle(AddReceiptCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AddReceiptCommand request, CancellationToken cancellationToken)
         {
             var receiptCreateCommand = request.AddSpentInputModel.ToCommand();
 
-            await commandsProducer.ProduceAsync(KafkaTopics.Commands.ReceiptCommandTopicName, receiptCreateCommand.RoutingKey, receiptCreateCommand);
+            await _receiptProducer.ProduceCommandAsync(receiptCreateCommand);
 
             this.logger.Information(
                 $"Spent created with successfully.",
@@ -33,7 +30,7 @@ namespace SpendManagement.Application.Services
                     receiptCreateCommand
                 });
 
-            return receiptCreateCommand.Id;
+            return Unit.Value;
         }
     }
 }

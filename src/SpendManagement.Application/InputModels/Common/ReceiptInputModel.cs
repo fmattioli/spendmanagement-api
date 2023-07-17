@@ -1,4 +1,4 @@
-﻿namespace SpendManagement.Application.InputModels
+﻿namespace SpendManagement.Application.InputModels.Common
 {
     public class ReceiptInputModel
     {

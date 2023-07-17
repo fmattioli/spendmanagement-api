@@ -1,8 +1,9 @@
-﻿namespace SpendManagement.Application.InputModels
+﻿namespace SpendManagement.Application.InputModels.Common
 {
     public record ReceiptItemInputModel
     {
         public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid CategoryId { get; set; }
         public string ItemName { get; set; } = null!;
         public short Quantity { get; set; }
         public decimal ItemPrice { get; set; }

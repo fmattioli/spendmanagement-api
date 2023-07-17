@@ -3,18 +3,14 @@ using SpendManagement.API.Extensions;
 using SpendManagement.Infra.CrossCutting.Conf;
 using SpendManagement.Infra.CrossCutting.Extensions;
 using SpendManagement.Infra.CrossCutting.Extensions.Kafka;
+using SpendManagement.Infra.CrossCutting.Extensions.Requests;
 using SpendManagement.Infra.CrossCutting.Extensions.Validators;
-using SpendManagement.Infra.CrossCutting.Middlewares.Validators;
+using SpendManagement.Infra.CrossCutting.Filters;
+using SpendManagement.Infra.CrossCutting.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.ConfigureAppConfiguration((hosting, config) =>
-{
-    var currentDirectory = Directory.GetCurrentDirectory();
-    config
-        .SetBasePath(currentDirectory)
-        .AddJsonFile($"{currentDirectory}/appsettings.json");
-});
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
 var applicationSettings = builder.Configuration.GetSection("Settings").Get<Settings>();
 
@@ -26,37 +22,43 @@ builder.Services
     .AddDependencyInjection()
     .AddLoggingDependency()
     .AddValidators()
-    .AddControllers((options =>
+    .AddHttpClients(applicationSettings.SpendManagementReadModel)
+    .AddControllers(options =>
     {
         options.Filters.Add(typeof(FilterRequestAttribute));
-    }))
+    }).AddNewtonsoftJson()
     .ConfigureApiBehaviorOptions(options =>
     {
         options.SuppressModelStateInvalidFilter = true;
+        options.SuppressInferBindingSourcesForParameters = true;
     });
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "SpendManagement API", Version = "v1" });
-    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "SpendManagement.API.xml"));
-});
+builder.Services
+    .AddEndpointsApiExplorer()
+    .AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "SpendManagement API", Version = "v1", Description = "The completed platform to handle receipts related to the SpendMagement project." });
+        c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "SpendManagement.API.xml"));
+    })
+    .AddSwaggerGenNewtonsoftSupport();
 
 var app = builder.Build();
+
+//Add exception middleware
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api One V1");
+    });
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.ShowKafkaDashboard();
-
 app.Run();

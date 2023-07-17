@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using SpendManagement.Application.InputModels.Common;
 
 namespace SpendManagement.Application.InputModels.Validations
 {
