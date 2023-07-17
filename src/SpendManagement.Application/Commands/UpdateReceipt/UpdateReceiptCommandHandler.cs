@@ -1,26 +1,26 @@
 ﻿using FluentValidation.Results;
-using KafkaFlow;
 using MediatR;
 using Microsoft.AspNetCore.JsonPatch;
 using Serilog;
 using SpendManagement.Application.Commands.UpdateReceipt.Exceptions;
+using SpendManagement.Application.Mappers;
+using SpendManagement.Application.Producers;
 using SpendManagement.Client.SpendManagementReadModel.GetReceipts;
-using SpendManagement.Contracts.V1.Commands.Interfaces;
 
 namespace SpendManagement.Application.Commands.UpdateReceipt
 {
     public class UpdateReceiptCommandHandler : IRequestHandler<UpdateReceiptCommand, Unit>
     {
-        private readonly IMessageProducer<ICommand> _commandsProducer;
+        private readonly ICommandProducer _receiptProducer;
         private readonly ILogger _logger;
         private readonly ISpendManagementReadModelClient _spendManagementReadModelClient;
 
         public UpdateReceiptCommandHandler(ILogger log,
-            IMessageProducer<ICommand> commandsProducer,
+            ICommandProducer receiptProducer,
             ISpendManagementReadModelClient spendManagementReadModelClient)
         {
             this._logger = log;
-            this._commandsProducer = commandsProducer;
+            this._receiptProducer = receiptProducer;
             this._spendManagementReadModelClient = spendManagementReadModelClient;
         }
 
@@ -35,7 +35,9 @@ namespace SpendManagement.Application.Commands.UpdateReceipt
             {
                 throw new JsonPatchInvalidException(string.Join(",", validationResult.Errors));
             }
+
             
+            await _receiptProducer.ProduceCommandAsync(receipt.ToCommand());
             return Unit.Value;
         }
 

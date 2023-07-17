@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using SpendManagement.API.Extensions;
 using SpendManagement.Infra.CrossCutting.Conf;

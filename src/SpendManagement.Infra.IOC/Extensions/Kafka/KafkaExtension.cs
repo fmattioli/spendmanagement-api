@@ -5,7 +5,8 @@ using KafkaFlow.Configuration;
 using KafkaFlow.Serializer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using SpendManagement.Contracts.V1.Commands.Interfaces;
+using SpendManagement.Application.Producers;
+using SpendManagement.Contracts.V1.Interfaces;
 using SpendManagement.Infra.CrossCutting.Conf;
 using SpendManagement.Infra.CrossCutting.Middlewares;
 using SpendManagement.Topics;
@@ -26,6 +27,9 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
                         .AddBrokers(kafkaSettings)
                         .AddProducers(kafkaSettings)
                         ));
+
+            services.AddSingleton<Application.Producers.ICommandProducer, CommandProducer>();
+
             return services;
         }
 
@@ -64,15 +68,17 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
                 MessageTimeoutMs = settings.MessageTimeoutMs,
             };
 
-            builder.
-                CreateTopicIfNotExists(KafkaTopics.Commands.ReceiptCommandTopicName, 2, 1)
-                .AddProducer<ICommand>(p => p
-                .DefaultTopic(KafkaTopics.Commands.ReceiptCommandTopicName)
-                .AddMiddlewares(m => m
-                    .Add<ProducerRetryMiddleware>()
-                    .AddSerializer<JsonCoreSerializer>())
-                .WithAcks(KafkaFlow.Acks.All)
-                .WithProducerConfig(producerConfig));
+            builder
+                .CreateTopicIfNotExists(KafkaTopics.Commands.ReceiptCommandTopicName, 2, 1)
+                .AddProducer<ICommand>(
+                    p => p
+                        .DefaultTopic(KafkaTopics.Commands.ReceiptCommandTopicName)
+                        .AddMiddlewares(
+                            m => m
+                                .Add<ProducerRetryMiddleware>()
+                                .AddSerializer<JsonCoreSerializer>())
+                        .WithAcks(KafkaFlow.Acks.All)
+                        .WithProducerConfig(producerConfig));
 
             return builder;
         }

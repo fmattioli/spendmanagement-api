@@ -1,5 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+
+using SpendManagement.Application.Commands.AddCategory;
 using SpendManagement.Application.Commands.AddReceipt;
 using SpendManagement.Application.Commands.UpdateReceipt;
 using SpendManagement.Application.Commands.UpdateReceiptItem;
@@ -41,7 +43,7 @@ namespace SpendManagement.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddCategory([FromBody] CategoryInputModel categoryInputModel, CancellationToken cancellationToken)
         {
-            var receiptId = await _mediator.Send(null, cancellationToken);
+            var receiptId = await _mediator.Send(new AddCategoryCommand(categoryInputModel), cancellationToken);
             return Created("/addCategory", receiptId);
         }
 

@@ -3,7 +3,7 @@
     public record ReceiptItemInputModel
     {
         public Guid Id { get; set; } = Guid.NewGuid();
-        public CategoryInputModel Category { get; set; } = null!;
+        public Guid CategoryId { get; set; }
         public string ItemName { get; set; } = null!;
         public short Quantity { get; set; }
         public decimal ItemPrice { get; set; }
