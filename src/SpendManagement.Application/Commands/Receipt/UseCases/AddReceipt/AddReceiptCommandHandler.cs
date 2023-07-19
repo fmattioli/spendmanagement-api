@@ -1,10 +1,9 @@
 ﻿using MediatR;
 using Serilog;
-using SpendManagement.Application.Commands.AddReceipt;
 using SpendManagement.Application.Mappers;
 using SpendManagement.Application.Producers;
 
-namespace SpendManagement.Application.Services
+namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
 {
     public class AddReceiptCommandHandler : IRequestHandler<AddReceiptCommand, Unit>
     {
@@ -13,8 +12,8 @@ namespace SpendManagement.Application.Services
 
         public AddReceiptCommandHandler(ILogger log, ICommandProducer receiptProducer)
         {
-            this.logger = log;
-            this._receiptProducer = receiptProducer;
+            logger = log;
+            _receiptProducer = receiptProducer;
         }
 
         public async Task<Unit> Handle(AddReceiptCommand request, CancellationToken cancellationToken)
@@ -23,7 +22,7 @@ namespace SpendManagement.Application.Services
 
             await _receiptProducer.ProduceCommandAsync(receiptCreateCommand);
 
-            this.logger.Information(
+            logger.Information(
                 $"Spent created with successfully.",
                 () => new
                 {

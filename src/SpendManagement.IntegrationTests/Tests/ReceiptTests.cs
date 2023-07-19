@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SpendManagement.Application.InputModels.Common;
+using SpendManagement.Application.Commands.Receipt.InputModels;
 using System.Net;
 using System.Threading.Tasks;
 

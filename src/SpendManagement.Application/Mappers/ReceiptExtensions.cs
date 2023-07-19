@@ -1,7 +1,7 @@
-﻿using SpendManagement.Application.InputModels.Common;
+﻿using SpendManagement.Application.Commands.Receipt.InputModels;
 using SpendManagement.Contracts.V1.Commands.ReceiptCommands;
 using SpendManagement.Contracts.V1.Entities;
-using Web.Contracts.UseCases.Common;
+using Web.Contracts.Receipt;
 
 namespace SpendManagement.Application.Mappers
 {

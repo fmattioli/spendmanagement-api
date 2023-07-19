@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using SpendManagement.Application.InputModels.Common;
-using Web.Contracts.UseCases.Common;
 
-namespace SpendManagement.Application.Commands.UpdateReceipt
+using Web.Contracts.Receipt;
+
+namespace SpendManagement.Application.Commands.Receipt.InputModels
 {
     public class UpdateReceiptInputModel
     {

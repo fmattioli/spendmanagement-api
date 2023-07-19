@@ -1,4 +1,4 @@
-﻿namespace SpendManagement.Application.InputModels.Common
+﻿namespace SpendManagement.Application.Commands.Receipt.InputModels
 {
     public record ReceiptItemInputModel
     {

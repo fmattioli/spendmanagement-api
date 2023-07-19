@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
-using SpendManagement.Application.InputModels.Common;
-using SpendManagement.Application.InputModels.Validations;
+using SpendManagement.Application.Commands.Receipt.InputModels;
+using SpendManagement.Application.Commands.Receipt.Validations;
 
 namespace SpendManagement.Infra.CrossCutting.Extensions.Validators
 {

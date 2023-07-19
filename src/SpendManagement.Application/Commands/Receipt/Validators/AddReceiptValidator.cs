@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using SpendManagement.Application.InputModels.Common;
+using SpendManagement.Application.Commands.Receipt.InputModels;
 
-namespace SpendManagement.Application.InputModels.Validations
+namespace SpendManagement.Application.Commands.Receipt.Validations
 {
     public class AddReceiptValidator : AbstractValidator<ReceiptInputModel>
     {

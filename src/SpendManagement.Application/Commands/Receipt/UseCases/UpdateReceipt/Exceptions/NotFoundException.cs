@@ -1,4 +1,4 @@
-﻿namespace SpendManagement.Application.Commands.UpdateReceipt.Exceptions
+﻿namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions
 {
     public sealed class NotFoundException : Exception
     {

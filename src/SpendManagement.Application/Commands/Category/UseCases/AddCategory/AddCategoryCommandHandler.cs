@@ -3,7 +3,7 @@ using Serilog;
 using SpendManagement.Application.Mappers;
 using SpendManagement.Application.Producers;
 
-namespace SpendManagement.Application.Commands.AddCategory
+namespace SpendManagement.Application.Commands.Category.UseCases.AddCategory
 {
     public class AddCategoryCommandHandler : IRequestHandler<AddCategoryCommand, Unit>
     {
@@ -12,8 +12,8 @@ namespace SpendManagement.Application.Commands.AddCategory
 
         public AddCategoryCommandHandler(ILogger log, ICommandProducer receiptProducer)
         {
-            this.logger = log;
-            this._categoryProducer = receiptProducer;
+            logger = log;
+            _categoryProducer = receiptProducer;
         }
 
         public async Task<Unit> Handle(AddCategoryCommand request, CancellationToken cancellationToken)

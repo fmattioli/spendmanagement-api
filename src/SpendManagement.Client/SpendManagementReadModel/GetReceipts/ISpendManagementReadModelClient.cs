@@ -1,4 +1,4 @@
-﻿using Web.Contracts.UseCases.Common;
+﻿using Web.Contracts.Receipt;
 
 namespace SpendManagement.Client.SpendManagementReadModel.GetReceipts
 {
