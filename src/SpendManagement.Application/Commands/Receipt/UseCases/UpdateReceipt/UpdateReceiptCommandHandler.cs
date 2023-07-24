@@ -1,8 +1,8 @@
 ﻿using FluentValidation.Results;
 using MediatR;
-using Microsoft.AspNetCore.JsonPatch;
 using Serilog;
 using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
+using SpendManagement.Application.Extensions;
 using SpendManagement.Application.Mappers;
 using SpendManagement.Application.Producers;
 using SpendManagement.Client.SpendManagementReadModel.GetReceipts;
@@ -30,7 +30,7 @@ namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
 
             var validationResult = new ValidationResult();
 
-            request.UpdateReceiptInputModel.ReceiptPatchDocument.ApplyTo(receipt, HandlePatchErrors(validationResult));
+            request.UpdateReceiptInputModel.ReceiptPatchDocument.ApplyTo(receipt, JsonPatchExtension.HandlePatchErrors(validationResult));
             if (!validationResult.IsValid)
             {
                 throw new JsonPatchInvalidException(string.Join(",", validationResult.Errors));
@@ -39,15 +39,6 @@ namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
 
             await _receiptProducer.ProduceCommandAsync(receipt.ToCommand());
             return Unit.Value;
-        }
-
-        private static Action<JsonPatchError> HandlePatchErrors(ValidationResult validationResult)
-        {
-            return error => validationResult.Errors.Add(
-                new ValidationFailure(error.Operation.path, error.ErrorMessage)
-                {
-                    ErrorCode = "104"
-                });
         }
     }
 }
