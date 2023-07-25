@@ -5,7 +5,7 @@ using SpendManagement.Application.Producers;
 
 namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
 {
-    public class AddReceiptCommandHandler : IRequestHandler<AddReceiptCommand, Unit>
+    public class AddReceiptCommandHandler : IRequestHandler<AddReceiptCommand, Guid>
     {
         private readonly ICommandProducer _receiptProducer;
         private readonly ILogger logger;
@@ -16,7 +16,7 @@ namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
             _receiptProducer = receiptProducer;
         }
 
-        public async Task<Unit> Handle(AddReceiptCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(AddReceiptCommand request, CancellationToken cancellationToken)
         {
             var receiptCreateCommand = request.AddSpentInputModel.ToCommand();
 
@@ -29,7 +29,7 @@ namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
                     receiptCreateCommand
                 });
 
-            return Unit.Value;
+            return receiptCreateCommand.Receipt.Id;
         }
     }
 }

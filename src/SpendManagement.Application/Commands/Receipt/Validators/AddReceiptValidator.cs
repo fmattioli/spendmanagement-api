@@ -39,6 +39,11 @@ namespace SpendManagement.Application.Commands.Receipt.Validations
 
             RuleFor(x => x.Quantity).Must(x => x > 0)
                 .WithMessage("Please inform a valid price.");
+
+            RuleFor(x => x.CategoryId)
+                .NotNull()
+                .NotEmpty()
+                .WithMessage("Please inform a valid category. ");
         }
     }
 }

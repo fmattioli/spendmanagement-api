@@ -2,7 +2,7 @@
 {
     public record ReceiptItemInputModel
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
         public Guid CategoryId { get; set; }
         public string ItemName { get; set; } = null!;
         public short Quantity { get; set; }
