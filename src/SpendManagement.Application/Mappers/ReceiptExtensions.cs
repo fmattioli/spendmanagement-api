@@ -1,7 +1,7 @@
-﻿using SpendManagement.Application.InputModels.Common;
+﻿using SpendManagement.Application.Commands.Receipt.InputModels;
 using SpendManagement.Contracts.V1.Commands.ReceiptCommands;
 using SpendManagement.Contracts.V1.Entities;
-using Web.Contracts.UseCases.Common;
+using Web.Contracts.Receipt;
 
 namespace SpendManagement.Application.Mappers
 {
@@ -11,13 +11,20 @@ namespace SpendManagement.Application.Mappers
         {
             return new CreateReceiptCommand
             {
-                Receipt = new Receipt(receiptInputModel.Id, receiptInputModel.EstablishmentName, receiptInputModel.ReceiptDate),
-                ReceiptItems = receiptInputModel.ReceiptItems.Select(x => new ReceiptItem(
-                    x.Id, x.ItemName,
-                    x.CategoryId,
-                    x.Quantity,
-                    x.ItemPrice,
-                    x.Observation))
+                Receipt = new Receipt(
+                                    receiptInputModel.Id == Guid.Empty ? Guid.NewGuid() : receiptInputModel.Id,
+                                    receiptInputModel.EstablishmentName, 
+                                    receiptInputModel.ReceiptDate),
+                ReceiptItems = receiptInputModel
+                                    .ReceiptItems
+                                    .Select(x =>
+                                        new ReceiptItem(
+                                            x.Id == Guid.Empty ? Guid.NewGuid () : x.Id, 
+                                            x.ItemName,
+                                            x.CategoryId,
+                                            x.Quantity,
+                                            x.ItemPrice,
+                                            x.Observation))
             };
         }
 

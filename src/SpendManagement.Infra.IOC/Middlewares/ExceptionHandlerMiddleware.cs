@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-
-using SpendManagement.Application.Commands.UpdateReceipt.Exceptions;
-
+using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
 using System.Net;
 
 namespace SpendManagement.Infra.CrossCutting.Middlewares

@@ -1,13 +1,13 @@
 ﻿using FluentValidation.Results;
 using MediatR;
-using Microsoft.AspNetCore.JsonPatch;
 using Serilog;
-using SpendManagement.Application.Commands.UpdateReceipt.Exceptions;
+using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
+using SpendManagement.Application.Extensions;
 using SpendManagement.Application.Mappers;
 using SpendManagement.Application.Producers;
 using SpendManagement.Client.SpendManagementReadModel.GetReceipts;
 
-namespace SpendManagement.Application.Commands.UpdateReceipt
+namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
 {
     public class UpdateReceiptCommandHandler : IRequestHandler<UpdateReceiptCommand, Unit>
     {
@@ -19,9 +19,9 @@ namespace SpendManagement.Application.Commands.UpdateReceipt
             ICommandProducer receiptProducer,
             ISpendManagementReadModelClient spendManagementReadModelClient)
         {
-            this._logger = log;
-            this._receiptProducer = receiptProducer;
-            this._spendManagementReadModelClient = spendManagementReadModelClient;
+            _logger = log;
+            _receiptProducer = receiptProducer;
+            _spendManagementReadModelClient = spendManagementReadModelClient;
         }
 
         public async Task<Unit> Handle(UpdateReceiptCommand request, CancellationToken cancellationToken)
@@ -30,24 +30,15 @@ namespace SpendManagement.Application.Commands.UpdateReceipt
 
             var validationResult = new ValidationResult();
 
-            request.UpdateReceiptInputModel.ReceiptPatchDocument.ApplyTo(receipt, HandlePatchErrors(validationResult));
+            request.UpdateReceiptInputModel.ReceiptPatchDocument.ApplyTo(receipt, JsonPatchExtension.HandlePatchErrors(validationResult));
             if (!validationResult.IsValid)
             {
                 throw new JsonPatchInvalidException(string.Join(",", validationResult.Errors));
             }
 
-            
+
             await _receiptProducer.ProduceCommandAsync(receipt.ToCommand());
             return Unit.Value;
-        }
-
-        private static Action<JsonPatchError> HandlePatchErrors(ValidationResult validationResult)
-        {
-            return error => validationResult.Errors.Add(
-                new ValidationFailure(error.Operation.path, error.ErrorMessage)
-                {
-                    ErrorCode = "104"
-                });
         }
     }
 }

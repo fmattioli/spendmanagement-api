@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using SpendManagement.Application.InputModels.Common;
+using SpendManagement.Application.Commands.Receipt.InputModels;
 
-namespace SpendManagement.Application.InputModels.Validations
+namespace SpendManagement.Application.Commands.Receipt.Validations
 {
     public class AddReceiptValidator : AbstractValidator<ReceiptInputModel>
     {
@@ -39,6 +39,11 @@ namespace SpendManagement.Application.InputModels.Validations
 
             RuleFor(x => x.Quantity).Must(x => x > 0)
                 .WithMessage("Please inform a valid price.");
+
+            RuleFor(x => x.CategoryId)
+                .NotNull()
+                .NotEmpty()
+                .WithMessage("Please inform a valid category. ");
         }
     }
 }

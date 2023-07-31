@@ -1,11 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-
-using SpendManagement.Application.Commands.AddCategory;
-using SpendManagement.Application.Commands.AddReceipt;
-using SpendManagement.Application.Commands.UpdateReceipt;
-using SpendManagement.Application.Commands.UpdateReceiptItem;
-using SpendManagement.Application.InputModels.Common;
+using SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt;
+using SpendManagement.Application.Commands.Receipt.InputModels;
+using SpendManagement.Application.Commands.Receipt.UpdateReceipt;
 
 namespace SpendManagement.API.Controllers
 {
@@ -33,21 +30,6 @@ namespace SpendManagement.API.Controllers
         }
 
         /// <summary>
-        /// Add a new Category on the platform.
-        /// </summary>
-        /// <returns>A status code related to the operation.</returns>
-        [HttpPost]
-        [Route("addCategory", Name = nameof(ReceiptController.AddCategory))]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AddCategory([FromBody] CategoryInputModel categoryInputModel, CancellationToken cancellationToken)
-        {
-            var receiptId = await _mediator.Send(new AddCategoryCommand(categoryInputModel), cancellationToken);
-            return Created("/addCategory", receiptId);
-        }
-
-        /// <summary>
         /// Edit an existing receipt
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
@@ -59,21 +41,6 @@ namespace SpendManagement.API.Controllers
         public async Task<IActionResult> UpdateReceipt(UpdateReceiptInputModel updateReceiptInputModel, CancellationToken cancellationToken)
         {
             await _mediator.Send(new UpdateReceiptCommand(updateReceiptInputModel), cancellationToken);
-            return NoContent();
-        }
-
-        /// <summary>
-        /// Edit an existing Item on a receipt
-        /// </summary>
-        /// <returns>A status code related to the operation.</returns>
-        [HttpPatch]
-        [Route("updateReceiptItem/{Id:guid}", Name = nameof(UpdateReceiptItem))]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateReceiptItem(UpdateReceiptItemInputModel updateReceiptInputModel, CancellationToken cancellationToken)
-        {
-            await _mediator.Send(new UpdateReceiptItemCommand(updateReceiptInputModel), cancellationToken);
             return NoContent();
         }
     }

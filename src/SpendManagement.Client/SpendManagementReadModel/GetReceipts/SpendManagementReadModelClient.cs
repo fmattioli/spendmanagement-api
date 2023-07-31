@@ -1,5 +1,6 @@
 ﻿using SpendManagement.Client.Configuration;
-using Web.Contracts.UseCases.Common;
+using Web.Contracts.Category;
+using Web.Contracts.Receipt;
 
 namespace SpendManagement.Client.SpendManagementReadModel.GetReceipts
 {
@@ -7,6 +8,12 @@ namespace SpendManagement.Client.SpendManagementReadModel.GetReceipts
     {
         public SpendManagementReadModelClient(IApiConfiguration configuration, HttpClient httpClient ) : base(httpClient, configuration)
         {
+        }
+
+        public async Task<CategoryResponse?> GetCategoryAsync(Guid categoryId)
+        {
+            var retorno = await GetByIdAsync<CategoryResponse>("getCategory", categoryId);
+            return retorno;
         }
 
         public async Task<ReceiptResponse?> GetReceiptAsync(Guid receiptId)

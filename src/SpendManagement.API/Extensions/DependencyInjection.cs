@@ -1,6 +1,5 @@
-﻿using SpendManagement.Application.Commands.AddReceipt;
-using SpendManagement.Application.Commands.UpdateReceipt;
-using SpendManagement.Application.Commands.UpdateReceiptItem;
+﻿using SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt;
+using SpendManagement.Application.Commands.Receipt.UpdateReceipt;
 
 namespace SpendManagement.API.Extensions
 {
@@ -11,8 +10,7 @@ namespace SpendManagement.API.Extensions
             services.AddMediatR(
                     x => x.RegisterServicesFromAssemblies(
                         typeof(AddReceiptCommand).Assembly,
-                        typeof(UpdateReceiptCommand).Assembly,
-                        typeof(UpdateReceiptItemCommand).Assembly));
+                        typeof(UpdateReceiptCommand).Assembly));
 
             return services;
         }
