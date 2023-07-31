@@ -36,7 +36,6 @@ namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
                 throw new JsonPatchInvalidException(string.Join(",", validationResult.Errors));
             }
 
-
             await _receiptProducer.ProduceCommandAsync(receipt.ToCommand());
             return Unit.Value;
         }

@@ -51,7 +51,7 @@ namespace SpendManagement.API.Controllers
         /// <returns>A status code related to the operation.</returns>
         [HttpDelete]
         [Route("deleteCategory/{Id:guid}", Name = nameof(DeleteCategory))]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteCategory([FromBody] Guid categoryId, CancellationToken cancellationToken)
