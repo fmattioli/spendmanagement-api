@@ -1,6 +1,5 @@
 ﻿using FluentValidation.Results;
 using MediatR;
-using Serilog;
 using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
 using SpendManagement.Application.Extensions;
 using SpendManagement.Application.Mappers;
@@ -12,14 +11,11 @@ namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
     public class UpdateReceiptCommandHandler : IRequestHandler<UpdateReceiptCommand, Unit>
     {
         private readonly ICommandProducer _receiptProducer;
-        private readonly ILogger _logger;
         private readonly ISpendManagementReadModelClient _spendManagementReadModelClient;
 
-        public UpdateReceiptCommandHandler(ILogger log,
-            ICommandProducer receiptProducer,
+        public UpdateReceiptCommandHandler(ICommandProducer receiptProducer,
             ISpendManagementReadModelClient spendManagementReadModelClient)
         {
-            _logger = log;
             _receiptProducer = receiptProducer;
             _spendManagementReadModelClient = spendManagementReadModelClient;
         }

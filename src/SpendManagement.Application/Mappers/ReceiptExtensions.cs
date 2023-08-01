@@ -37,5 +37,14 @@ namespace SpendManagement.Application.Mappers
                 ReceiptItems = receiptResponse.ReceiptItems.Select(x => new ReceiptItem(x.Id, x.ItemName, Guid.Empty, x.Quantity, x.ItemPrice, x.Observation))
             };
         }
+
+        public static DeleteReceiptCommand ToCommand(this Commands.Receipt.UseCases.DeleteReceipt.DeleteReceiptCommand deleteReceiptCommand)
+        {
+            return new DeleteReceiptCommand
+            {
+                Id = deleteReceiptCommand.Id,
+                CommandCreatedDate = DateTime.UtcNow
+            };
+        }
     }
 }
