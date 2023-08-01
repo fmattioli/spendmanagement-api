@@ -1,9 +1,8 @@
 ﻿using SpendManagement.Application.Commands.Category.InputModels;
 using SpendManagement.Contracts.V1.Commands.CategoryCommands;
 using SpendManagement.Contracts.V1.Entities;
-
 using Web.Contracts.Category;
-
+using CommandMapper = SpendManagement.Contracts.V1.Commands.CategoryCommands;
 namespace SpendManagement.Application.Mappers
 {
     public static class CategoryExtension
@@ -17,11 +16,12 @@ namespace SpendManagement.Application.Mappers
             };
         }
 
-        public static DeleteCategoryCommand ToCommand(this Guid id)
+        public static CommandMapper.DeleteCategoryCommand ToCommand(this Commands.Category.UseCases.DeleteCategory.DeleteCategoryCommand deleteCategoryCommand)
         {
-            return new DeleteCategoryCommand
+            return new CommandMapper.DeleteCategoryCommand
             {
-                Id = id,
+                Id = deleteCategoryCommand.Id,
+                CommandCreatedDate = DateTime.UtcNow,
             };
         }
 
@@ -30,7 +30,8 @@ namespace SpendManagement.Application.Mappers
             var categoryId = categoryInputModel.Id == Guid.Empty ? Guid.NewGuid() : categoryInputModel.Id;
             return new UpdateCategoryCommand
             {
-                Category = new Category(categoryId, categoryInputModel.Name ?? "")
+                Category = new Category(categoryId, categoryInputModel.Name ?? ""),
+                CommandCreatedDate = DateTime.UtcNow,
             };
         }
     }
