@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt;
 using SpendManagement.Application.Commands.Receipt.InputModels;
 using SpendManagement.Application.Commands.Receipt.UpdateReceipt;
+using SpendManagement.Application.Commands.Receipt.UseCases.DeleteReceipt;
 
 namespace SpendManagement.API.Controllers
 {
@@ -42,6 +43,21 @@ namespace SpendManagement.API.Controllers
         {
             await _mediator.Send(new UpdateReceiptCommand(updateReceiptInputModel), cancellationToken);
             return NoContent();
+        }
+
+        /// <summary>
+        /// Delete an existing receipt
+        /// </summary>
+        /// <returns>A status code related to the operation.</returns>
+        [HttpDelete]
+        [Route("deleteReceipt/{Id:guid}", Name = nameof(DeleteReceipt))]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> DeleteReceipt(Guid Id, CancellationToken cancellationToken)
+        {
+            await _mediator.Send(new DeleteReceiptCommand(Id), cancellationToken);
+            return Accepted();
         }
     }
 }

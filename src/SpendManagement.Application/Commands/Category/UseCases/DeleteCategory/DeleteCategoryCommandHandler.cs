@@ -12,7 +12,7 @@ namespace SpendManagement.Application.Commands.Category.UseCases.DeleteCategory
 
         public async Task<Unit> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
         {
-            var categoryCommand = request.Id.ToCommand();
+            var categoryCommand = request.ToCommand();
             await _categoryProducer.ProduceCommandAsync(categoryCommand);
             return Unit.Value;
         }
