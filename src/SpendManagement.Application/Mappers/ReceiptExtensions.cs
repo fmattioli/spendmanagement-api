@@ -9,42 +9,35 @@ namespace SpendManagement.Application.Mappers
     {
         public static CreateReceiptCommand ToCommand(this ReceiptInputModel receiptInputModel)
         {
-            return new CreateReceiptCommand
-            {
-                Receipt = new Receipt(
-                                    receiptInputModel.Id == Guid.Empty ? Guid.NewGuid() : receiptInputModel.Id,
-                                    receiptInputModel.EstablishmentName, 
-                                    receiptInputModel.ReceiptDate),
-                ReceiptItems = receiptInputModel
+            var receipt = new Receipt(receiptInputModel.Id == Guid.Empty ? Guid.NewGuid() : receiptInputModel.Id,
+                                    receiptInputModel.EstablishmentName,
+                                    receiptInputModel.ReceiptDate);
+
+            var receiptItems = receiptInputModel
                                     .ReceiptItems
                                     .Select(x =>
                                         new ReceiptItem(
-                                            x.Id == Guid.Empty ? Guid.NewGuid () : x.Id, 
+                                            x.Id == Guid.Empty ? Guid.NewGuid() : x.Id,
                                             x.ItemName,
                                             x.CategoryId,
                                             x.Quantity,
                                             x.ItemPrice,
-                                            x.Observation))
-            };
+                                            x.Observation));
+
+            return new CreateReceiptCommand(receipt.Id.ToString(), receipt, receiptItems);
         }
 
         public static UpdateReceiptCommand ToCommand(this ReceiptResponse receiptResponse)
         {
-            return new UpdateReceiptCommand
-            {
-                CommandCreatedDate = DateTime.Now,
-                Receipt = new Receipt(receiptResponse.Id, receiptResponse.EstablishmentName, receiptResponse.ReceiptDate),
-                ReceiptItems = receiptResponse.ReceiptItems.Select(x => new ReceiptItem(x.Id, x.ItemName, Guid.Empty, x.Quantity, x.ItemPrice, x.Observation))
-            };
+            var receipt = new Receipt(receiptResponse.Id, receiptResponse.EstablishmentName, receiptResponse.ReceiptDate);
+            var receptItems = receiptResponse.ReceiptItems.Select(x => new ReceiptItem(x.Id, x.ItemName, Guid.Empty, x.Quantity, x.ItemPrice, x.Observation));
+
+            return new UpdateReceiptCommand(receipt.Id.ToString(), receipt, receptItems);
         }
 
         public static DeleteReceiptCommand ToCommand(this Commands.Receipt.UseCases.DeleteReceipt.DeleteReceiptCommand deleteReceiptCommand)
         {
-            return new DeleteReceiptCommand
-            {
-                Id = deleteReceiptCommand.Id,
-                CommandCreatedDate = DateTime.UtcNow
-            };
+            return new DeleteReceiptCommand(deleteReceiptCommand.Id.ToString(), deleteReceiptCommand.Id);
         }
     }
 }
