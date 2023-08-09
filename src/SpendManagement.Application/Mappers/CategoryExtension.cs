@@ -2,7 +2,7 @@
 using SpendManagement.Contracts.V1.Commands.CategoryCommands;
 using SpendManagement.Contracts.V1.Entities;
 using Web.Contracts.Category;
-using CommandMapper = SpendManagement.Contracts.V1.Commands.CategoryCommands;
+
 namespace SpendManagement.Application.Mappers
 {
     public static class CategoryExtension
@@ -10,29 +10,22 @@ namespace SpendManagement.Application.Mappers
         public static CreateCategoryCommand ToCreateCategoryCommand(this CategoryInputModel categoryInputModel)
         {
             var categoryId = categoryInputModel.Id == Guid.Empty ? Guid.NewGuid() : categoryInputModel.Id;
-            return new CreateCategoryCommand
-            {
-                Category = new Category(categoryId, categoryInputModel.Name)
-            };
+            var category = new Category(categoryId, categoryInputModel.Name);
+
+            return new CreateCategoryCommand(category.Id.ToString(), category);
         }
 
-        public static CommandMapper.DeleteCategoryCommand ToCommand(this Commands.Category.UseCases.DeleteCategory.DeleteCategoryCommand deleteCategoryCommand)
+        public static DeleteCategoryCommand ToCommand(this Commands.Category.UseCases.DeleteCategory.DeleteCategoryCommand deleteCategoryCommand)
         {
-            return new CommandMapper.DeleteCategoryCommand
-            {
-                Id = deleteCategoryCommand.Id,
-                CommandCreatedDate = DateTime.UtcNow,
-            };
+            return new DeleteCategoryCommand(deleteCategoryCommand.Id.ToString(), deleteCategoryCommand.Id);
         }
 
         public static UpdateCategoryCommand ToUpdateCategoryCommand(this CategoryResponse categoryInputModel)
         {
             var categoryId = categoryInputModel.Id == Guid.Empty ? Guid.NewGuid() : categoryInputModel.Id;
-            return new UpdateCategoryCommand
-            {
-                Category = new Category(categoryId, categoryInputModel.Name ?? ""),
-                CommandCreatedDate = DateTime.UtcNow,
-            };
+            var category = new Category(categoryId, categoryInputModel.Name ?? "");
+
+            return new UpdateCategoryCommand(categoryId.ToString(), category);
         }
     }
 }
