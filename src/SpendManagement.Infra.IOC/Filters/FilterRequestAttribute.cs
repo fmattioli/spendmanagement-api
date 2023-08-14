@@ -16,13 +16,9 @@ namespace SpendManagement.Infra.CrossCutting.Filters
 
                 context.Result = new JsonResult(new
                 {
-                    Code = 400,
-                    Message = "One or more validation errors occurred.",
-                    Errors = errors
-                })
-                {
-                    StatusCode = 400
-                };
+                    StatusCode = 400,
+                    Message = errors
+                });
             }
         }
     }

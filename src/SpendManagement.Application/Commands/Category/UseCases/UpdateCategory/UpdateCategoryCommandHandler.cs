@@ -21,7 +21,7 @@ namespace SpendManagement.Application.Commands.Category.UseCases.UpdateCategory
 
         public async Task<Unit> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
         {
-            var category = await _spendManagementReadModelClient.GetCategoryAsync(request.UpdateCategoryInputModel.Id) ?? throw new NotFoundException("Any recept was found");
+            var category = await _spendManagementReadModelClient.GetCategoryAsync(request.UpdateCategoryInputModel.Id) ?? throw new NotFoundException("Any category was found");
 
             var validationResult = new ValidationResult();
 

@@ -14,7 +14,7 @@ namespace SpendManagement.Client
                 configuration.Endpoint + $"/{configuration.Version}");
         }
 
-        protected async Task<TResponse?> GetByIdAsync<TResponse>(
+        protected async Task<TResponse> GetByIdAsync<TResponse>(
             string path,
             Guid id)
            where TResponse : class

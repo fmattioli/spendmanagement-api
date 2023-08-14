@@ -10,13 +10,13 @@ namespace SpendManagement.Client.SpendManagementReadModel.GetReceipts
         {
         }
 
-        public async Task<CategoryResponse?> GetCategoryAsync(Guid categoryId)
+        public async Task<CategoryResponse> GetCategoryAsync(Guid categoryId)
         {
             var retorno = await GetByIdAsync<CategoryResponse>("getCategory", categoryId);
             return retorno;
         }
 
-        public async Task<ReceiptResponse?> GetReceiptAsync(Guid receiptId)
+        public async Task<ReceiptResponse> GetReceiptAsync(Guid receiptId)
         {
             var retorno = await GetByIdAsync<ReceiptResponse>("getReceipt", receiptId);
             return retorno;
