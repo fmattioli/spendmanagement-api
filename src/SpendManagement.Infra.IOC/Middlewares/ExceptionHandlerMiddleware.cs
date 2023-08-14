@@ -21,19 +21,11 @@ namespace SpendManagement.Infra.CrossCutting.Middlewares
                 _ => HttpStatusCode.InternalServerError,
             };
 
-            return (code, JsonConvert.SerializeObject(new Error
+            return (code, JsonConvert.SerializeObject(new
             {
                 StatusCode = code,
-                Message = exception.Message,
-                StackTrace = exception.StackTrace
+                Errors = new List<string> { exception.Message },
             }));
         }
-    }
-
-    public record Error
-    {
-        public HttpStatusCode StatusCode { get; set; }
-        public string? Message { get; set; }
-        public string? StackTrace { get; set; }
     }
 }

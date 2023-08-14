@@ -5,8 +5,8 @@ namespace SpendManagement.Client.SpendManagementReadModel.GetReceipts
 {
     public interface ISpendManagementReadModelClient
     {
-        Task<ReceiptResponse?> GetReceiptAsync(Guid receiptId);
+        Task<ReceiptResponse> GetReceiptAsync(Guid receiptId);
 
-        Task<CategoryResponse?> GetCategoryAsync(Guid categoryId);
+        Task<CategoryResponse> GetCategoryAsync(Guid categoryId);
     }
 }
