@@ -4,6 +4,7 @@ using SpendManagement.Infra.CrossCutting.Conf;
 using SpendManagement.Infra.CrossCutting.Extensions;
 using SpendManagement.Infra.CrossCutting.Extensions.Kafka;
 using SpendManagement.Infra.CrossCutting.Extensions.Requests;
+using SpendManagement.Infra.CrossCutting.Extensions.Services;
 using SpendManagement.Infra.CrossCutting.Extensions.Validators;
 using SpendManagement.Infra.CrossCutting.Filters;
 using SpendManagement.Infra.CrossCutting.Middlewares;
@@ -23,6 +24,7 @@ builder.Services
     .AddLoggingDependency()
     .AddValidators()
     .AddHttpClients(applicationSettings.SpendManagementReadModel)
+    .AddServices()
     .AddControllers(options =>
     {
         options.Filters.Add(typeof(FilterRequestAttribute));
