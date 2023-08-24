@@ -29,8 +29,4 @@
     <ProjectReference Include="..\SpendManagement.Application\SpendManagement.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
-
 </Project>

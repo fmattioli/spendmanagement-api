@@ -1,5 +1,7 @@
 ﻿using FluentValidation.Results;
 using MediatR;
+
+using SpendManagement.Application.Commands.Receipt.Services;
 using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
 using SpendManagement.Application.Extensions;
 using SpendManagement.Application.Mappers;
@@ -11,13 +13,16 @@ namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
     public class UpdateReceiptCommandHandler : IRequestHandler<UpdateReceiptCommand, Unit>
     {
         private readonly ICommandProducer _receiptProducer;
+        private readonly IReceiptService _receiptService;
         private readonly ISpendManagementReadModelClient _spendManagementReadModelClient;
 
         public UpdateReceiptCommandHandler(ICommandProducer receiptProducer,
-            ISpendManagementReadModelClient spendManagementReadModelClient)
+            ISpendManagementReadModelClient spendManagementReadModelClient,
+            IReceiptService receiptService)
         {
             _receiptProducer = receiptProducer;
             _spendManagementReadModelClient = spendManagementReadModelClient;
+            _receiptService = receiptService;
         }
 
         public async Task<Unit> Handle(UpdateReceiptCommand request, CancellationToken cancellationToken)
@@ -31,6 +36,10 @@ namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
             {
                 throw new JsonPatchInvalidException(string.Join(",", validationResult.Errors));
             }
+
+            await Task.WhenAll(
+                receipt.ReceiptItems.Select(x => _receiptService.ValidateIfCategoriesExists(x.CategoryId))
+                );
 
             await _receiptProducer.ProduceCommandAsync(receipt.ToCommand());
             return Unit.Value;
