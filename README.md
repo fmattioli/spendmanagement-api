@@ -6,6 +6,7 @@ Using concepts and technologies such as Microservices, CQRS, Event Sourcing, Rep
 > https://github.com/fmattioli/spendmanagement-domain <br/>
 > https://github.com/fmattioli/spendmanagement-eventhandler <br/>
 > https://github.com/fmattioli/spendmanagement-readmodel <br/>
+> https://github.com/fmattioli/spendmanagement-indentity
 > https://github.com/fmattioli/spendmanagement-eventsourcing <br/>
 
 
