@@ -4,11 +4,13 @@ using SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt;
 using SpendManagement.Application.Commands.Receipt.InputModels;
 using SpendManagement.Application.Commands.Receipt.UpdateReceipt;
 using SpendManagement.Application.Commands.Receipt.UseCases.DeleteReceipt;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SpendManagement.API.Controllers
 {
     [Route("api/v1")]
     [ApiController]
+    [Authorize]
     public class ReceiptController : ControllerBase
     {
         private readonly IMediator _mediator;

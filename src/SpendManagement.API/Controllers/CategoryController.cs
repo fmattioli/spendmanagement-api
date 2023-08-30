@@ -4,11 +4,13 @@ using SpendManagement.Application.Commands.Category.UseCases.AddCategory;
 using SpendManagement.Application.Commands.Category.InputModels;
 using SpendManagement.Application.Commands.Category.UseCases.UpdateCategory;
 using SpendManagement.Application.Commands.Category.UseCases.DeleteCategory;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SpendManagement.API.Controllers
 {
     [Route("api/v1")]
     [ApiController]
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly IMediator _mediator;
