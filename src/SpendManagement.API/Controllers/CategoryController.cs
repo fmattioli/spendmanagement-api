@@ -5,6 +5,8 @@ using SpendManagement.Application.Commands.Category.InputModels;
 using SpendManagement.Application.Commands.Category.UseCases.UpdateCategory;
 using SpendManagement.Application.Commands.Category.UseCases.DeleteCategory;
 using Microsoft.AspNetCore.Authorization;
+using SpendManagement.Application.Claims;
+using SpendManagement.Infra.CrossCutting.Extensions.Filters;
 
 namespace SpendManagement.API.Controllers
 {
@@ -26,6 +28,7 @@ namespace SpendManagement.API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ClaimsAuthorizeAttribute(ClaimTypes.Category, "Insert")]
         public async Task<IActionResult> AddCategory([FromBody] CategoryInputModel categoryInputModel, CancellationToken cancellationToken)
         {
             var categoryId = await _mediator.Send(new AddCategoryCommand(categoryInputModel), cancellationToken);
@@ -41,6 +44,7 @@ namespace SpendManagement.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ClaimsAuthorizeAttribute(ClaimTypes.Category, "Update")]
         public async Task<IActionResult> UpdateCategory(UpdateCategoryInputModel categoryInputModel, CancellationToken cancellationToken)
         {
             await _mediator.Send(new UpdateCategoryCommand(categoryInputModel), cancellationToken);
@@ -56,6 +60,7 @@ namespace SpendManagement.API.Controllers
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ClaimsAuthorizeAttribute(ClaimTypes.Category, "Delete")]
         public async Task<IActionResult> DeleteCategory(Guid Id, CancellationToken cancellationToken)
         {
             await _mediator.Send(new DeleteCategoryCommand(Id), cancellationToken);
