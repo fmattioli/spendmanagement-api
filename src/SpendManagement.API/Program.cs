@@ -9,7 +9,6 @@ using SpendManagement.Infra.CrossCutting.Extensions.Requests;
 using SpendManagement.Infra.CrossCutting.Extensions.Services;
 using SpendManagement.Infra.CrossCutting.Extensions.Validators;
 using SpendManagement.Infra.CrossCutting.Middlewares;
-
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -90,13 +89,8 @@ var app = builder.Build();
 //Add exception middleware
 app.UseMiddleware<ExceptionHandlerMiddleware>();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SpendManagement-API"));
-}
-
+app.UseSwagger();
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SpendManagement.API"));
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

@@ -13,7 +13,7 @@ namespace SpendManagement.API.Controllers
     [Route("api/v1")]
     [ApiController]
     [Authorize]
-    public class ReceiptController : ControllerBase
+    public class ReceiptController : Controller
     {
         private readonly IMediator _mediator;
 
@@ -28,7 +28,7 @@ namespace SpendManagement.API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ClaimsAuthorizeAttribute(ClaimTypes.Receipt, "Insert")]
+        [ClaimsAuthorize(ClaimTypes.Receipt, "Insert")]
         public async Task<IActionResult> AddReceipt([FromBody] ReceiptInputModel addSpentInputModel, CancellationToken cancellationToken)
         {
             var receiptId = await _mediator.Send(new AddReceiptCommand(addSpentInputModel), cancellationToken);
@@ -44,7 +44,7 @@ namespace SpendManagement.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ClaimsAuthorizeAttribute(ClaimTypes.Receipt, "Update")]
+        [ClaimsAuthorize(ClaimTypes.Receipt, "Update")]
         public async Task<IActionResult> UpdateReceipt(UpdateReceiptInputModel updateReceiptInputModel, CancellationToken cancellationToken)
         {
             await _mediator.Send(new UpdateReceiptCommand(updateReceiptInputModel), cancellationToken);
