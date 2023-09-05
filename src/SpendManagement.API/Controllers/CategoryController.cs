@@ -28,7 +28,7 @@ namespace SpendManagement.API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ClaimsAuthorizeAttribute(ClaimTypes.Category, "Insert")]
+        [ClaimsAuthorize(ClaimTypes.Category, "Insert")]
         public async Task<IActionResult> AddCategory([FromBody] CategoryInputModel categoryInputModel, CancellationToken cancellationToken)
         {
             var categoryId = await _mediator.Send(new AddCategoryCommand(categoryInputModel), cancellationToken);
