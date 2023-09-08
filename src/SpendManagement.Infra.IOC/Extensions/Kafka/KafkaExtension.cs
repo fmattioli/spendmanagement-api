@@ -52,7 +52,7 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
             }
             else
             {
-                builder.WithBrokers(new[] { settings.Brokers });
+                builder.WithBrokers(new[] { settings.Broker });
             }
 
             return builder;

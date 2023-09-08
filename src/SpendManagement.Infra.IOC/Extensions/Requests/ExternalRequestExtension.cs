@@ -8,7 +8,7 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Requests
 {
     public static class ExternalRequestExtension 
     {
-        public static IServiceCollection AddHttpClients(this IServiceCollection serviceCollection, SpendManagementReadModel spendManagementReadModel)
+        public static IServiceCollection AddHttpClients(this IServiceCollection serviceCollection, SpendManagementReadModelSettings spendManagementReadModel)
         {
             serviceCollection.AddSingleton<IApiConfiguration>(x =>
             {
