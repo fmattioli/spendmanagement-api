@@ -7,7 +7,6 @@ Using concepts and technologies such as Microservices, CQRS, Event Sourcing, Rep
 > https://github.com/fmattioli/spendmanagement-eventhandler <br/>
 > https://github.com/fmattioli/spendmanagement-readmodel <br/>
 > https://github.com/fmattioli/spendmanagement-identity <br/>
-> https://github.com/fmattioli/spendmanagement-eventsourcing <br/>
 
 
 # Related packages
