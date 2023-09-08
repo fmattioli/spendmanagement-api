@@ -2,7 +2,7 @@
 {
     public record KafkaSettings
     {
-        public string Brokers { get; set; } = null!;
+        public string Broker { get; set; } = null!;
         public string Environment { get; set; } = null!;
         public int RetryNumber { get; set; }
         public IEnumerable<string> Sasl_Brokers { get; set; } = null!;
