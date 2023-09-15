@@ -7,6 +7,7 @@ using SpendManagement.Application.Commands.Category.UseCases.DeleteCategory;
 using Microsoft.AspNetCore.Authorization;
 using SpendManagement.Application.Claims;
 using SpendManagement.Infra.CrossCutting.Extensions.Filters;
+using OpenTelemetry.Trace;
 
 namespace SpendManagement.API.Controllers
 {
@@ -16,8 +17,13 @@ namespace SpendManagement.API.Controllers
     public class CategoryController : Controller
     {
         private readonly IMediator _mediator;
+        private readonly Tracer _tracer;
 
-        public CategoryController(IMediator mediator) => _mediator = mediator;
+        public CategoryController(IMediator mediator, Tracer tracer)
+        {
+            _mediator = mediator;
+            _tracer = tracer;
+        }
 
         /// <summary>
         /// Add a new Category on the platform.

@@ -5,6 +5,7 @@ using SpendManagement.Infra.CrossCutting.Extensions.HealthCheckers;
 using SpendManagement.Infra.CrossCutting.Extensions.Kafka;
 using SpendManagement.Infra.CrossCutting.Extensions.Requests;
 using SpendManagement.Infra.CrossCutting.Extensions.Services;
+using SpendManagement.Infra.CrossCutting.Extensions.Tracing;
 using SpendManagement.Infra.CrossCutting.Extensions.Validators;
 using SpendManagement.Infra.CrossCutting.Middlewares;
 
@@ -24,6 +25,7 @@ builder.Services.AddSingleton<ISettings>(applicationSettings);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services
+    .AddTracing()
     .AddKafka(applicationSettings.KafkaSettings)
     .AddAuthorization(applicationSettings.TokenAuth)
     .AddDependencyInjection()

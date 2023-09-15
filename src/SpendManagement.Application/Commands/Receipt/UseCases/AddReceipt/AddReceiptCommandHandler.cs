@@ -9,7 +9,7 @@ namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
     public class AddReceiptCommandHandler : IRequestHandler<AddReceiptCommand, Guid>
     {
         private readonly ICommandProducer _receiptProducer;
-        private readonly IReceiptService _receiptService; 
+        private readonly IReceiptService _receiptService;
         private readonly ILogger logger;
 
         public AddReceiptCommandHandler(ILogger log, ICommandProducer receiptProducer, IReceiptService receiptService)
@@ -30,7 +30,7 @@ namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
             await _receiptProducer.ProduceCommandAsync(receiptCreateCommand);
 
             logger.Information(
-                $"Spent created with successfully.",
+                "Spent created with successfully.",
                 () => new
                 {
                     receiptCreateCommand

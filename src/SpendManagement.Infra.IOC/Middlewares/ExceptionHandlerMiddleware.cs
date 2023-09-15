@@ -17,7 +17,6 @@ namespace SpendManagement.Infra.CrossCutting.Middlewares
             {
                 NotFoundException => HttpStatusCode.NotFound,
                 JsonPatchInvalidException => HttpStatusCode.BadRequest,
-                FluentValidation.ValidationException => HttpStatusCode.BadRequest,
                 UnauthorizedAccessException => HttpStatusCode.Unauthorized,
                 _ => HttpStatusCode.InternalServerError,
             };
