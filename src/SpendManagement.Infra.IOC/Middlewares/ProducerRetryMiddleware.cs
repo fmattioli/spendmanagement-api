@@ -28,12 +28,10 @@ namespace SpendManagement.Infra.CrossCutting.Middlewares
                 .WaitAndRetryAsync(
                     this.retryCount,
                     _ => this.retryInterval,
-                    (ex, _, retryAttempt, __) =>
-                    {
-                        Console.WriteLine(ex);
-                    })
+                    (ex, _, __) => Console.WriteLine(ex))
                 .ExecuteAndCaptureAsync(() => next(context));
 
+            _logger.Warning("Retrying send message again");
         }
     }
 }

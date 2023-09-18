@@ -28,7 +28,7 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
                         .AddProducers(kafkaSettings)
                         ));
 
-            services.AddSingleton<Application.Producers.ICommandProducer, CommandProducer>();
+            services.AddSingleton<ICommandProducer, CommandProducer>();
 
             return services;
         }
@@ -62,7 +62,6 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
            this IClusterConfigurationBuilder builder,
            KafkaSettings settings)
         {
-
             var producerConfig = new ProducerConfig
             {
                 MessageTimeoutMs = settings.MessageTimeoutMs,
@@ -75,6 +74,7 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
                         .DefaultTopic(KafkaTopics.Commands.ReceiptCommandTopicName)
                         .AddMiddlewares(
                             m => m
+                                .Add<ProducerTracingMiddleware>()
                                 .Add<ProducerRetryMiddleware>()
                                 .AddSerializer<JsonCoreSerializer>())
                         .WithAcks(KafkaFlow.Acks.All)
