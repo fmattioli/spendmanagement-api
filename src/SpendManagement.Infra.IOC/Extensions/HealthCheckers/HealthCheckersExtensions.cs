@@ -10,7 +10,7 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.HealthCheckers
     public static class HealthCheckersExtensions
     {
         private const string UrlHealthCheck = "/health";
-        public static IServiceCollection AddHealthCheckers(this IServiceCollection services, Settings settings)
+        public static IServiceCollection AddHealthChecks(this IServiceCollection services, Settings settings)
         {
             var configKafka = new ProducerConfig { BootstrapServers = settings.KafkaSettings.Broker};
             services.AddHealthChecks()
@@ -18,8 +18,10 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.HealthCheckers
                 .AddUrlGroup(new Uri(settings.SpendManagementReadModel.Url + UrlHealthCheck), name: "SpendManagement.ReadModel")
                 .AddUrlGroup(new Uri(settings.SpendManagementIdentity.Url + UrlHealthCheck), name: "SpendManagement.Identity");
 
-            services.AddHealthChecksUI()
+            services
+                .AddHealthChecksUI(setupSettings: setup => setup.SetEvaluationTimeInSeconds(60))
                 .AddInMemoryStorage();
+
             return services;
         }
 

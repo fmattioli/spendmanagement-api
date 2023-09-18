@@ -20,9 +20,7 @@ namespace SpendManagement.Client
            where TResponse : class
         {
             var uri = BuildUri(path, id);
-            var response = await this._httpClient.GetFromJsonAsync<TResponse>(uri);
-
-            return response;
+            return await this._httpClient.GetFromJsonAsync<TResponse>(uri);
         }
 
         private Uri BuildUri(string path, Guid id)
