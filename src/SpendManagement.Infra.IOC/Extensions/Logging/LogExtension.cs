@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
-namespace SpendManagement.Infra.CrossCutting.Extensions
+namespace SpendManagement.Infra.CrossCutting.Extensions.Logging
 {
     public static class LogExtension
     {
