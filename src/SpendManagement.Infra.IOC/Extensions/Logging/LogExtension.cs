@@ -11,7 +11,6 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Logging
                 .MinimumLevel.Verbose()
                 .WriteTo.Console()
                 .CreateLogger();
-
             AppDomain.CurrentDomain.ProcessExit += (s, e) => Log.CloseAndFlush();
 
             return services.AddSingleton(Log.Logger);

@@ -11,12 +11,6 @@ using SpendManagement.Infra.CrossCutting.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.ConfigureLogging(logging =>
-{
-    logging.ClearProviders();
-    logging.AddFilter("Microsoft", LogLevel.Critical);
-});
-
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
 var applicationSettings = builder.Configuration.GetSection("Settings").Get<Settings>();
@@ -29,11 +23,11 @@ builder.Services
     .AddKafka(applicationSettings.KafkaSettings)
     .AddAuthorization(applicationSettings.TokenAuth)
     .AddDependencyInjection()
-    .AddLoggingDependency()
     .AddValidators()
     .AddHttpClients(applicationSettings.SpendManagementReadModel)
     .AddServices()
     .AddHealthChecks(applicationSettings)
+    .AddLoggingDependency()
     .AddControllers()
     .AddNewtonsoftJson()
     .ConfigureApiBehaviorOptions(options =>

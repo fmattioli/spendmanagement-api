@@ -43,7 +43,7 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
                     .WithBrokers(settings.Sasl_Brokers)
                     .WithSecurityInformation(si =>
                     {
-                        si.SecurityProtocol = KafkaFlow.Configuration.SecurityProtocol.SaslSsl;
+                        si.SecurityProtocol = KafkaFlow.Configuration.SecurityProtocol.Plaintext;
                         si.SaslUsername = settings.Sasl_UserName;
                         si.SaslPassword = settings.Sasl_Password;
                         si.SaslMechanism = KafkaFlow.Configuration.SaslMechanism.Plain;
