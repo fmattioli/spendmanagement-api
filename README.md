@@ -13,10 +13,10 @@ Using concepts and technologies such as Microservices, CQRS, Event Sourcing, Rep
 > https://github.com/fmattioli/spendmanagement-contracts <br/>
 > https://github.com/fmattioli/spendmanagement-topics
 
-# Architecture diagram
+# How does it works?
 ![Alt text](src/SpendManagementDiagramFlow.jpg?raw=true "Title")
 
-# How to make it work on your machine?
+# How to make it works on your machine?
 The entire project has docker support.
 It's necessary to run the docker-composes in a defined order.
 To start is necessary to run the docker-compose that will create the dependencies that are used by projects inside the SpendManagament ecosystem.

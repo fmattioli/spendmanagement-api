@@ -15,7 +15,7 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.HealthCheckers
             var configKafka = new ProducerConfig { BootstrapServers = settings.KafkaSettings.Broker};
             services.AddHealthChecks()
                 .AddKafka(configKafka, name: "Kafka")
-                .AddUrlGroup(new Uri(settings.SpendManagementReadModel.Url + UrlHealthCheck), name: "SpendManagement.ReadModel")
+                .AddUrlGroup(new Uri(settings.SpendManagementReadModel.Url.Replace("/api", UrlHealthCheck)), name: "SpendManagement.ReadModel")
                 .AddUrlGroup(new Uri(settings.SpendManagementIdentity.Url + UrlHealthCheck), name: "SpendManagement.Identity");
 
             services
