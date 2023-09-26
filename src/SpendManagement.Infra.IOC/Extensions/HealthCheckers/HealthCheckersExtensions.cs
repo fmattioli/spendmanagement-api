@@ -10,17 +10,22 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.HealthCheckers
     public static class HealthCheckersExtensions
     {
         private const string UrlHealthCheck = "/health";
-        public static IServiceCollection AddHealthChecks(this IServiceCollection services, Settings settings)
+        public static IServiceCollection AddHealthChecks(this IServiceCollection services, Settings? settings)
         {
-            var configKafka = new ProducerConfig { BootstrapServers = settings.KafkaSettings.Broker};
-            services.AddHealthChecks()
-                .AddKafka(configKafka, name: "Kafka")
-                .AddUrlGroup(new Uri(settings.SpendManagementReadModel.Url.Replace("/api", UrlHealthCheck)), name: "SpendManagement.ReadModel")
-                .AddUrlGroup(new Uri(settings.SpendManagementIdentity.Url + UrlHealthCheck), name: "SpendManagement.Identity");
+            var configKafka = new ProducerConfig { BootstrapServers = settings?.KafkaSettings?.Broker};
 
-            services
-                .AddHealthChecksUI(setupSettings: setup => setup.SetEvaluationTimeInSeconds(60))
-                .AddInMemoryStorage();
+            if (settings?.SpendManagementReadModel is not null && settings.SpendManagementIdentity is not null)
+            {
+                services
+                    .AddHealthChecks()
+                    .AddKafka(configKafka, name: "Kafka")
+                    .AddUrlGroup(new Uri(settings.SpendManagementReadModel.Url.Replace("/api", UrlHealthCheck)), name: "SpendManagement.ReadModel")
+                    .AddUrlGroup(new Uri(settings.SpendManagementIdentity.Url + UrlHealthCheck), name: "SpendManagement.Identity");
+
+                services
+                    .AddHealthChecksUI(setupSettings: setup => setup.SetEvaluationTimeInSeconds(60))
+                    .AddInMemoryStorage();
+            }
 
             return services;
         }

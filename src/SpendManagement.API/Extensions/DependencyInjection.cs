@@ -19,24 +19,27 @@ namespace SpendManagement.API.Extensions
             return services;
         }
 
-        public static IServiceCollection AddAuthorization(this IServiceCollection services, string auth)
+        public static IServiceCollection AddAuthorization(this IServiceCollection services, string? auth)
         {
-            services.AddAuthentication(x =>
-             {
-                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-             }).AddJwtBearer(x =>
-             {
-                 x.RequireHttpsMetadata = false;
-                 x.SaveToken = true;
-                 x.TokenValidationParameters = new TokenValidationParameters
+            if (!string.IsNullOrEmpty(auth))
+            {
+                services.AddAuthentication(x =>
                  {
-                     ValidateIssuerSigningKey = true,
-                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(auth)),
-                     ValidateIssuer = false,
-                     ValidateAudience = false
-                 };
-             });
+                     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                     x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                 }).AddJwtBearer(x =>
+                 {
+                     x.RequireHttpsMetadata = false;
+                     x.SaveToken = true;
+                     x.TokenValidationParameters = new TokenValidationParameters
+                     {
+                         ValidateIssuerSigningKey = true,
+                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(auth)),
+                         ValidateIssuer = false,
+                         ValidateAudience = false
+                     };
+                 });
+            }
 
             return services;
         }
