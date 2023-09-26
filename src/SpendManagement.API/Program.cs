@@ -19,12 +19,12 @@ builder.Services.AddSingleton<ISettings>(applicationSettings);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services
-    .AddTracing()
-    .AddKafka(applicationSettings.KafkaSettings)
-    .AddAuthorization(applicationSettings.TokenAuth)
+    .AddTracing(applicationSettings?.TracingSettings)
+    .AddKafka(applicationSettings?.KafkaSettings)
+    .AddAuthorization(applicationSettings?.TokenAuth)
     .AddDependencyInjection()
     .AddValidators()
-    .AddHttpClients(applicationSettings.SpendManagementReadModel)
+    .AddHttpClients(applicationSettings?.SpendManagementReadModel)
     .AddServices()
     .AddHealthChecks(applicationSettings)
     .AddLoggingDependency()

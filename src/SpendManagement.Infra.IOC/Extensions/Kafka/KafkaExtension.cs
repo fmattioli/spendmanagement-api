@@ -17,7 +17,7 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
     {
         public static IApplicationBuilder ShowKafkaDashboard(this IApplicationBuilder app) => app.UseKafkaFlowDashboard();
 
-        public static IServiceCollection AddKafka(this IServiceCollection services, KafkaSettings kafkaSettings)
+        public static IServiceCollection AddKafka(this IServiceCollection services, KafkaSettings? kafkaSettings)
         {
             services.AddKafka(
                 k => k
@@ -35,9 +35,9 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
 
         private static IClusterConfigurationBuilder AddBrokers(
             this IClusterConfigurationBuilder builder,
-            KafkaSettings settings)
+            KafkaSettings? settings)
         {
-            if (settings.Sasl_Enabled)
+            if (settings?.Sasl_Enabled == true)
             {
                 builder
                     .WithBrokers(settings.Sasl_Brokers)
@@ -52,7 +52,7 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
             }
             else
             {
-                builder.WithBrokers(new[] { settings.Broker });
+                builder.WithBrokers(new[] { settings?.Broker });
             }
 
             return builder;
@@ -60,11 +60,11 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
 
         private static IClusterConfigurationBuilder AddProducers(
            this IClusterConfigurationBuilder builder,
-           KafkaSettings settings)
+           KafkaSettings? settings)
         {
             var producerConfig = new ProducerConfig
             {
-                MessageTimeoutMs = settings.MessageTimeoutMs,
+                MessageTimeoutMs = settings?.MessageTimeoutMs,
             };
 
             builder
