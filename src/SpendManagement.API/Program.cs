@@ -11,7 +11,12 @@ using SpendManagement.Infra.CrossCutting.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+builder.Configuration
+    .AddJsonFile("appsettings.json", true, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{enviroment}.json", true, reloadOnChange: true)
+    .AddEnvironmentVariables();
 
 var applicationSettings = builder.Configuration.GetSection("Settings").Get<Settings>();
 
