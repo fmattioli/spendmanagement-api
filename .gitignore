@@ -402,3 +402,6 @@ FodyWeavers.xsd
 # *.json
 
 # End of https://www.toptal.com/developers/gitignore/api/csharp
+
+#Environmnet
+*.env
