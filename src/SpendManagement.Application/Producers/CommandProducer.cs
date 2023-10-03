@@ -14,6 +14,7 @@ namespace SpendManagement.Application.Producers
         public async Task ProduceCommandAsync<TCommand>(TCommand command) where TCommand : ICommand
         {
             await _messageProducer.ProduceAsync(command.RoutingKey, command);
+
             logger.Information(
                     "Command produced with sucessfully.",
                     () => new

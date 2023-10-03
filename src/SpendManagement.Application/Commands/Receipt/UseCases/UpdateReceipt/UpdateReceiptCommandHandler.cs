@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Results;
 using MediatR;
-
+using Serilog;
 using SpendManagement.Application.Commands.Receipt.Services;
 using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
 using SpendManagement.Application.Extensions;
@@ -15,14 +15,17 @@ namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
         private readonly ICommandProducer _receiptProducer;
         private readonly IReceiptService _receiptService;
         private readonly ISpendManagementReadModelClient _spendManagementReadModelClient;
+        private readonly ILogger _logger;
 
         public UpdateReceiptCommandHandler(ICommandProducer receiptProducer,
             ISpendManagementReadModelClient spendManagementReadModelClient,
-            IReceiptService receiptService)
+            IReceiptService receiptService,
+            ILogger logger)
         {
             _receiptProducer = receiptProducer;
             _spendManagementReadModelClient = spendManagementReadModelClient;
             _receiptService = receiptService;
+            _logger = logger;
         }
 
         public async Task<Unit> Handle(UpdateReceiptCommand request, CancellationToken cancellationToken)
@@ -34,6 +37,13 @@ namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
             request.UpdateReceiptInputModel.ReceiptPatchDocument.ApplyTo(receipt, JsonPatchExtension.HandlePatchErrors(validationResult));
             if (!validationResult.IsValid)
             {
+                _logger.Error(
+                    "Invalid json provided.",
+                    () => new
+                    {
+                        validationResult.Errors
+                    });
+
                 throw new JsonPatchInvalidException(string.Join(",", validationResult.Errors));
             }
 
