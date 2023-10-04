@@ -15,13 +15,7 @@ namespace SpendManagement.Application.Producers
         {
             await _messageProducer.ProduceAsync(command.RoutingKey, command);
 
-            logger.Information(
-                    "Command produced with sucessfully.",
-                    () => new
-                    {
-                        command.RoutingKey,
-                        MessageBody = command
-                    });
+            logger.Information("Command produced with success. Command details: {@Command}", command);
         }
     }
 }

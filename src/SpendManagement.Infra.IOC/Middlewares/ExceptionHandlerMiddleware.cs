@@ -10,7 +10,7 @@ namespace SpendManagement.Infra.CrossCutting.Middlewares
     {
         private readonly ILogger _logger;
 
-        public ExceptionHandlerMiddleware(RequestDelegate next, ILogger logger) : base(next)
+        public ExceptionHandlerMiddleware(RequestDelegate next, ILogger logger) : base(next, logger)
         {
             _logger = logger;
         }
@@ -26,13 +26,7 @@ namespace SpendManagement.Infra.CrossCutting.Middlewares
                 _ => HttpStatusCode.InternalServerError,
             };
 
-            _logger.Error(
-                    "The following error occurred ",
-                    () => new
-                    {
-                        exception.Message,
-                        ExceptionError = exception
-                    });
+            _logger.Error(exception, "The following error occurred ");
 
             return (code, JsonConvert.SerializeObject(new
             {

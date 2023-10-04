@@ -7,12 +7,13 @@ namespace SpendManagement.Infra.CrossCutting.Middlewares
     public abstract class AbstractExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;
-
+        private readonly ILogger _logger;
         public abstract (HttpStatusCode code, string message) GetResponse(Exception exception);
 
-        protected AbstractExceptionHandlerMiddleware(RequestDelegate next)
+        protected AbstractExceptionHandlerMiddleware(RequestDelegate next, ILogger logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
@@ -24,7 +25,7 @@ namespace SpendManagement.Infra.CrossCutting.Middlewares
             catch (Exception exception)
             {
                 // log the error
-                Log.Error(exception, "error during executing", context.Request.Path.Value);
+                _logger.Error(exception, "error during executing", context.Request.Path.Value);
                 var response = context.Response;
                 response.ContentType = "application/json";
 
