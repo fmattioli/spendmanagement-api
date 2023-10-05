@@ -11,7 +11,7 @@
             }
             catch (Exception ex)
             {
-                throw new FluentValidation.ValidationException(ex.Message + @"\" +requestName);
+                throw new HttpRequestException(ex.Message + @"\" + requestName);
             }
         }
     }

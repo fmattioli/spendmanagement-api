@@ -20,11 +20,16 @@ builder.Configuration
 
 var applicationSettings = builder.Configuration.GetSection("Settings").Get<Settings>();
 
+builder.Logging
+    .ClearProviders()
+    .AddFilter("Microsoft", LogLevel.Critical);
+
 builder.Services.AddSingleton<ISettings>(applicationSettings);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services
     .AddTracing(applicationSettings?.TracingSettings)
+    .AddLoggingDependency()
     .AddKafka(applicationSettings?.KafkaSettings)
     .AddAuthorization(applicationSettings?.TokenAuth)
     .AddDependencyInjection()
@@ -32,7 +37,6 @@ builder.Services
     .AddHttpClients(applicationSettings?.SpendManagementReadModel)
     .AddServices()
     .AddHealthChecks(applicationSettings)
-    .AddLoggingDependency()
     .AddControllers()
     .AddNewtonsoftJson()
     .ConfigureApiBehaviorOptions(options =>

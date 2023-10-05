@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Serilog;
 using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
 using System.Net;
 
@@ -7,8 +8,11 @@ namespace SpendManagement.Infra.CrossCutting.Middlewares
 {
     public class ExceptionHandlerMiddleware : AbstractExceptionHandlerMiddleware
     {
-        public ExceptionHandlerMiddleware(RequestDelegate next) : base(next)
+        private readonly ILogger _logger;
+
+        public ExceptionHandlerMiddleware(RequestDelegate next, ILogger logger) : base(next, logger)
         {
+            _logger = logger;
         }
 
         public override (HttpStatusCode code, string message) GetResponse(Exception exception)
@@ -18,8 +22,12 @@ namespace SpendManagement.Infra.CrossCutting.Middlewares
                 NotFoundException => HttpStatusCode.NotFound,
                 JsonPatchInvalidException => HttpStatusCode.BadRequest,
                 UnauthorizedAccessException => HttpStatusCode.Unauthorized,
+                HttpRequestException => HttpStatusCode.InternalServerError,
+
                 _ => HttpStatusCode.InternalServerError,
             };
+
+            _logger.Error(exception, "The following error occurred ");
 
             return (code, JsonConvert.SerializeObject(new
             {

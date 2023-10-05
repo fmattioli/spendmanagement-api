@@ -1,7 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
-
-using Serilog;
 using SpendManagement.Application.Commands.Receipt.Services;
 using SpendManagement.Application.Mappers;
 using SpendManagement.Application.Producers;
@@ -12,11 +9,9 @@ namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
     {
         private readonly ICommandProducer _receiptProducer;
         private readonly IReceiptService _receiptService;
-        private readonly ILogger logger;
 
-        public AddReceiptCommandHandler(ILogger log, ICommandProducer receiptProducer, IReceiptService receiptService)
+        public AddReceiptCommandHandler(ICommandProducer receiptProducer, IReceiptService receiptService)
         {
-            logger = log;
             _receiptProducer = receiptProducer;
             _receiptService = receiptService;
         }
@@ -30,13 +25,6 @@ namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
                 );
 
             await _receiptProducer.ProduceCommandAsync(receiptCreateCommand);
-
-            logger.Information(
-                "Spent created with successfully.",
-                () => new
-                {
-                    receiptCreateCommand
-                });
 
             return receiptCreateCommand.Receipt.Id;
         }

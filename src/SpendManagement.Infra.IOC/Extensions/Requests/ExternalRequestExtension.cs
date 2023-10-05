@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SpendManagement.Client.Configuration;
-using SpendManagement.Client.SpendManagementReadModel.GetReceipts;
+using SpendManagement.Client.SpendManagementReadModel;
 using SpendManagement.Infra.CrossCutting.Conf;
 
 namespace SpendManagement.Infra.CrossCutting.Extensions.Requests

@@ -1,5 +1,7 @@
-﻿using SpendManagement.Application.Extensions;
-using SpendManagement.Client.SpendManagementReadModel.GetReceipts;
+﻿using Serilog;
+
+using SpendManagement.Application.Extensions;
+using SpendManagement.Client.SpendManagementReadModel;
 
 namespace SpendManagement.Application.Commands.Receipt.Services
 {

@@ -1,7 +1,10 @@
-﻿namespace SpendManagement.Application.Commands.Receipt.InputModels
+﻿using Newtonsoft.Json;
+
+namespace SpendManagement.Application.Commands.Receipt.InputModels
 {
     public record ReceiptItemInputModel
     {
+        [JsonIgnore]
         public Guid Id { get; set; }
         public Guid CategoryId { get; set; }
         public string ItemName { get; set; } = null!;

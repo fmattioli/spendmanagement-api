@@ -7,7 +7,6 @@ using SpendManagement.Application.Commands.Receipt.UseCases.DeleteReceipt;
 using Microsoft.AspNetCore.Authorization;
 using SpendManagement.Infra.CrossCutting.Extensions.Filters;
 using SpendManagement.Application.Claims;
-using Microsoft.AspNetCore.Authentication;
 
 namespace SpendManagement.API.Controllers
 {
