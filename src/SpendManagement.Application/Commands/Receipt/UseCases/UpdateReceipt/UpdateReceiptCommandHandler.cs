@@ -6,7 +6,7 @@ using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
 using SpendManagement.Application.Extensions;
 using SpendManagement.Application.Mappers;
 using SpendManagement.Application.Producers;
-using SpendManagement.Client.SpendManagementReadModel.GetReceipts;
+using SpendManagement.Client.SpendManagementReadModel;
 
 namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
 {
@@ -37,21 +37,16 @@ namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
             request.UpdateReceiptInputModel.ReceiptPatchDocument.ApplyTo(receipt, JsonPatchExtension.HandlePatchErrors(validationResult));
             if (!validationResult.IsValid)
             {
-                _logger.Error(
-                    "Invalid json provided.",
-                    () => new
-                    {
-                        validationResult.Errors
-                    });
+                _logger.Error("Invalid json provided.: {@Errors}", validationResult.Errors);
 
                 throw new JsonPatchInvalidException(string.Join(",", validationResult.Errors));
             }
 
             await Task.WhenAll(
-                receipt.ReceiptItems.Select(x => _receiptService.ValidateIfCategoriesExists(x.CategoryId))
-                );
+                receipt.ReceiptItems.Select(x => _receiptService.ValidateIfCategoriesExists(x.CategoryId)));
 
             await _receiptProducer.ProduceCommandAsync(receipt.ToCommand());
+
             return Unit.Value;
         }
     }

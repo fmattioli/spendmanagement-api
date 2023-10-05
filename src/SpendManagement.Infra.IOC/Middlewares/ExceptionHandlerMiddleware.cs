@@ -23,6 +23,7 @@ namespace SpendManagement.Infra.CrossCutting.Middlewares
                 JsonPatchInvalidException => HttpStatusCode.BadRequest,
                 UnauthorizedAccessException => HttpStatusCode.Unauthorized,
                 HttpRequestException => HttpStatusCode.InternalServerError,
+
                 _ => HttpStatusCode.InternalServerError,
             };
 

@@ -2,10 +2,10 @@
 using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
 using SpendManagement.Application.Extensions;
 using SpendManagement.Application.Producers;
-using SpendManagement.Client.SpendManagementReadModel.GetReceipts;
 using FluentValidation.Results;
 using SpendManagement.Application.Mappers;
 using Serilog;
+using SpendManagement.Client.SpendManagementReadModel;
 
 namespace SpendManagement.Application.Commands.Category.UseCases.UpdateCategory
 {
@@ -37,13 +37,7 @@ namespace SpendManagement.Application.Commands.Category.UseCases.UpdateCategory
 
             if (!validationResult.IsValid)
             {
-                _logger.Error(
-                    "Invalid json provided.",
-                    () => new
-                    {
-                        validationResult.Errors
-                    });
-
+                _logger.Error("Invalid json provided.: {@Errors}", validationResult.Errors);
                 throw new JsonPatchInvalidException(string.Join(",", validationResult.Errors));
             }
 

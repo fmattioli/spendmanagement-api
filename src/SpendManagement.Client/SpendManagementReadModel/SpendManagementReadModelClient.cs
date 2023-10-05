@@ -3,7 +3,7 @@ using SpendManagement.Client.Configuration;
 using Web.Contracts.Category;
 using Web.Contracts.Receipt;
 
-namespace SpendManagement.Client.SpendManagementReadModel.GetReceipts
+namespace SpendManagement.Client.SpendManagementReadModel
 {
     public class SpendManagementReadModelClient : BaseClient, ISpendManagementReadModelClient
     {
@@ -17,12 +17,7 @@ namespace SpendManagement.Client.SpendManagementReadModel.GetReceipts
         {
             var category = await GetByIdAsync<CategoryResponse>("getCategory", categoryId);
 
-            _logger.Information(
-                    "Successfully got Category",
-                    () => new
-                    {
-                        category
-                    });
+            _logger.Information("Successfully got Category: {@categoryId}", categoryId);
 
             return category;
         }
@@ -31,12 +26,7 @@ namespace SpendManagement.Client.SpendManagementReadModel.GetReceipts
         {
             var receipt = await GetByIdAsync<ReceiptResponse>("getReceipt", receiptId);
 
-            _logger.Information(
-                    "Successfully got Receipt",
-                    () => new
-                    {
-                        receipt
-                    });
+            _logger.Information("Successfully got receipt: {@receiptId}", receiptId);
 
             return receipt;
         }
