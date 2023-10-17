@@ -4,7 +4,7 @@ using SpendManagement.Application.Producers;
 
 namespace SpendManagement.Application.Commands.Category.UseCases.AddCategory
 {
-    public class AddCategoryCommandHandler : IRequestHandler<AddCategoryCommand, Guid>
+    public class AddCategoryCommandHandler : IRequestHandler<AddCategoryRequestCommand, Guid>
     {
         private readonly ICommandProducer _categoryProducer;
 
@@ -13,7 +13,7 @@ namespace SpendManagement.Application.Commands.Category.UseCases.AddCategory
             _categoryProducer = receiptProducer;
         }
 
-        public async Task<Guid> Handle(AddCategoryCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(AddCategoryRequestCommand request, CancellationToken cancellationToken)
         {
             var categoryCommand = request.AddCategoryInputModel.ToCreateCategoryCommand();
             await _categoryProducer.ProduceCommandAsync(categoryCommand);

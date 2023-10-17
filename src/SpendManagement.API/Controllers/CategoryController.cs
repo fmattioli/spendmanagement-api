@@ -37,7 +37,7 @@ namespace SpendManagement.API.Controllers
         [ClaimsAuthorize(ClaimTypes.Category, "Insert")]
         public async Task<IActionResult> AddCategory([FromBody] CategoryInputModel categoryInputModel, CancellationToken cancellationToken)
         {
-            var categoryId = await _mediator.Send(new AddCategoryCommand(categoryInputModel), cancellationToken);
+            var categoryId = await _mediator.Send(new AddCategoryRequestCommand(categoryInputModel), cancellationToken);
             return Created("/addCategory", categoryId);
         }
 
