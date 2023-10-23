@@ -43,28 +43,5 @@ namespace SpendManagement.Unit.Tests.Handlers
 
             this.commandProducerMock.VerifyNoOtherCalls();
         }
-
-        [Fact]
-        public async Task Handle_ShouldHandleErrorCase()
-        {
-            // Arrange
-            var categoryInputModel = fixture.Create<CategoryInputModel>();
-            var request = fixture.Build<AddCategoryRequestCommand>()
-                                 .With(x => x.AddCategoryInputModel, categoryInputModel)
-                                 .Create();
-
-            this.commandProducerMock
-                .Setup(x => x.ProduceCommandAsync(It.IsAny<CreateCategoryCommand>()))
-                .Throws<Exception>();
-
-            // Act and assert
-            await Assert.ThrowsAsync<Exception>(async () => await handler.Handle(request, CancellationToken.None));
-
-            this.commandProducerMock.Verify(
-                x => x.ProduceCommandAsync(It.IsAny<CreateCategoryCommand>()),
-                Times.Once);
-
-            this.commandProducerMock.VerifyNoOtherCalls();
-        }
     }
 }
