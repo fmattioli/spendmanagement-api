@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FluentValidation;
+
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Serilog;
 using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
@@ -20,7 +22,7 @@ namespace SpendManagement.Infra.CrossCutting.Middlewares
             var code = exception switch
             {
                 NotFoundException => HttpStatusCode.NotFound,
-                JsonPatchInvalidException => HttpStatusCode.BadRequest,
+                ValidationException => HttpStatusCode.BadRequest,
                 UnauthorizedAccessException => HttpStatusCode.Unauthorized,
                 HttpRequestException => HttpStatusCode.InternalServerError,
                 _ => HttpStatusCode.InternalServerError,

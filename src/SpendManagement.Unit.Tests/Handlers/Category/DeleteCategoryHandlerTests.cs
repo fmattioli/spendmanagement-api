@@ -3,7 +3,7 @@ using Moq;
 using SpendManagement.Application.Commands.Category.UseCases.DeleteCategory;
 using SpendManagement.Application.Producers;
 
-namespace SpendManagement.Unit.Tests.Handlers
+namespace SpendManagement.Unit.Tests.Handlers.Category
 {
     public class DeleteCategoryHandlerTests
     {
@@ -13,7 +13,7 @@ namespace SpendManagement.Unit.Tests.Handlers
 
         public DeleteCategoryHandlerTests()
         {
-            this.handler = new(this.commandProducerMock.Object);
+            handler = new(commandProducerMock.Object);
         }
 
         [Fact]
@@ -22,7 +22,7 @@ namespace SpendManagement.Unit.Tests.Handlers
             // Arrange
             var categoryId = fixture.Create<Guid>();
             var request = fixture
-                .Build<Application.Commands.Category.UseCases.DeleteCategory.DeleteCategoryCommand>()
+                .Build<DeleteCategoryCommand>()
                 .With(x => x.Id, categoryId)
                 .Create();
 
@@ -30,12 +30,12 @@ namespace SpendManagement.Unit.Tests.Handlers
             var result = await handler.Handle(request, CancellationToken.None);
 
             // Assert
-            this.commandProducerMock
+            commandProducerMock
                 .Verify(
                     x => x.ProduceCommandAsync(It.IsAny<Contracts.V1.Commands.CategoryCommands.DeleteCategoryCommand>()),
                     Times.Once);
 
-            this.commandProducerMock.VerifyNoOtherCalls();
+            commandProducerMock.VerifyNoOtherCalls();
         }
     }
 }
