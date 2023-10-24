@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
+using FluentValidation.Results;
 using Microsoft.Extensions.DependencyInjection;
 using SpendManagement.Application.Commands.Receipt.InputModels;
 using SpendManagement.Application.Commands.Receipt.Validations;
@@ -12,6 +13,7 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Validators
         {
             services.AddFluentValidationAutoValidation(x => x.DisableDataAnnotationsValidation = true);
             services.AddScoped<IValidator<ReceiptInputModel>, AddReceiptValidator>();
+            services.AddScoped<ValidationResult>();
             return services;
         }
     }

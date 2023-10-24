@@ -14,14 +14,17 @@ namespace SpendManagement.Application.Commands.Category.UseCases.UpdateCategory
         private readonly ICommandProducer _categoryProducer;
         private readonly ISpendManagementReadModelClient _spendManagementReadModelClient;
         private readonly ILogger _logger;
+        private readonly ValidationResult _validationResult;
 
         public UpdateCategoryCommandHandler(ICommandProducer receiptProducer,
             ISpendManagementReadModelClient spendManagementReadModelClient,
-            ILogger logger)
+            ILogger logger,
+            ValidationResult validationResult)
         {
             _categoryProducer = receiptProducer;
             _spendManagementReadModelClient = spendManagementReadModelClient;
             _logger = logger;
+            _validationResult = validationResult;
         }
 
         public async Task<Unit> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
@@ -29,16 +32,15 @@ namespace SpendManagement.Application.Commands.Category.UseCases.UpdateCategory
             var category = await _spendManagementReadModelClient
                 .GetCategoryAsync(request.UpdateCategoryInputModel.Id) ?? throw new NotFoundException("Any category was found");
 
-            var validationResult = new ValidationResult();
-
-            request.UpdateCategoryInputModel
+            request
+                .UpdateCategoryInputModel
                 .CategoryPatchDocument
-                .ApplyTo(category, JsonPatchExtension.HandlePatchErrors(validationResult));
+                .ApplyTo(category, JsonPatchExtension.HandlePatchErrors(_validationResult));
 
-            if (!validationResult.IsValid)
+            if (!_validationResult.IsValid)
             {
-                _logger.Error("Invalid json provided.: {@Errors}", validationResult.Errors);
-                throw new JsonPatchInvalidException(string.Join(",", validationResult.Errors));
+                _logger.Error("Invalid json provided.: {@Errors}", _validationResult.Errors);
+                throw new JsonPatchInvalidException(string.Join(",", _validationResult.Errors));
             }
 
             await _categoryProducer.ProduceCommandAsync(category.ToUpdateCategoryCommand());
