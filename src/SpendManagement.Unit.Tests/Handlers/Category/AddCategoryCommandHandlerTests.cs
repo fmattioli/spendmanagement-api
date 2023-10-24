@@ -5,7 +5,7 @@ using SpendManagement.Application.Commands.Category.UseCases.AddCategory;
 using SpendManagement.Application.Producers;
 using SpendManagement.Contracts.V1.Commands.CategoryCommands;
 
-namespace SpendManagement.Unit.Tests.Handlers
+namespace SpendManagement.Unit.Tests.Handlers.Category
 {
     public class AddCategoryCommandHandlerTests
     {
@@ -15,7 +15,7 @@ namespace SpendManagement.Unit.Tests.Handlers
 
         public AddCategoryCommandHandlerTests()
         {
-            this.handler = new(this.commandProducerMock.Object);
+            handler = new(commandProducerMock.Object);
         }
 
         [Fact]
@@ -36,12 +36,12 @@ namespace SpendManagement.Unit.Tests.Handlers
             // Assert
             Assert.Equal(request.AddCategoryInputModel.Id, result);
 
-            this.commandProducerMock
+            commandProducerMock
                 .Verify(
                     x => x.ProduceCommandAsync(It.IsAny<CreateCategoryCommand>()),
                     Times.Once);
 
-            this.commandProducerMock.VerifyNoOtherCalls();
+            commandProducerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -53,18 +53,18 @@ namespace SpendManagement.Unit.Tests.Handlers
                                  .With(x => x.AddCategoryInputModel, categoryInputModel)
                                  .Create();
 
-            this.commandProducerMock
+            commandProducerMock
                 .Setup(x => x.ProduceCommandAsync(It.IsAny<CreateCategoryCommand>()))
                 .Throws<Exception>();
 
             // Act and assert
             await Assert.ThrowsAsync<Exception>(async () => await handler.Handle(request, CancellationToken.None));
 
-            this.commandProducerMock.Verify(
+            commandProducerMock.Verify(
                 x => x.ProduceCommandAsync(It.IsAny<CreateCategoryCommand>()),
                 Times.Once);
 
-            this.commandProducerMock.VerifyNoOtherCalls();
+            commandProducerMock.VerifyNoOtherCalls();
         }
     }
 }

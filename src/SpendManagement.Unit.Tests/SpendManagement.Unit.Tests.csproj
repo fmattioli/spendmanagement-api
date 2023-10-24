@@ -27,4 +27,8 @@
     <ProjectReference Include="..\SpendManagement.Application\SpendManagement.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Handlers\Receipt\" />
+  </ItemGroup>
+
 </Project>

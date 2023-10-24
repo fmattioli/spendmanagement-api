@@ -11,7 +11,7 @@ using UpdateCategoryCommand = SpendManagement.Contracts.V1.Commands.CategoryComm
 using FluentValidation.Results;
 using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
 
-namespace SpendManagement.Unit.Tests.Handlers
+namespace SpendManagement.Unit.Tests.Handlers.Category
 {
     public class UpdateCategoryCommandHandlerTests
     {
@@ -23,7 +23,7 @@ namespace SpendManagement.Unit.Tests.Handlers
         private readonly Mock<ValidationResult> validationResult = new();
 
         public UpdateCategoryCommandHandlerTests() =>
-            this.handler = new(this.commandProducerMock.Object, spendManagementReadModelClientMock.Object, loggerMock.Object, validationResult.Object);
+            handler = new(commandProducerMock.Object, spendManagementReadModelClientMock.Object, loggerMock.Object, validationResult.Object);
 
         [Fact]
         public async Task Handle_ShouldProduceCategoryUpdateCommand()
@@ -43,27 +43,29 @@ namespace SpendManagement.Unit.Tests.Handlers
                 .Setup(x => x.GetCategoryAsync(It.IsAny<Guid>()))
                 .ReturnsAsync(categoryResponse);
 
-            //Act
-            await this.handler.Handle(categoryCommand, CancellationToken.None);
+            validationResult.Setup(x => x.IsValid).Returns(true);
 
-            //Arrange
-            this.spendManagementReadModelClientMock
+            //Act
+            await handler.Handle(categoryCommand, CancellationToken.None);
+
+            //Assert
+            spendManagementReadModelClientMock
                 .Verify(x => x.GetCategoryAsync(It.IsAny<Guid>()),
                 Times.Once());
 
-            this.commandProducerMock
+            commandProducerMock
                .Verify(
                    x => x.ProduceCommandAsync(It.IsAny<UpdateCategoryCommand>()),
                    Times.Once);
 
-            this.spendManagementReadModelClientMock.VerifyNoOtherCalls();
-            this.commandProducerMock.VerifyNoOtherCalls();
+            spendManagementReadModelClientMock.VerifyNoOtherCalls();
+            commandProducerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
         public async Task Handle_GivenAnInvalidJsonPatch_ShouldProduceAnException()
         {
-            //Arrangeaa
+            //Arrange
             var jsonPatchDocument = new JsonPatchDocument<CategoryResponse>();
 
             var categoryCommand = new UpdateCategoryCommandHandler(new UpdateCategoryInputModel
@@ -104,6 +106,8 @@ namespace SpendManagement.Unit.Tests.Handlers
             _ = spendManagementReadModelClientMock
                 .Setup(x => x.GetCategoryAsync(It.IsAny<Guid>()))
                 .ReturnsAsync(null as CategoryResponse);
+
+            validationResult.Setup(x => x.IsValid).Returns(true);
 
             //Act and assert
             await Assert.ThrowsAsync<NotFoundException>(async () => await handler.Handle(categoryCommand, CancellationToken.None));
