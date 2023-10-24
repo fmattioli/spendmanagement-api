@@ -43,10 +43,12 @@ namespace SpendManagement.Unit.Tests.Handlers
                 .Setup(x => x.GetCategoryAsync(It.IsAny<Guid>()))
                 .ReturnsAsync(categoryResponse);
 
+            this.validationResult.Setup(x => x.IsValid).Returns(true);
+
             //Act
             await this.handler.Handle(categoryCommand, CancellationToken.None);
 
-            //Arrange
+            //Assert
             this.spendManagementReadModelClientMock
                 .Verify(x => x.GetCategoryAsync(It.IsAny<Guid>()),
                 Times.Once());
@@ -63,7 +65,7 @@ namespace SpendManagement.Unit.Tests.Handlers
         [Fact]
         public async Task Handle_GivenAnInvalidJsonPatch_ShouldProduceAnException()
         {
-            //Arrangeaa
+            //Arrange
             var jsonPatchDocument = new JsonPatchDocument<CategoryResponse>();
 
             var categoryCommand = new UpdateCategoryCommandHandler(new UpdateCategoryInputModel
@@ -104,6 +106,8 @@ namespace SpendManagement.Unit.Tests.Handlers
             _ = spendManagementReadModelClientMock
                 .Setup(x => x.GetCategoryAsync(It.IsAny<Guid>()))
                 .ReturnsAsync(null as CategoryResponse);
+
+            this.validationResult.Setup(x => x.IsValid).Returns(true);
 
             //Act and assert
             await Assert.ThrowsAsync<NotFoundException>(async () => await handler.Handle(categoryCommand, CancellationToken.None));
