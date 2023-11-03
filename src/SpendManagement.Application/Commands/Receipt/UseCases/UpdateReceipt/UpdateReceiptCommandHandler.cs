@@ -1,6 +1,6 @@
-﻿using FluentValidation.Results;
+﻿using FluentValidation;
 using MediatR;
-using Serilog;
+using Microsoft.AspNetCore.JsonPatch;
 using SpendManagement.Application.Commands.Receipt.Services;
 using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
 using SpendManagement.Application.Extensions;
@@ -15,35 +15,30 @@ namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
         private readonly ICommandProducer _receiptProducer;
         private readonly IReceiptService _receiptService;
         private readonly ISpendManagementReadModelClient _spendManagementReadModelClient;
-        private readonly ILogger _logger;
+        private readonly IValidator<JsonPatchError> _validator;
 
         public UpdateReceiptCommandHandler(ICommandProducer receiptProducer,
             ISpendManagementReadModelClient spendManagementReadModelClient,
             IReceiptService receiptService,
-            ILogger logger)
+            IValidator<JsonPatchError> validator)
         {
             _receiptProducer = receiptProducer;
             _spendManagementReadModelClient = spendManagementReadModelClient;
             _receiptService = receiptService;
-            _logger = logger;
+            _validator = validator;
         }
 
         public async Task<Unit> Handle(UpdateReceiptCommand request, CancellationToken cancellationToken)
         {
             var receipt = await _spendManagementReadModelClient.GetReceiptAsync(request.UpdateReceiptInputModel.Id) ?? throw new NotFoundException("Any recept was found");
 
-            var validationResult = new ValidationResult();
-
-            request.UpdateReceiptInputModel.ReceiptPatchDocument.ApplyTo(receipt, JsonPatchExtension.HandlePatchErrors(validationResult));
-            if (!validationResult.IsValid)
-            {
-                _logger.Error("Invalid json provided.: {@Errors}", validationResult.Errors);
-
-                throw new JsonPatchInvalidException(string.Join(",", validationResult.Errors));
-            }
+            request
+                .UpdateReceiptInputModel
+            .ReceiptPatchDocument
+                .ApplyTo(receipt, JsonPatchExtension.HandlePatchErrors(_validator));
 
             await Task.WhenAll(
-                receipt.ReceiptItems.Select(x => _receiptService.ValidateIfCategoriesExists(x.CategoryId)));
+                receipt.ReceiptItems.Select(x => _receiptService.ValidateIfCategoryExistAsync(x.CategoryId)));
 
             await _receiptProducer.ProduceCommandAsync(receipt.ToCommand());
 

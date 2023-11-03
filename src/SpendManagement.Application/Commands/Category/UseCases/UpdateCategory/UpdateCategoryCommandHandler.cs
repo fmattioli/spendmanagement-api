@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
-using SpendManagement.Application.Extensions;
 using SpendManagement.Application.Producers;
-using FluentValidation.Results;
 using SpendManagement.Application.Mappers;
-using Serilog;
 using SpendManagement.Client.SpendManagementReadModel;
+using SpendManagement.Application.Extensions;
+using FluentValidation;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace SpendManagement.Application.Commands.Category.UseCases.UpdateCategory
 {
@@ -13,35 +13,27 @@ namespace SpendManagement.Application.Commands.Category.UseCases.UpdateCategory
     {
         private readonly ICommandProducer _categoryProducer;
         private readonly ISpendManagementReadModelClient _spendManagementReadModelClient;
-        private readonly ILogger _logger;
-        private readonly ValidationResult _validationResult;
+        private readonly IValidator<JsonPatchError> _validator;
 
         public UpdateCategoryCommandHandler(ICommandProducer receiptProducer,
             ISpendManagementReadModelClient spendManagementReadModelClient,
-            ILogger logger,
-            ValidationResult validationResult)
+            IValidator<JsonPatchError> validator)
         {
             _categoryProducer = receiptProducer;
             _spendManagementReadModelClient = spendManagementReadModelClient;
-            _logger = logger;
-            _validationResult = validationResult;
+            _validator = validator;
         }
 
         public async Task<Unit> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
         {
-            var category = await _spendManagementReadModelClient
+            var category = await
+                _spendManagementReadModelClient
                 .GetCategoryAsync(request.UpdateCategoryInputModel.Id) ?? throw new NotFoundException("Any category was found");
 
             request
                 .UpdateCategoryInputModel
                 .CategoryPatchDocument
-                .ApplyTo(category, JsonPatchExtension.HandlePatchErrors(_validationResult));
-
-            if (!_validationResult.IsValid)
-            {
-                _logger.Error("Invalid json provided.: {@Errors}", _validationResult.Errors);
-                throw new JsonPatchInvalidException(string.Join(",", _validationResult.Errors));
-            }
+                .ApplyTo(category, JsonPatchExtension.HandlePatchErrors(_validator));
 
             await _categoryProducer.ProduceCommandAsync(category.ToUpdateCategoryCommand());
             return Unit.Value;

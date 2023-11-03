@@ -1,17 +1,13 @@
-﻿using FluentValidation.Results;
+﻿using FluentValidation;
 using Microsoft.AspNetCore.JsonPatch;
 
 namespace SpendManagement.Application.Extensions
 {
     public static class JsonPatchExtension
     {
-        public static Action<JsonPatchError> HandlePatchErrors(ValidationResult validationResult)
+        public static Action<JsonPatchError> HandlePatchErrors(IValidator<JsonPatchError> validationResult)
         {
-            return error => validationResult.Errors.Add(
-                new ValidationFailure(error.Operation.path, error.ErrorMessage)
-                {
-                    ErrorCode = "104"
-                });
+            return error => validationResult.ValidateAndThrow(error);
         }
     }
 }

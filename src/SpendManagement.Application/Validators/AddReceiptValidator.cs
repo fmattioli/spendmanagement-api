@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using SpendManagement.Application.Commands.Receipt.InputModels;
 
-namespace SpendManagement.Application.Commands.Receipt.Validations
+namespace SpendManagement.Application.Validators
 {
     public class AddReceiptValidator : AbstractValidator<ReceiptInputModel>
     {
@@ -10,16 +10,15 @@ namespace SpendManagement.Application.Commands.Receipt.Validations
             RuleFor(x => x.EstablishmentName)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("Receipt name cannot be null");
+                .WithMessage(ValidationsErrorsMessages.EstablishmentNameError);
 
             RuleFor(x => x.ReceiptDate)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage("ReceiptDate cannot be null");
+                .Must(x => x != DateTime.MinValue)
+                .WithMessage(ValidationsErrorsMessages.ReceiptDateMinValueError);
 
             RuleFor(x => x.ReceiptItems)
-                .NotNull()
-                .WithMessage("Receipt items cannot be null");
+                .Must(x => x?.Count() >= 1)
+                .WithMessage(ValidationsErrorsMessages.ReceiptItemsError);
 
             RuleForEach(x => x.ReceiptItems).SetValidator(new ReceiptItemsValidator());
         }

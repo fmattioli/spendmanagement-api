@@ -1,6 +1,4 @@
-﻿using Serilog;
-
-using SpendManagement.Application.Extensions;
+﻿using SpendManagement.Application.Extensions;
 using SpendManagement.Client.SpendManagementReadModel;
 
 namespace SpendManagement.Application.Commands.Receipt.Services
@@ -14,7 +12,7 @@ namespace SpendManagement.Application.Commands.Receipt.Services
             _spendManagementReadModelClient = spendManagementReadModelClient;
         }
 
-        public async Task ValidateIfCategoriesExists(Guid categoryId)
+        public async Task ValidateIfCategoryExistAsync(Guid categoryId)
         {
             await _spendManagementReadModelClient.GetCategoryAsync(categoryId).HandleExceptions("GetCategory");
         }
