@@ -12,8 +12,8 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Validators
     {
         public static IServiceCollection AddValidators(this IServiceCollection services)
         {
-            services.AddScoped<IValidator<JsonPatchError>, JsonPatchValidator>();
             services.AddFluentValidationAutoValidation(x => x.DisableDataAnnotationsValidation = true);
+            services.AddScoped<IValidator<JsonPatchError>, JsonPatchValidator>();
             services.AddScoped<IValidator<ReceiptInputModel>, AddReceiptValidator>();
             return services;
         }

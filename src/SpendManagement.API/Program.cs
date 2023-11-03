@@ -34,11 +34,11 @@ builder.Services
     .AddKafka(applicationSettings?.KafkaSettings)
     .AddAuthorization(applicationSettings?.TokenAuth)
     .AddDependencyInjection()
-    .AddValidators()
     .AddHttpClients(applicationSettings?.SpendManagementReadModel)
     .AddServices()
     .AddHealthChecks(applicationSettings)
-    .AddControllers()
+    .AddValidators()
+    .AddControllers(options => options.Filters.Add(typeof(CustomValidationAttribute)))
     .AddNewtonsoftJson()
     .ConfigureApiBehaviorOptions(options =>
     {

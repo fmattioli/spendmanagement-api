@@ -19,7 +19,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Category
         }
 
         [Fact]
-        public async Task Handle_ShouldProduceCategoryCommandAndReturnCategoryId()
+        public async Task Handle_ShouldProduceCategoryCommand()
         {
             // Arrange
             var categoryInputModel = fixture

@@ -2,6 +2,6 @@
 {
     public interface IReceiptService
     {
-        Task ValidateIfCategoriesExists(Guid categoryId);
+        Task ValidateIfCategoryExistAsync(Guid categoryId);
     }
 }

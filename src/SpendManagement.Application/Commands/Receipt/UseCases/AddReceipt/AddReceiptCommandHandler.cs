@@ -18,10 +18,10 @@ namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
 
         public async Task<Guid> Handle(AddReceiptCommand request, CancellationToken cancellationToken)
         {
-            var receiptCreateCommand = request.AddSpentInputModel.ToCommand();
+            var receiptCreateCommand = request.Receipt.ToCommand();
 
             await Task.WhenAll(
-                request.AddSpentInputModel.ReceiptItems.Select(x => _receiptService.ValidateIfCategoriesExists(x.CategoryId))
+                request.Receipt.ReceiptItems.Select(x => _receiptService.ValidateIfCategoryExistAsync(x.CategoryId))
                 );
 
             await _receiptProducer.ProduceCommandAsync(receiptCreateCommand);

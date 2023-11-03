@@ -38,7 +38,7 @@ namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
                 .ApplyTo(receipt, JsonPatchExtension.HandlePatchErrors(_validator));
 
             await Task.WhenAll(
-                receipt.ReceiptItems.Select(x => _receiptService.ValidateIfCategoriesExists(x.CategoryId)));
+                receipt.ReceiptItems.Select(x => _receiptService.ValidateIfCategoryExistAsync(x.CategoryId)));
 
             await _receiptProducer.ProduceCommandAsync(receipt.ToCommand());
 
