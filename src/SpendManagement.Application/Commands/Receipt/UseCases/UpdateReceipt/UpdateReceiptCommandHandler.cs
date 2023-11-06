@@ -34,7 +34,7 @@ namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
 
             request
                 .UpdateReceiptInputModel
-            .ReceiptPatchDocument
+                .ReceiptPatchDocument
                 .ApplyTo(receipt, JsonPatchExtension.HandlePatchErrors(_validator));
 
             await Task.WhenAll(

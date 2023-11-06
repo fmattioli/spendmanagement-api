@@ -1,30 +1,31 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using Moq;
-using SpendManagement.Application.Commands.Category.UseCases.DeleteCategory;
+using SpendManagement.Application.Commands.Receipt.UseCases.DeleteReceipt;
 using SpendManagement.Application.Producers;
 
-namespace SpendManagement.Unit.Tests.Handlers.Category
+namespace SpendManagement.Unit.Tests.Handlers.Receipt
 {
-    public class DeleteCategoryHandlerTests
+    public class DeleteReceiptCommandHandlerTests
     {
-        private readonly DeleteCategoryCommandHandler handler;
-        private readonly Fixture fixture = new();
+        private readonly DeleteReceiptCommandHandler handler;
         private readonly Mock<ICommandProducer> commandProducerMock = new();
+        private readonly Fixture fixture = new();
 
-        public DeleteCategoryHandlerTests()
+        public DeleteReceiptCommandHandlerTests()
         {
             handler = new(commandProducerMock.Object);
         }
 
         [Fact]
-        public async Task Handle_ShouldProduceCategoryDeleteCommand()
+        public async Task Handle_ShouldProduceCategoryCommand()
         {
             // Arrange
-            var categoryId = fixture.Create<Guid>();
+            var receiptId = fixture.Create<Guid>();
+
             var request = fixture
-                .Build<DeleteCategoryCommand>()
-                .With(x => x.Id, categoryId)
+                .Build<DeleteReceiptCommand>()
+                .With(x => x.Id, receiptId)
                 .Create();
 
             // Act
@@ -33,7 +34,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Category
             // Assert
             commandProducerMock
                 .Verify(
-                    x => x.ProduceCommandAsync(It.IsAny<Contracts.V1.Commands.CategoryCommands.DeleteCategoryCommand>()),
+                    x => x.ProduceCommandAsync(It.IsAny<SpendManagement.Contracts.V1.Commands.ReceiptCommands.DeleteReceiptCommand>()),
                     Times.Once);
 
             commandProducerMock.VerifyNoOtherCalls();
@@ -43,14 +44,15 @@ namespace SpendManagement.Unit.Tests.Handlers.Category
         public async Task Handle_AnExeptionShoudOccur()
         {
             // Arrange
-            var categoryId = fixture.Create<Guid>();
+            var receiptId = fixture.Create<Guid>();
+
             var request = fixture
-                .Build<DeleteCategoryCommand>()
-                .With(x => x.Id, categoryId)
+                .Build<DeleteReceiptCommand>()
+                .With(x => x.Id, receiptId)
                 .Create();
 
             commandProducerMock
-                .Setup(x => x.ProduceCommandAsync(It.IsAny<Contracts.V1.Commands.CategoryCommands.DeleteCategoryCommand>()))
+                .Setup(x => x.ProduceCommandAsync(It.IsAny<Contracts.V1.Commands.ReceiptCommands.DeleteReceiptCommand>()))
                 .Throws<Exception>();
 
             // Act
@@ -61,7 +63,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Category
 
             commandProducerMock
                 .Verify(
-                    x => x.ProduceCommandAsync(It.IsAny<Contracts.V1.Commands.CategoryCommands.DeleteCategoryCommand>()),
+                    x => x.ProduceCommandAsync(It.IsAny<Contracts.V1.Commands.ReceiptCommands.DeleteReceiptCommand>()),
                     Times.Once);
 
             commandProducerMock.VerifyNoOtherCalls();

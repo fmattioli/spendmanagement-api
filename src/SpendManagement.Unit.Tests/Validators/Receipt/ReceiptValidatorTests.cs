@@ -2,7 +2,6 @@
 using SpendManagement.Application.Validators;
 using SpendManagement.Application.Commands.Receipt.InputModels;
 using FluentAssertions;
-using System.Linq;
 
 namespace SpendManagement.Unit.Tests.Validators.Receipt
 {
@@ -112,7 +111,95 @@ namespace SpendManagement.Unit.Tests.Validators.Receipt
             var result = this.receiptValidator.Validate(receiptModel);
 
             //Act
-            Assert.True(result.IsValid);
+            result.IsValid.Should().Be(true);
+        }
+
+        [Fact]
+        public void OnGivenAValidReceipt_WithOutReceiptItemName_Should_Not_BeValidated()
+        {
+            //Arrange
+            var receiptItemsModel = fixture
+                .Build<ReceiptItemInputModel>()
+                .Without(x => x.ItemName)
+                .CreateMany();
+
+            var receiptModel = fixture
+                .Build<ReceiptInputModel>()
+                .With(x => x.ReceiptItems, receiptItemsModel)
+                .Create();
+
+            //Act
+            var result = this.receiptValidator.Validate(receiptModel);
+
+            //Act
+            result.IsValid.Should().Be(false);
+            result.Errors.Should().Contain(e => e.ErrorMessage == ValidationsErrorsMessages.ReceiptItemsItemName);
+        }
+
+        [Fact]
+        public void OnGivenAValidReceipt_WithOutReceiptItemPrice_Should_Not_BeValidated()
+        {
+            //Arrange
+            var receiptItemsModel = fixture
+                .Build<ReceiptItemInputModel>()
+                .Without(x => x.ItemPrice)
+                .CreateMany();
+
+            var receiptModel = fixture
+                .Build<ReceiptInputModel>()
+                .With(x => x.ReceiptItems, receiptItemsModel)
+                .Create();
+
+            //Act
+            var result = this.receiptValidator.Validate(receiptModel);
+
+            //Act
+            result.IsValid.Should().Be(false);
+            result.Errors.Should().Contain(e => e.ErrorMessage == ValidationsErrorsMessages.ReceiptItemsItemPrice);
+        }
+
+        [Fact]
+        public void OnGivenAValidReceipt_WithOutReceiptItemQuantity_Should_Not_BeValidated()
+        {
+            //Arrange
+            var receiptItemsModel = fixture
+                .Build<ReceiptItemInputModel>()
+                .Without(x => x.Quantity)
+                .CreateMany();
+
+            var receiptModel = fixture
+                .Build<ReceiptInputModel>()
+                .With(x => x.ReceiptItems, receiptItemsModel)
+                .Create();
+
+            //Act
+            var result = this.receiptValidator.Validate(receiptModel);
+
+            //Act
+            result.IsValid.Should().Be(false);
+            result.Errors.Should().Contain(e => e.ErrorMessage == ValidationsErrorsMessages.ReceiptItemsItemQuantity);
+        }
+
+        [Fact]
+        public void OnGivenAValidReceipt_WithOutReceiptItemCategoryId_Should_Not_BeValidated()
+        {
+            //Arrange
+            var receiptItemsModel = fixture
+                .Build<ReceiptItemInputModel>()
+                .Without(x => x.CategoryId)
+                .CreateMany();
+
+            var receiptModel = fixture
+                .Build<ReceiptInputModel>()
+                .With(x => x.ReceiptItems, receiptItemsModel)
+                .Create();
+
+            //Act
+            var result = this.receiptValidator.Validate(receiptModel);
+
+            //Act
+            result.IsValid.Should().Be(false);
+            result.Errors.Should().Contain(e => e.ErrorMessage == ValidationsErrorsMessages.ReceiptItemsCategoryId);
         }
     }
 }
