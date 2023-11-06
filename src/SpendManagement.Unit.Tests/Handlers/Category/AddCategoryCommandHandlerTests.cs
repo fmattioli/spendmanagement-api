@@ -4,6 +4,7 @@ using SpendManagement.Application.Commands.Category.InputModels;
 using SpendManagement.Application.Commands.Category.UseCases.AddCategory;
 using SpendManagement.Application.Producers;
 using SpendManagement.Contracts.V1.Commands.CategoryCommands;
+using FluentAssertions;
 
 namespace SpendManagement.Unit.Tests.Handlers.Category
 {
@@ -34,7 +35,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Category
             var result = await handler.Handle(request, CancellationToken.None);
 
             // Assert
-            Assert.Equal(request.AddCategoryInputModel.Id, result);
+            request.AddCategoryInputModel.Id.Should().Be(result);
 
             commandProducerMock
                 .Verify(
@@ -45,7 +46,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Category
         }
 
         [Fact]
-        public async Task Handle_ShouldHandleErrorCase()
+        public async Task HandleShouldHandleError()
         {
             // Arrange
             var categoryInputModel = fixture.Create<CategoryInputModel>();
@@ -58,7 +59,9 @@ namespace SpendManagement.Unit.Tests.Handlers.Category
                 .Throws<Exception>();
 
             // Act and assert
-            await Assert.ThrowsAsync<Exception>(async () => await handler.Handle(request, CancellationToken.None));
+            Func<Task> act = async () => await handler.Handle(request, CancellationToken.None);
+
+            await act.Should().ThrowAsync<Exception>();
 
             commandProducerMock.Verify(
                 x => x.ProduceCommandAsync(It.IsAny<CreateCategoryCommand>()),

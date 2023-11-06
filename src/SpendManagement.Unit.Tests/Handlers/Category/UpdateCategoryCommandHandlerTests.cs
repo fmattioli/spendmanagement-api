@@ -9,6 +9,7 @@ using UpdateCategoryCommandHandler = SpendManagement.Application.Commands.Catego
 using UpdateCategoryCommand = SpendManagement.Contracts.V1.Commands.CategoryCommands.UpdateCategoryCommand;
 using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
 using FluentValidation;
+using FluentAssertions;
 
 namespace SpendManagement.Unit.Tests.Handlers.Category
 {
@@ -59,7 +60,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Category
         }
 
         [Fact]
-        public async Task Handle_ShouldProduceExceoption_CategoryUpdateCommand()
+        public async Task Handle_WhenCategoryWasNotFound_ShouldProduceNotFoundException_CategoryUpdateCommand()
         {
             //Arrange
             var jsonPatchDocument = new JsonPatchDocument<CategoryResponse>();
@@ -72,12 +73,15 @@ namespace SpendManagement.Unit.Tests.Handlers.Category
 
             var categoryResponse = fixture.Create<CategoryResponse>();
 
-            _ = spendManagementReadModelClientMock
+            spendManagementReadModelClientMock
                 .Setup(x => x.GetCategoryAsync(It.IsAny<Guid>()))
                 .ReturnsAsync(null as CategoryResponse);
 
-            //Act and assert
-            await Assert.ThrowsAsync<NotFoundException>(async () => await handler.Handle(categoryCommand, CancellationToken.None));
+            //Act
+            Func<Task> act = async () => await handler.Handle(categoryCommand, CancellationToken.None);
+
+            //Assert
+            await act.Should().ThrowAsync<NotFoundException>();
         }
     }
 }

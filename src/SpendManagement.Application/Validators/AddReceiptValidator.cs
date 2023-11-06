@@ -31,18 +31,18 @@ namespace SpendManagement.Application.Validators
             RuleFor(x => x.ItemName)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("The receipt item name  cannot be null or empty");
+                .WithMessage(ValidationsErrorsMessages.ReceiptItemsItemName);
 
             RuleFor(x => x.ItemPrice).Must(x => x > 0)
-                .WithMessage("Please inform at least one quantity. ");
+                .WithMessage(ValidationsErrorsMessages.ReceiptItemsItemPrice);
 
             RuleFor(x => x.Quantity).Must(x => x > 0)
-                .WithMessage("Please inform a valid price.");
+                .WithMessage(ValidationsErrorsMessages.ReceiptItemsItemQuantity);
 
             RuleFor(x => x.CategoryId)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("Please inform a valid category. ");
+                .WithMessage(ValidationsErrorsMessages.ReceiptItemsCategoryId);
         }
     }
 }

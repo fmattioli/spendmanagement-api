@@ -1,4 +1,6 @@
 ﻿using AutoFixture;
+using FluentAssertions;
+
 using Moq;
 using SpendManagement.Application.Commands.Receipt.InputModels;
 using SpendManagement.Application.Commands.Receipt.Services;
@@ -50,7 +52,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
         }
 
         [Fact]
-        public async Task Handle_ShouldHandleErrorCase()
+        public async Task HandleShouldHandleError()
         {
             // Arrange
             var receiptInputModel = fixture.Create<ReceiptInputModel>();
@@ -61,9 +63,11 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
                 .Setup(x => x.ProduceCommandAsync(It.IsAny<CreateReceiptCommand>()))
                 .Throws<Exception>();
 
-            // Act and assert
-            await Assert.ThrowsAsync<Exception>(async () => await handler.Handle(request, CancellationToken.None));
+            // Act
+            Func<Task> act = async () => await handler.Handle(request, CancellationToken.None);
+            await act.Should().ThrowAsync<Exception>();
 
+            //Assert
             commandProducerMock.Verify(
                 x => x.ProduceCommandAsync(It.IsAny<CreateReceiptCommand>()),
                 Times.Once);
