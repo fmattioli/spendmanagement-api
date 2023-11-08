@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Serilog;

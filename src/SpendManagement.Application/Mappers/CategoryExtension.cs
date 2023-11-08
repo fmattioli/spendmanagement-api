@@ -12,12 +12,12 @@ namespace SpendManagement.Application.Mappers
             var categoryId = categoryInputModel.Id == Guid.Empty ? Guid.NewGuid() : categoryInputModel.Id;
             var category = new Category(categoryId, categoryInputModel.Name);
 
-            return new CreateCategoryCommand(category.Id.ToString(), category);
+            return new CreateCategoryCommand(category);
         }
 
         public static DeleteCategoryCommand ToCommand(this Commands.Category.UseCases.DeleteCategory.DeleteCategoryCommand deleteCategoryCommand)
         {
-            return new DeleteCategoryCommand(deleteCategoryCommand.Id.ToString(), deleteCategoryCommand.Id);
+            return new DeleteCategoryCommand(deleteCategoryCommand.Id);
         }
 
         public static UpdateCategoryCommand ToUpdateCategoryCommand(this CategoryResponse categoryInputModel)
@@ -25,7 +25,7 @@ namespace SpendManagement.Application.Mappers
             var categoryId = categoryInputModel.Id == Guid.Empty ? Guid.NewGuid() : categoryInputModel.Id;
             var category = new Category(categoryId, categoryInputModel.Name ?? "");
 
-            return new UpdateCategoryCommand(categoryId.ToString(), category);
+            return new UpdateCategoryCommand(category);
         }
     }
 }
