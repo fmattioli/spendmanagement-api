@@ -17,7 +17,7 @@ namespace SpendManagement.Unit.Tests.Validators.Receipt
             receiptItemsValidator = new ReceiptItemsValidator();
         }
 
-        private static TheoryData<DateTime?> ReceiptDates()
+        public static TheoryData<DateTime?> ReceiptDates()
         {
             return new TheoryData<DateTime?>
             {
@@ -26,7 +26,7 @@ namespace SpendManagement.Unit.Tests.Validators.Receipt
             };
         }
 
-        private static TheoryData<IEnumerable<ReceiptItemInputModel?>> ReceiptItems()
+        public static TheoryData<IEnumerable<ReceiptItemInputModel?>> ReceiptItems()
         {
             return new TheoryData<IEnumerable<ReceiptItemInputModel?>>
             {

@@ -24,7 +24,7 @@ namespace SpendManagement.Application.Mappers
                                             x.ItemPrice,
                                             x.Observation));
 
-            return new CreateReceiptCommand(receipt.Id.ToString(), receipt, receiptItems);
+            return new CreateReceiptCommand(receipt, receiptItems);
         }
 
         public static UpdateReceiptCommand ToCommand(this ReceiptResponse receiptResponse)
@@ -32,12 +32,12 @@ namespace SpendManagement.Application.Mappers
             var receipt = new Receipt(receiptResponse.Id, receiptResponse.EstablishmentName, receiptResponse.ReceiptDate);
             var receptItems = receiptResponse.ReceiptItems.Select(x => new ReceiptItem(x.Id, x.ItemName, Guid.Empty, x.Quantity, x.ItemPrice, x.Observation));
 
-            return new UpdateReceiptCommand(receipt.Id.ToString(), receipt, receptItems);
+            return new UpdateReceiptCommand(receipt, receptItems);
         }
 
         public static DeleteReceiptCommand ToCommand(this Commands.Receipt.UseCases.DeleteReceipt.DeleteReceiptCommand deleteReceiptCommand)
         {
-            return new DeleteReceiptCommand(deleteReceiptCommand.Id.ToString(), deleteReceiptCommand.Id);
+            return new DeleteReceiptCommand(deleteReceiptCommand.Id);
         }
     }
 }
