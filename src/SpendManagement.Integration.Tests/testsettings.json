@@ -1,0 +1,23 @@
+{
+  "JwtOptions": {
+    "Issuer": "http://localhost",
+    "Audience": "Audience",
+    "SecurityKey": "CF6C364AD6CB49EA9C90CB1EF48B6C64D0D63DF411E34734826F94AA800AE344",
+    "AccessTokenExpiration": 3600,
+    "RefreshTokenExpiration": 10800
+  },
+  "MongoSettings": {
+    "Database": "spendmanagement",
+    "ConnectionString": "mongodb://root:root@localhost:27017/?retryWrites=true&w=majority"
+  },
+  "Kafka": {
+    "Brokers": [ "localhost:9092" ],
+    "Environment": "local",
+    "InitializationDelay": 0,
+    "Batch": {
+      "WorkerCount": 1,
+      "BufferSize": 1,
+      "MessageTimeoutSec": 1
+    }
+  }
+}
