@@ -68,7 +68,6 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
             };
 
             builder
-                .CreateTopicIfNotExists(KafkaTopics.Commands.ReceiptCommandTopicName, 2, 1)
                 .AddProducer<ICommand>(
                     p => p
                         .DefaultTopic(KafkaTopics.Commands.ReceiptCommandTopicName)

@@ -1,5 +1,7 @@
 ﻿using AutoFixture;
+using FluentAssertions;
 using SpendManagement.Application.Commands.Receipt.InputModels;
+using SpendManagement.Contracts.V1.Commands.ReceiptCommands;
 using SpendManagement.Integration.Tests.Fixtures;
 
 namespace SpendManagement.Integration.Tests.Tests
@@ -17,35 +19,73 @@ namespace SpendManagement.Integration.Tests.Tests
             this.mongoDbFixture = mongoDbFixture;
         }
 
-        [Fact]
-        public async Task OnAddAReceipt_ShouldReturnAValidGuid()
+        [Fact(DisplayName = "On creating a valid receipt with valid category, a Kafka command should be produced.")]
+        public async Task OnGivenAValidReceipt_ShouldBeProducedACreateReceiptCommand()
         {
             //Arrange
-            var categoryId = fixture.Create<Guid>();
-
             var receipItems = fixture
                 .Build<ReceiptItemInputModel>()
-                .With(x => x.CategoryId, categoryId)
-                .CreateMany(1);
+                .CreateMany();
 
             var receipt = fixture
                 .Build<ReceiptInputModel>()
                 .With(x => x.ReceiptItems, receipItems)
                 .Create();
 
-            var category = fixture
-                .Build<Category>()
-                .With(x => x.Id, categoryId)
-                .Create();
+            var categories = receipItems.Select(x => new Category
+            {
+                CreatedDate = DateTime.UtcNow,
+                Id = x.CategoryId,
+                Name = fixture.Create<string>()
+            });
 
-            await this.mongoDbFixture.InsertCategory(category);
+            await this.mongoDbFixture.InsertCategory(categories);
 
             //Act
             var response = await PostAsync("/addReceipt", receipt);
 
-            ////Assert
-            //var groupEvent = this.kafkaFixture.Consume<ICommand>(
-            //    (d, _) => d.RoutingKey == receipt.Id.ToString());
+            //Assert
+            response.Should().BeSuccessful();
+
+            var receiptCommand = this.kafkaFixture.Consume<CreateReceiptCommand>(
+            (command, _) =>
+                command.Receipt.Id == receipt.Id &&
+                command.Receipt.EstablishmentName == receipt.EstablishmentName &&
+                command.RoutingKey == receipt.Id.ToString());
+
+            receiptCommand.Should().NotBeNull();
+            receiptCommand.ReceiptItems.Should().HaveCount(receipItems.Count());
+            receiptCommand.Receipt.Should().BeEquivalentTo(receipt, options
+                => options
+                    .Excluding(x => x.ReceiptItems));
+            receiptCommand.ReceiptItems.Should().BeEquivalentTo(receipItems);
+        }
+
+        [Fact(DisplayName = "On creating a receipt and a category does not exists, an error 404 should be produced.")]
+        public async Task OnGivenAValidReceiptWithAnInvalidCategoryId_AndAnErrorShouldOccur()
+        {
+            //Arrange
+            var receipItems = fixture
+                .Build<ReceiptItemInputModel>()
+                .CreateMany();
+
+            var receipt = fixture
+                .Build<ReceiptInputModel>()
+                .With(x => x.ReceiptItems, receipItems)
+                .Create();
+
+            var categories = receipItems.Select(x => new Category
+            {
+                CreatedDate = DateTime.UtcNow,
+                Id = x.CategoryId,
+                Name = fixture.Create<string>()
+            });
+
+            //Act
+            var response = await PostAsync("/addReceipt", receipt);
+
+            //Assert
+            response.Should().HaveClientError();
         }
     }
 }

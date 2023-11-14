@@ -15,23 +15,26 @@ namespace SpendManagement.Integration.Tests.Fixtures
         public KafkaFixture()
         {
             var settings = TestSettings.Kafka;
+
             var services = new ServiceCollection();
+
             services.AddKafka(kafka => kafka
                .UseLogHandler<ConsoleLogHandler>()
-               .AddCluster(cluster => cluster
-                    .WithBrokers(settings.Brokers)
-                    .AddConsumer(consumer =>
-                    {
-                        consumer
-                            .Topic(KafkaTopics.Commands.ReceiptCommandTopicName)
-                            .WithGroupId("Receipts-Commands")
-                            .WithName("Receipt-Commands")
-                            .WithBufferSize(1)
-                            .WithWorkersCount(1)
-                            .WithAutoOffsetReset(AutoOffsetReset.Latest)
-                            .AddMiddlewares(
-                                middlewares => middlewares
-                                    .AddSerializer<JsonCoreSerializer>());
+                   .AddCluster(cluster => cluster
+                       .WithBrokers(settings.Brokers)
+                       .AddConsumer(consumer =>
+                       {
+                           consumer
+                               .Topic(KafkaTopics.Commands.ReceiptCommandTopicName)
+                               .WithGroupId("Receipts-Commands")
+                               .WithName("Receipt-Commands")
+                               .WithGroupId("Receipts-Commands")
+                               .WithBufferSize(2)
+                               .WithWorkersCount(4)
+                               .WithAutoOffsetReset(AutoOffsetReset.Latest)
+                               .AddMiddlewares(middlewares => middlewares
+                                   .AddSerializer<JsonCoreSerializer>()
+                                   .Add(_ => this.kafkaMessage));
                     })
             ));
 
@@ -55,7 +58,7 @@ namespace SpendManagement.Integration.Tests.Fixtures
         {
             return this.kafkaMessage.TryTake(
                 predicate,
-                300 * 100);
+                300 * 200);
         }
     }
 }

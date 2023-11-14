@@ -35,11 +35,11 @@ namespace SpendManagement.Integration.Tests.Fixtures
             this.categoryIds.Add(id);
         }
 
-        public async Task InsertCategory(Category category)
+        public async Task InsertCategory(IEnumerable<Category> category)
         {
             var collection = this.database.GetCollection<Category>("Categories");
-            await collection.InsertOneAsync(category);
-            this.categoryIds.Add(category.Id);
+            await Task.WhenAll(category.Select(x => collection.InsertOneAsync(x)));
+            this.categoryIds.AddRange(category.Select(x => x.Id));
         }
     }
 
