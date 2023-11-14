@@ -5,12 +5,15 @@ using SpendManagement.Integration.Tests.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using SpendManagement.Integration.Tests.Constants;
+using SpendManagement.Client.Configuration;
+using Microsoft.AspNetCore.Http.Extensions;
+using Flurl;
 
-namespace SpendManagement.Integration.Tests.Tests
+namespace SpendManagement.Integration.Tests.Helpers
 {
     public class BaseTests<T> where T : class
     {
-        private const string APIVersion = "api/v1";
         private readonly HttpClient _httpClient;
 
         public BaseTests()
@@ -26,9 +29,21 @@ namespace SpendManagement.Integration.Tests.Tests
             StringContent httpContent = new(json, Encoding.UTF8, "application/json");
 
             _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", BaseTests<T>.GenerateJWToken());
-            var url = APIVersion + resource;
+            var url = ConstantsValues.APIVersion + resource;
+            using var response = await _httpClient.PostAsync(url, httpContent);
+            return response;
+        }
 
-            return await _httpClient.PostAsync(url, httpContent);
+        protected async Task<HttpResponseMessage?> DeleteAsync(string resource, Guid id)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", BaseTests<T>.GenerateJWToken());
+
+            var url = ConstantsValues.APIVersion
+                .AppendPathSegment(resource)
+                .AppendPathSegment(id);
+
+            using var response = await _httpClient.DeleteAsync(url);
+            return response;
         }
 
         private static string GenerateJWToken()
