@@ -1,4 +1,6 @@
-﻿namespace SpendManagement.Application.Extensions
+﻿using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
+
+namespace SpendManagement.Application.Extensions
 {
     public static class ApplicationErrorExtension
     {
@@ -9,9 +11,9 @@
             {
                 return await task;
             }
-            catch (Exception ex)
+            catch (HttpRequestException e) when (e.Message.Contains("404"))
             {
-                throw new HttpRequestException(ex.Message + @"\" + requestName);
+                throw new NotFoundException(requestName + e.Message, e.InnerException);
             }
         }
     }

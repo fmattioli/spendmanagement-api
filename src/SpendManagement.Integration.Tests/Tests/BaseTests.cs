@@ -3,7 +3,6 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SpendManagement.Integration.Tests.Configuration;
 using System.IdentityModel.Tokens.Jwt;
-using System.Net;
 using System.Security.Claims;
 using System.Text;
 
@@ -11,17 +10,17 @@ namespace SpendManagement.Integration.Tests.Tests
 {
     public class BaseTests<T> where T : class
     {
-        private readonly HttpClient _httpClient;
-
         private const string APIVersion = "api/v1";
+        private readonly HttpClient _httpClient;
 
         public BaseTests()
         {
+            Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development");
             var webAppFactory = new WebApplicationFactory<Program>();
             _httpClient = webAppFactory.CreateDefaultClient();
         }
 
-        protected async Task<(string response, HttpStatusCode statusCode)> PostAsync(string resource, T body)
+        protected async Task<HttpResponseMessage?> PostAsync(string resource, T body)
         {
             var json = JsonConvert.SerializeObject(body);
             StringContent httpContent = new(json, Encoding.UTF8, "application/json");
@@ -29,8 +28,7 @@ namespace SpendManagement.Integration.Tests.Tests
             _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", BaseTests<T>.GenerateJWToken());
             var url = APIVersion + resource;
 
-            using var response = await _httpClient.PostAsync(url, httpContent);
-            return new(await response.Content.ReadAsStringAsync(), response.StatusCode);
+            return await _httpClient.PostAsync(url, httpContent);
         }
 
         private static string GenerateJWToken()
@@ -57,9 +55,11 @@ namespace SpendManagement.Integration.Tests.Tests
         {
             return new List<Claim>
             {
+                new Claim(Application.Claims.ClaimTypes.Receipt, "Read"),
                 new Claim(Application.Claims.ClaimTypes.Receipt, "Insert"),
                 new Claim(Application.Claims.ClaimTypes.Receipt, "Update"),
                 new Claim(Application.Claims.ClaimTypes.Receipt, "Delete"),
+                new Claim(Application.Claims.ClaimTypes.Category, "Read"),
                 new Claim(Application.Claims.ClaimTypes.Category, "Insert"),
                 new Claim(Application.Claims.ClaimTypes.Category, "Update"),
                 new Claim(Application.Claims.ClaimTypes.Category, "Delete"),

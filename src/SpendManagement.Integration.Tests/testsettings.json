@@ -11,7 +11,7 @@
     "ConnectionString": "mongodb://root:root@localhost:27017/?retryWrites=true&w=majority"
   },
   "Kafka": {
-    "Brokers": [ "localhost:9092" ],
+    "Brokers": [ "localhost:9094" ],
     "Environment": "local",
     "InitializationDelay": 0,
     "Batch": {
