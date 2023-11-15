@@ -15,6 +15,10 @@ namespace SpendManagement.Application.Extensions
             {
                 throw new NotFoundException(requestName + e.Message, e.InnerException);
             }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }
