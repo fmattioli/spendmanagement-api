@@ -1,27 +1,34 @@
 ﻿using AutoFixture;
 using FluentAssertions;
+
+using Newtonsoft.Json;
+
 using SpendManagement.Application.Commands.Receipt.InputModels;
 using SpendManagement.Contracts.V1.Commands.ReceiptCommands;
 using SpendManagement.Integration.Tests.Fixtures;
 using SpendManagement.Integration.Tests.Helpers;
 
+using System.Linq;
+
+using Web.Contracts.Receipt;
+
 namespace SpendManagement.Integration.Tests.Tests
 {
     [Collection(nameof(SharedFixtureCollection))]
-    public class ReceiptIntegrationTests : BaseTests<ReceiptInputModel>
+    public class ReceiptTests : BaseTests<ReceiptInputModel>
     {
         private readonly Fixture fixture = new();
         private readonly KafkaFixture kafkaFixture;
         private readonly MongoDbFixture mongoDbFixture;
 
-        public ReceiptIntegrationTests(KafkaFixture kafkaFixture, MongoDbFixture mongoDbFixture)
+        public ReceiptTests(KafkaFixture kafkaFixture, MongoDbFixture mongoDbFixture)
         {
             this.kafkaFixture = kafkaFixture;
             this.mongoDbFixture = mongoDbFixture;
         }
 
         [Fact(DisplayName = "On creating a valid receipt with valid category, a Kafka command should be produced.")]
-        public async Task OnGivenAValidReceipt_ShouldBeProducedACreateReceiptCommand()
+        public async Task OnGivenAValidReceiptToBeCreated_ShouldBeProducedACreateReceiptCommand()
         {
             //Arrange
             var receipItems = fixture
@@ -33,12 +40,7 @@ namespace SpendManagement.Integration.Tests.Tests
                 .With(x => x.ReceiptItems, receipItems)
                 .Create();
 
-            var categories = receipItems.Select(x => new Category
-            {
-                CreatedDate = DateTime.UtcNow,
-                Id = x.CategoryId,
-                Name = fixture.Create<string>()
-            });
+            var categories = receipItems.Select(x => new Category(x.CategoryId, fixture.Create<string>(), DateTime.UtcNow));
 
             await this.mongoDbFixture.InsertCategory(categories);
 
@@ -63,7 +65,7 @@ namespace SpendManagement.Integration.Tests.Tests
         }
 
         [Fact(DisplayName = "On creating a receipt and a category does not exists, an error 404 should be produced.")]
-        public async Task OnGivenAValidReceiptWithAnInvalidCategoryId_AndAnErrorShouldOccur()
+        public async Task OnGivenAValidReceiptWithAnInvalidCategoryId_AnErrorShouldOccur()
         {
             //Arrange
             var receipItems = fixture
@@ -75,12 +77,7 @@ namespace SpendManagement.Integration.Tests.Tests
                 .With(x => x.ReceiptItems, receipItems)
                 .Create();
 
-            var categories = receipItems.Select(x => new Category
-            {
-                CreatedDate = DateTime.UtcNow,
-                Id = x.CategoryId,
-                Name = fixture.Create<string>()
-            });
+            var categories = receipItems.Select(x => new Category(x.CategoryId, fixture.Create<string>(), DateTime.UtcNow));
 
             //Act
             var response = await PostAsync("/addReceipt", receipt);
@@ -90,7 +87,7 @@ namespace SpendManagement.Integration.Tests.Tests
         }
 
         [Fact(DisplayName = "On deleting a valid receipt with valid Guid provided, a Kafka command should be produced.")]
-        public async Task OnGivenAReceiptGuid_ShouldBeProducedADeleteReceiptCommand()
+        public async Task OnGivenAReceiptGuidValid_ShouldBeProducedADeleteReceiptCommand()
         {
             //Arrange
             var receiptId = fixture
@@ -107,6 +104,53 @@ namespace SpendManagement.Integration.Tests.Tests
                 command.RoutingKey == receiptId.ToString());
 
             receiptCommand.Should().NotBeNull();
+        }
+
+        [Fact(DisplayName = "On updating a valid receipt with valid ReceiptId, a Kafka command should be produced.")]
+        public async Task OnGivenAValidReceiptToBeUpdated_ShouldBeProducedACreateReceiptCommand()
+        {
+            //Arrange
+            var receiptId = fixture.Create<Guid>();
+            var categoryName = fixture.Create<string>();
+
+            var receipt = fixture
+                .Build<Receipt>()
+                .With(x => x.Id, receiptId)
+                .With(x => x.EstablishmentName, "Whatever name")
+                .Create();
+
+            var categories = receipt
+                .ReceiptItems
+                ?.Select(x =>
+                    new Category(x.CategoryId, categoryName, DateTime.UtcNow));
+
+            await Task.WhenAll(
+                this.mongoDbFixture.InsertCategory(categories),
+                this.mongoDbFixture.InsertReceipt(receipt));
+
+            var newEstablishmentName = fixture.Create<string>();
+
+            var jsonItems = new List<object>
+            {
+                new { path = "/EstablishmentName", op = "replace", value = newEstablishmentName }
+            };
+
+            string jsonString = JsonConvert.SerializeObject(jsonItems, Formatting.Indented);
+
+            //Act
+            var response = await PatchAsync("/updateReceipt", receiptId, jsonString);
+
+            //Assert
+            response.Should().BeSuccessful();
+
+            var receiptCommand = this.kafkaFixture.Consume<UpdateReceiptCommand>(
+            (command, _) =>
+                command.Receipt.Id == receipt.Id &&
+                command.Receipt.EstablishmentName == newEstablishmentName &&
+                command.RoutingKey == receipt.Id.ToString());
+
+            receiptCommand.Should().NotBeNull();
+            receiptCommand.ReceiptItems.Should().HaveCount(receipt!.ReceiptItems!.Count());
         }
     }
 }

@@ -46,6 +46,20 @@ namespace SpendManagement.Integration.Tests.Helpers
             return response;
         }
 
+        protected async Task<HttpResponseMessage?> PatchAsync(string resource, Guid id, string jsonPatch)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", BaseTests<T>.GenerateJWToken());
+
+            var httpContent = new StringContent(jsonPatch, Encoding.UTF8, "application/json");
+
+            var url = ConstantsValues.APIVersion
+                .AppendPathSegment(resource)
+                .AppendPathSegment(id);
+
+            using var response = await _httpClient.PatchAsync(url, httpContent);
+            return response;
+        }
+
         private static string GenerateJWToken()
         {
             var settings = TestSettings.JwtOptions;
