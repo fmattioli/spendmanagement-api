@@ -5,7 +5,7 @@ using SpendManagement.Contracts.V1.Commands.ReceiptCommands;
 using SpendManagement.Integration.Tests.Fixtures;
 using SpendManagement.Integration.Tests.Helpers;
 
-namespace SpendManagement.Integration.Tests.Tests
+namespace SpendManagement.Integration.Tests.Handlers.Receipts
 {
     [Collection(nameof(SharedFixtureCollection))]
     public class AddReceiptTests : BaseTests<ReceiptInputModel>
@@ -33,9 +33,9 @@ namespace SpendManagement.Integration.Tests.Tests
                 .With(x => x.ReceiptItems, receipItems)
                 .Create();
 
-            var categories = receipItems.Select(x => new Category(x.CategoryId, fixture.Create<string>(), DateTime.UtcNow));
+            var categories = receipItems.Select(x => new Fixtures.Category(x.CategoryId, fixture.Create<string>(), DateTime.UtcNow));
 
-            await this.mongoDbFixture.InsertCategory(categories);
+            await mongoDbFixture.InsertCategories(categories);
 
             //Act
             var response = await PostAsync("/addReceipt", receipt);
@@ -43,7 +43,7 @@ namespace SpendManagement.Integration.Tests.Tests
             //Assert
             response.Should().BeSuccessful();
 
-            var receiptCommand = this.kafkaFixture.Consume<CreateReceiptCommand>(
+            var receiptCommand = kafkaFixture.Consume<CreateReceiptCommand>(
             (command, _) =>
                 command.Receipt.Id == receipt.Id &&
                 command.Receipt.EstablishmentName == receipt.EstablishmentName &&
@@ -70,7 +70,7 @@ namespace SpendManagement.Integration.Tests.Tests
                 .With(x => x.ReceiptItems, receipItems)
                 .Create();
 
-            var categories = receipItems.Select(x => new Category(x.CategoryId, fixture.Create<string>(), DateTime.UtcNow));
+            var categories = receipItems.Select(x => new Fixtures.Category(x.CategoryId, fixture.Create<string>(), DateTime.UtcNow));
 
             //Act
             var response = await PostAsync("/addReceipt", receipt);

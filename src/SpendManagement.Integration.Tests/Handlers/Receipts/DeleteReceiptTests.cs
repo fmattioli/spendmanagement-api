@@ -5,7 +5,7 @@ using SpendManagement.Contracts.V1.Commands.ReceiptCommands;
 using SpendManagement.Integration.Tests.Fixtures;
 using SpendManagement.Integration.Tests.Helpers;
 
-namespace SpendManagement.Integration.Tests.Tests
+namespace SpendManagement.Integration.Tests.Handlers.Receipts
 {
     [Collection(nameof(SharedFixtureCollection))]
     public class DeleteReceiptTests : BaseTests<ReceiptInputModel>
@@ -33,7 +33,7 @@ namespace SpendManagement.Integration.Tests.Tests
             //Assert
             response.Should().BeSuccessful();
 
-            var receiptCommand = this.kafkaFixture.Consume<DeleteReceiptCommand>(
+            var receiptCommand = kafkaFixture.Consume<DeleteReceiptCommand>(
             (command, _) =>
                 command.RoutingKey == receiptId.ToString());
 
