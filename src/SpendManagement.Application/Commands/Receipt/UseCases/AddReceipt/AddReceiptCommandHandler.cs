@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using SpendManagement.Application.Commands.Receipt.Services;
 using SpendManagement.Application.Mappers;
 using SpendManagement.Application.Producers;
+using SpendManagement.Application.Services;
 
 namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
 {

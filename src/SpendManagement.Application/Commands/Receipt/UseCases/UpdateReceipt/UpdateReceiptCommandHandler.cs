@@ -1,11 +1,10 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.JsonPatch;
-using SpendManagement.Application.Commands.Receipt.Services;
-using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
-using SpendManagement.Application.Extensions;
 using SpendManagement.Application.Mappers;
 using SpendManagement.Application.Producers;
+using SpendManagement.Application.Services;
+using SpendManagement.Client.Extensions;
 using SpendManagement.Client.SpendManagementReadModel;
 
 namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
@@ -30,7 +29,8 @@ namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
 
         public async Task<Unit> Handle(UpdateReceiptCommand request, CancellationToken cancellationToken)
         {
-            var receipt = await _spendManagementReadModelClient.GetReceiptAsync(request.UpdateReceiptInputModel.Id) ?? throw new NotFoundException("Any recept was found");
+            var receipt = await _spendManagementReadModelClient
+                .GetReceiptAsync(request.UpdateReceiptInputModel.Id);
 
             request
                 .UpdateReceiptInputModel

@@ -7,9 +7,9 @@ using SpendManagement.Client.SpendManagementReadModel;
 using Web.Contracts.Category;
 using UpdateCategoryCommandHandler = SpendManagement.Application.Commands.Category.UseCases.UpdateCategory.UpdateCategoryCommand;
 using UpdateCategoryCommand = SpendManagement.Contracts.V1.Commands.CategoryCommands.UpdateCategoryCommand;
-using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
 using FluentValidation;
 using FluentAssertions;
+using SpendManagement.Contracts.Exceptions;
 
 namespace SpendManagement.Unit.Tests.Handlers.Category
 {
@@ -75,7 +75,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Category
 
             spendManagementReadModelClientMock
                 .Setup(x => x.GetCategoryAsync(It.IsAny<Guid>()))
-                .ReturnsAsync(null as CategoryResponse);
+                .ThrowsAsync(new NotFoundException());
 
             //Act
             Func<Task> act = async () => await handler.Handle(categoryCommand, CancellationToken.None);

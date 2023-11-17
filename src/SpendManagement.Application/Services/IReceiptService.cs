@@ -1,4 +1,4 @@
-﻿namespace SpendManagement.Application.Commands.Receipt.Services
+﻿namespace SpendManagement.Application.Services
 {
     public interface IReceiptService
     {

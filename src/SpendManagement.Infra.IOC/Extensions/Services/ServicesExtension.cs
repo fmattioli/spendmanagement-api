@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using SpendManagement.Application.Commands.Receipt.Services;
+using SpendManagement.Application.Services;
 
 namespace SpendManagement.Infra.CrossCutting.Extensions.Services
 {

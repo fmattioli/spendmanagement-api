@@ -1,6 +1,6 @@
-﻿using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
+﻿using SpendManagement.Contracts.Exceptions;
 
-namespace SpendManagement.Application.Extensions
+namespace SpendManagement.Client.Extensions
 {
     public static class ApplicationErrorExtension
     {
@@ -13,7 +13,11 @@ namespace SpendManagement.Application.Extensions
             }
             catch (HttpRequestException e) when (e.Message.Contains("404"))
             {
-                throw new NotFoundException(requestName + e.Message, e.InnerException);
+                throw new NotFoundException(requestName + " " + e.Message, e.InnerException);
+            }
+            catch (HttpRequestException e) when (e.Message.Contains("500"))
+            {
+                throw new InternalServerErrorException(requestName + " " + e.Message, e.InnerException);
             }
             catch (Exception)
             {

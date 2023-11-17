@@ -1,5 +1,6 @@
 ﻿using Serilog;
 using SpendManagement.Client.Configuration;
+using SpendManagement.Client.Extensions;
 using Web.Contracts.Category;
 using Web.Contracts.Receipt;
 
@@ -15,7 +16,7 @@ namespace SpendManagement.Client.SpendManagementReadModel
 
         public async Task<CategoryResponse> GetCategoryAsync(Guid categoryId)
         {
-            var category = await GetByIdAsync<CategoryResponse>("getCategory", categoryId);
+            var category = await GetByIdAsync<CategoryResponse>("getCategory", categoryId).HandleExceptions("GetCategory");
 
             _logger.Information("Successfully got Category: {@categoryId}", categoryId);
 
@@ -24,7 +25,7 @@ namespace SpendManagement.Client.SpendManagementReadModel
 
         public async Task<ReceiptResponse> GetReceiptAsync(Guid receiptId)
         {
-            var receipt = await GetByIdAsync<ReceiptResponse>("getReceipt", receiptId);
+            var receipt = await GetByIdAsync<ReceiptResponse>("getReceipt", receiptId).HandleExceptions("GetReceipt");
 
             _logger.Information("Successfully got receipt: {@receiptId}", receiptId);
 
