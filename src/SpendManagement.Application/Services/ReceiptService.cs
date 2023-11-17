@@ -1,7 +1,6 @@
-﻿using SpendManagement.Application.Extensions;
-using SpendManagement.Client.SpendManagementReadModel;
+﻿using SpendManagement.Client.SpendManagementReadModel;
 
-namespace SpendManagement.Application.Commands.Receipt.Services
+namespace SpendManagement.Application.Services
 {
     public class ReceiptService : IReceiptService
     {
@@ -14,7 +13,8 @@ namespace SpendManagement.Application.Commands.Receipt.Services
 
         public async Task ValidateIfCategoryExistAsync(Guid categoryId)
         {
-            await _spendManagementReadModelClient.GetCategoryAsync(categoryId).HandleExceptions("GetCategory");
+            await _spendManagementReadModelClient
+                .GetCategoryAsync(categoryId);
         }
     }
 }

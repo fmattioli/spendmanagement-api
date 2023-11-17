@@ -1,18 +1,14 @@
 ﻿using AutoFixture;
 using FluentAssertions;
-
 using FluentValidation;
 using Microsoft.AspNetCore.JsonPatch;
 using Moq;
-using SpendManagement.Application.Commands.Category.InputModels;
-
-using SpendManagement.Application.Commands.Category.UseCases.UpdateCategory;
 using SpendManagement.Application.Commands.Receipt.InputModels;
-using SpendManagement.Application.Commands.Receipt.Services;
 using SpendManagement.Application.Commands.Receipt.UpdateReceipt;
-using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
 using SpendManagement.Application.Producers;
+using SpendManagement.Application.Services;
 using SpendManagement.Client.SpendManagementReadModel;
+using SpendManagement.Contracts.Exceptions;
 
 using Web.Contracts.Category;
 using Web.Contracts.Receipt;
@@ -91,7 +87,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
 
             spendManagementReadModelClientMock
                .Setup(x => x.GetReceiptAsync(It.IsAny<Guid>()))
-               .ReturnsAsync(null as ReceiptResponse);
+               .Throws<NotFoundException>();
 
             //Act
             Func<Task> act = async () => await _handler.Handle(receiptCommand, CancellationToken.None);
@@ -101,7 +97,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
         }
 
         [Fact]
-        public async Task Handle_WhenCategoryIdIsInvalid_AnExceptionShouldOccur()
+        public async Task Handle_WhenCategoryIdWasNotFound_AnExceptionShouldOccur()
         {
             //Arrange
             var jsonPatchDocument = new JsonPatchDocument<ReceiptResponse>();

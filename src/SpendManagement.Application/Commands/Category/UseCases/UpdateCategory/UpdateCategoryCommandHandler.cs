@@ -1,11 +1,10 @@
 ﻿using MediatR;
-using SpendManagement.Application.Commands.Receipt.UpdateReceipt.Exceptions;
 using SpendManagement.Application.Producers;
 using SpendManagement.Application.Mappers;
 using SpendManagement.Client.SpendManagementReadModel;
-using SpendManagement.Application.Extensions;
 using FluentValidation;
 using Microsoft.AspNetCore.JsonPatch;
+using SpendManagement.Client.Extensions;
 
 namespace SpendManagement.Application.Commands.Category.UseCases.UpdateCategory
 {
@@ -28,7 +27,7 @@ namespace SpendManagement.Application.Commands.Category.UseCases.UpdateCategory
         {
             var category = await
                 _spendManagementReadModelClient
-                .GetCategoryAsync(request.UpdateCategoryInputModel.Id) ?? throw new NotFoundException("Any category was found");
+                .GetCategoryAsync(request.UpdateCategoryInputModel.Id);
 
             request
                 .UpdateCategoryInputModel

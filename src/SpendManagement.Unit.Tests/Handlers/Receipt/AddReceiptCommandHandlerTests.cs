@@ -3,9 +3,9 @@ using FluentAssertions;
 
 using Moq;
 using SpendManagement.Application.Commands.Receipt.InputModels;
-using SpendManagement.Application.Commands.Receipt.Services;
 using SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt;
 using SpendManagement.Application.Producers;
+using SpendManagement.Application.Services;
 using CreateReceiptCommand = SpendManagement.Contracts.V1.Commands.ReceiptCommands.CreateReceiptCommand;
 namespace SpendManagement.Unit.Tests.Handlers.Receipt
 {

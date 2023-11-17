@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.JsonPatch;
 
-namespace SpendManagement.Application.Extensions
+namespace SpendManagement.Client.Extensions
 {
     public static class JsonPatchExtension
     {
