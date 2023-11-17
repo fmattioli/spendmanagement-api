@@ -6,7 +6,7 @@ using SpendManagement.Contracts.V1.Commands.ReceiptCommands;
 using SpendManagement.Integration.Tests.Fixtures;
 using SpendManagement.Integration.Tests.Helpers;
 
-namespace SpendManagement.Integration.Tests.Tests
+namespace SpendManagement.Integration.Tests.Handlers.Receipts
 {
     [Collection(nameof(SharedFixtureCollection))]
     public class UpdateReceiptTests : BaseTests<ReceiptInputModel>
@@ -37,11 +37,11 @@ namespace SpendManagement.Integration.Tests.Tests
             var categories = receipt
                 .ReceiptItems
                 ?.Select(x =>
-                    new Category(x.CategoryId, categoryName, DateTime.UtcNow));
+                    new Fixtures.Category(x.CategoryId, categoryName, DateTime.UtcNow));
 
             await Task.WhenAll(
-                this.mongoDbFixture.InsertCategory(categories),
-                this.mongoDbFixture.InsertReceipt(receipt));
+                mongoDbFixture.InsertCategories(categories),
+                mongoDbFixture.InsertReceipt(receipt));
 
             var newEstablishmentName = fixture.Create<string>();
 
@@ -58,7 +58,7 @@ namespace SpendManagement.Integration.Tests.Tests
             //Assert
             response.Should().BeSuccessful();
 
-            var receiptCommand = this.kafkaFixture.Consume<UpdateReceiptCommand>(
+            var receiptCommand = kafkaFixture.Consume<UpdateReceiptCommand>(
             (command, _) =>
                 command.Receipt.Id == receipt.Id &&
                 command.Receipt.EstablishmentName == newEstablishmentName &&
@@ -84,9 +84,9 @@ namespace SpendManagement.Integration.Tests.Tests
             var categories = receipt
                 .ReceiptItems
                 ?.Select(x =>
-                    new Category(x.CategoryId, categoryName, DateTime.UtcNow));
+                    new Fixtures.Category(x.CategoryId, categoryName, DateTime.UtcNow));
 
-            await this.mongoDbFixture.InsertCategory(categories);
+            await mongoDbFixture.InsertCategories(categories);
 
             var newEstablishmentName = fixture.Create<string>();
 
@@ -121,9 +121,9 @@ namespace SpendManagement.Integration.Tests.Tests
             var categories = receipt
                 .ReceiptItems
                 ?.Select(x =>
-                    new Category(x.CategoryId, categoryName, DateTime.UtcNow));
+                    new Fixtures.Category(x.CategoryId, categoryName, DateTime.UtcNow));
 
-            await this.mongoDbFixture.InsertReceipt(receipt);
+            await mongoDbFixture.InsertReceipt(receipt);
 
             var newEstablishmentName = fixture.Create<string>();
 

@@ -15,8 +15,12 @@ namespace SpendManagement.Application.Commands.Category.UseCases.AddCategory
 
         public async Task<Guid> Handle(AddCategoryRequestCommand request, CancellationToken cancellationToken)
         {
-            var categoryCommand = request.AddCategoryInputModel.ToCreateCategoryCommand();
+            var categoryCommand = request
+                .AddCategoryInputModel
+                .ToCreateCategoryCommand();
+
             await _categoryProducer.ProduceCommandAsync(categoryCommand);
+
             return categoryCommand.Category.Id;
         }
     }

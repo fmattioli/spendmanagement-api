@@ -53,7 +53,7 @@ namespace SpendManagement.Integration.Tests.Fixtures
             this.receiptIds.Add(receipt.Id);
         }
 
-        public async Task InsertCategory(IEnumerable<Category>? category)
+        public async Task InsertCategories(IEnumerable<Category>? category)
         {
             var collection = this.database.GetCollection<Category>("Categories");
             await Task.WhenAll(category!.Select(x => collection.InsertOneAsync(x)));
