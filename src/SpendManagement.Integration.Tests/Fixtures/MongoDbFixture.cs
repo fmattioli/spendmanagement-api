@@ -53,6 +53,13 @@ namespace SpendManagement.Integration.Tests.Fixtures
             this.receiptIds.Add(receipt.Id);
         }
 
+        public async Task InsertCategory(Category category)
+        {
+            var collection = this.database.GetCollection<Category>("Categories");
+            await collection.InsertOneAsync(category);
+            this.categoryIds.Add(category.Id);
+        }
+
         public async Task InsertCategories(IEnumerable<Category>? category)
         {
             var collection = this.database.GetCollection<Category>("Categories");
