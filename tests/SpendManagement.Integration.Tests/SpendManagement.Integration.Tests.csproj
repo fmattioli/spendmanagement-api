@@ -43,7 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SpendManagement.API\SpendManagement.API.csproj" />
+    <ProjectReference Include="..\..\src\SpendManagement.API\SpendManagement.API.csproj" />
   </ItemGroup>
 
 </Project>

@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SpendManagement.Application\SpendManagement.Application.csproj" />
+    <ProjectReference Include="..\..\src\SpendManagement.API\SpendManagement.API.csproj" />
   </ItemGroup>
 
 </Project>
