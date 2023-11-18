@@ -22,7 +22,7 @@ namespace SpendManagement.Integration.Tests.Handlers.Receipts
         }
 
         [Fact(DisplayName = "On updating a valid receipt, a Kafka command should be produced.")]
-        public async Task OnGivenAValidReceiptToBeUpdated_ShouldBeProducedACreateReceiptCommand()
+        public async Task OnGivenAValidReceiptToBeUpdated_ShouldBeProducedAnUpdateReceiptCommand()
         {
             //Arrange
             var receiptId = fixture.Create<Guid>();
