@@ -6,8 +6,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using SpendManagement.Integration.Tests.Constants;
-using SpendManagement.Client.Configuration;
-using Microsoft.AspNetCore.Http.Extensions;
 using Flurl;
 
 namespace SpendManagement.Integration.Tests.Helpers
@@ -18,7 +16,7 @@ namespace SpendManagement.Integration.Tests.Helpers
 
         public BaseTests()
         {
-            Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development");
+            Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Tests");
             var webAppFactory = new WebApplicationFactory<Program>();
             _httpClient = webAppFactory.CreateDefaultClient();
         }

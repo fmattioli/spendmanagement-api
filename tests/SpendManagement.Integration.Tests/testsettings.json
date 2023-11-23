@@ -12,7 +12,7 @@
   },
   "Kafka": {
     "Brokers": [ "localhost:9094" ],
-    "Environment": "local",
+    "Environment": "tests",
     "InitializationDelay": 0,
     "Batch": {
       "WorkerCount": 1,
