@@ -25,10 +25,9 @@ namespace SpendManagement.Integration.Tests.Fixtures
                        .AddConsumer(consumer =>
                        {
                            consumer
-                               .Topic(KafkaTopics.Commands.ReceiptCommandTopicName)
+                               .Topic(KafkaTopics.Commands.GetReceiptCommands(settings!.Environment))
                                .WithGroupId("Receipts-Commands")
                                .WithName("Receipt-Commands")
-                               .WithGroupId("Receipts-Commands")
                                .WithBufferSize(2)
                                .WithWorkersCount(4)
                                .WithAutoOffsetReset(AutoOffsetReset.Latest)

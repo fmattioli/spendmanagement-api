@@ -68,9 +68,10 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
             };
 
             builder
+                .CreateTopicIfNotExists(KafkaTopics.Commands.GetReceiptCommands(settings!.Environment), 2, 1)
                 .AddProducer<ICommand>(
                     p => p
-                        .DefaultTopic(KafkaTopics.Commands.ReceiptCommandTopicName)
+                        .DefaultTopic(KafkaTopics.Commands.GetReceiptCommands(settings!.Environment))
                         .AddMiddlewares(
                             m => m
                                 .Add<ProducerTracingMiddleware>()

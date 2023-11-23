@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Text;
 using SpendManagement.Application.Constants;
 using SpendManagement.Topics;
+using SpendManagement.Infra.CrossCutting.Conf;
 
 namespace SpendManagement.Infra.CrossCutting.Middlewares
 {
@@ -12,6 +13,12 @@ namespace SpendManagement.Infra.CrossCutting.Middlewares
     {
         private static readonly ActivitySource Activity = new(Constants.ApplicationName);
         private static readonly TextMapPropagator Propagator = Propagators.DefaultTextMapPropagator;
+        private readonly string environment;
+
+        public ProducerTracingMiddleware(ISettings settings)
+        {
+            environment = settings!.KafkaSettings!.Environment;
+        }
 
         public async Task Invoke(IMessageContext context, MiddlewareDelegate next)
         {
@@ -29,7 +36,7 @@ namespace SpendManagement.Infra.CrossCutting.Middlewares
             Propagator.Inject(new PropagationContext(activity.Context, Baggage.Current), props, InjectContextIntoHeader);
             activity?.SetTag("messaging.system", "Kafka");
             activity?.SetTag("messaging.destination_kind", "queue");
-            activity?.SetTag("messaging..topic", KafkaTopics.Commands.ReceiptCommandTopicName);
+            activity?.SetTag("messaging..topic", KafkaTopics.Commands.GetReceiptCommands(environment));
         }
 
         private void InjectContextIntoHeader(IMessageContext props, string key, string value)

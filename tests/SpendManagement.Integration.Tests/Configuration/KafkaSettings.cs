@@ -9,7 +9,6 @@
         public int InitializationDelay { get; set; }
 
         public KafkaBatchSettings? Batch { get; set; }
-
     }
 
     public class KafkaBatchSettings
