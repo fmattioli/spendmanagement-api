@@ -32,7 +32,7 @@ namespace SpendManagement.Integration.Tests.Fixtures
                                .WithWorkersCount(4)
                                .WithAutoOffsetReset(AutoOffsetReset.Latest)
                                .AddMiddlewares(middlewares => middlewares
-                                   .AddSerializer<JsonCoreSerializer>()
+                                   .AddDeserializer<JsonCoreDeserializer>()
                                    .Add(_ => this.kafkaMessage));
                     })
             ));
