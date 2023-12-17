@@ -33,7 +33,7 @@ namespace SpendManagement.Integration.Tests.Fixtures
                 var collection = this.database.GetCollection<Receipt>("Receipts");
 
                 var filter = new FilterDefinitionBuilder<Receipt>()
-                    .In(x => x.Id, categoryIds);
+                    .In(x => x.Id, receiptIds);
 
                 await collection.DeleteManyAsync(filter);
             }
