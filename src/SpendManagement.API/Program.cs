@@ -25,7 +25,7 @@ builder.Logging
     .AddFilter("Microsoft", LogLevel.Warning)
     .AddFilter("Microsoft", LogLevel.Critical);
 
-builder.Services.AddSingleton<ISettings>(applicationSettings);
+builder.Services.AddSingleton<ISettings>(applicationSettings!);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services

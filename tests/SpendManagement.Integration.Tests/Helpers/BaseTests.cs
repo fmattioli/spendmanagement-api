@@ -26,7 +26,7 @@ namespace SpendManagement.Integration.Tests.Helpers
             var json = JsonConvert.SerializeObject(body);
             StringContent httpContent = new(json, Encoding.UTF8, "application/json");
 
-            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", BaseTests<T>.GenerateJWToken());
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", GenerateJWToken());
             var url = ConstantsValues.APIVersion + resource;
             using var response = await _httpClient.PostAsync(url, httpContent);
             return response;
@@ -34,7 +34,7 @@ namespace SpendManagement.Integration.Tests.Helpers
 
         protected async Task<HttpResponseMessage?> DeleteAsync(string resource, Guid id)
         {
-            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", BaseTests<T>.GenerateJWToken());
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", GenerateJWToken());
 
             var url = ConstantsValues.APIVersion
                 .AppendPathSegment(resource)
@@ -61,7 +61,7 @@ namespace SpendManagement.Integration.Tests.Helpers
         private static string GenerateJWToken()
         {
             var settings = TestSettings.JwtOptions;
-            var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(settings.SecurityKey ?? throw new Exception("Invalid token security key")));
+            var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(settings!.SecurityKey ?? throw new Exception("Invalid token security key")));
 
             var claims = GenerateClaims();
 
@@ -78,19 +78,19 @@ namespace SpendManagement.Integration.Tests.Helpers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private static IEnumerable<Claim> GenerateClaims()
+        private static List<Claim> GenerateClaims()
         {
-            return new List<Claim>
-            {
-                new Claim(Application.Claims.ClaimTypes.Receipt, "Read"),
-                new Claim(Application.Claims.ClaimTypes.Receipt, "Insert"),
-                new Claim(Application.Claims.ClaimTypes.Receipt, "Update"),
-                new Claim(Application.Claims.ClaimTypes.Receipt, "Delete"),
-                new Claim(Application.Claims.ClaimTypes.Category, "Read"),
-                new Claim(Application.Claims.ClaimTypes.Category, "Insert"),
-                new Claim(Application.Claims.ClaimTypes.Category, "Update"),
-                new Claim(Application.Claims.ClaimTypes.Category, "Delete"),
-            };
+            return
+            [
+                new(Application.Claims.ClaimTypes.Receipt, "Read"),
+                new(Application.Claims.ClaimTypes.Receipt, "Insert"),
+                new(Application.Claims.ClaimTypes.Receipt, "Update"),
+                new(Application.Claims.ClaimTypes.Receipt, "Delete"),
+                new(Application.Claims.ClaimTypes.Category, "Read"),
+                new(Application.Claims.ClaimTypes.Category, "Insert"),
+                new(Application.Claims.ClaimTypes.Category, "Update"),
+                new(Application.Claims.ClaimTypes.Category, "Delete"),
+            ];
         }
     }
 }
