@@ -7,18 +7,18 @@ namespace SpendManagement.Integration.Tests.Fixtures
     public class MongoDbFixture : IAsyncLifetime
     {
         public readonly IMongoDatabase database;
-        private readonly List<Guid> categoryIds = new();
-        private readonly List<Guid> receiptIds = new();
+        private readonly List<Guid> categoryIds = [];
+        private readonly List<Guid> receiptIds = [];
 
         public MongoDbFixture()
         {
-            var mongoUrl = new MongoUrl(TestSettings.MongoSettings.ConnectionString);
+            var mongoUrl = new MongoUrl(TestSettings.MongoSettings!.ConnectionString);
             this.database = new MongoClient(mongoUrl).GetDatabase(TestSettings.MongoSettings.Database);
         }
 
         public async Task DisposeAsync()
         {
-            if (categoryIds.Any())
+            if (categoryIds.Count != 0)
             {
                 var collection = this.database.GetCollection<Category>("Categories");
 
@@ -28,7 +28,7 @@ namespace SpendManagement.Integration.Tests.Fixtures
                 await collection.DeleteManyAsync(filter);
             }
 
-            if (receiptIds.Any())
+            if (receiptIds.Count != 0)
             {
                 var collection = this.database.GetCollection<Receipt>("Receipts");
 

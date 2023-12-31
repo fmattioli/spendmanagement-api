@@ -72,7 +72,7 @@ namespace SpendManagement.API.Extensions
                      }
                  });
                  c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "SpendManagement.API.xml"));
-             }).AddSwaggerGenNewtonsoftSupport();
+             });
         }
     }
 }

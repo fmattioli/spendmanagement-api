@@ -15,8 +15,8 @@ namespace SpendManagement.Integration.Tests.Configuration
             MongoSettings = config.GetSection("MongoSettings").Get<MongoSettings>();
         }
 
-        public static KafkaSettings Kafka { get; }
-        public static JwtOptions JwtOptions { get; }
-        public static MongoSettings MongoSettings { get; }
+        public static KafkaSettings? Kafka { get; }
+        public static JwtOptions? JwtOptions { get; }
+        public static MongoSettings? MongoSettings { get; }
     }
 }

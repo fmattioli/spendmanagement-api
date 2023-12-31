@@ -21,7 +21,7 @@ namespace SpendManagement.Integration.Tests.Fixtures
             services.AddKafka(kafka => kafka
                .UseLogHandler<ConsoleLogHandler>()
                    .AddCluster(cluster => cluster
-                       .WithBrokers(settings.Brokers)
+                       .WithBrokers(settings!.Brokers)
                        .AddConsumer(consumer =>
                        {
                            consumer
@@ -49,7 +49,7 @@ namespace SpendManagement.Integration.Tests.Fixtures
         public async Task InitializeAsync()
         {
             await this._bus.StartAsync();
-            await Task.Delay(TestSettings.Kafka.InitializationDelay);
+            await Task.Delay(TestSettings.Kafka!.InitializationDelay);
         }
 
         public TMessage Consume<TMessage>(Func<TMessage, IMessageHeaders, bool> predicate)
