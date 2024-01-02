@@ -1,8 +1,8 @@
 ﻿namespace SpendManagement.Infra.CrossCutting.Conf
 {
-    public class SpendManagementReadModelSettings
+    public class SpendManagementDomainSettings
     {
-        public string Url { get; set; } = null!;
+        public string? Url { get; set; }
         public short MaxRetry { get; set; }
     }
 }
