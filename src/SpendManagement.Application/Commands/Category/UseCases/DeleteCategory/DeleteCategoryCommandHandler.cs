@@ -4,11 +4,9 @@ using SpendManagement.Application.Producers;
 
 namespace SpendManagement.Application.Commands.Category.UseCases.DeleteCategory
 {
-    public class DeleteCategoryCommandHandler : IRequestHandler<DeleteCategoryCommand, Unit>
+    public class DeleteCategoryCommandHandler(ICommandProducer receiptProducer) : IRequestHandler<DeleteCategoryCommand, Unit>
     {
-        private readonly ICommandProducer _categoryProducer;
-
-        public DeleteCategoryCommandHandler(ICommandProducer receiptProducer) => _categoryProducer = receiptProducer;
+        private readonly ICommandProducer _categoryProducer = receiptProducer;
 
         public async Task<Unit> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
         {

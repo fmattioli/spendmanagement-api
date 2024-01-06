@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Web.Contracts.Category;
+
+using SpendManagement.WebContracts.Category;
 
 namespace SpendManagement.Application.Commands.Category.InputModels
 {

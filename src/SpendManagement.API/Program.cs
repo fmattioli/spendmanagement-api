@@ -34,7 +34,7 @@ builder.Services
     .AddKafka(applicationSettings?.KafkaSettings)
     .AddAuthorization(applicationSettings?.TokenAuth)
     .AddDependencyInjection()
-    .AddHttpClients(applicationSettings?.SpendManagementDomain)
+    .AddHttpClients(applicationSettings?.SpendManagementReadModel)
     .AddServices()
     .AddHealthChecks(applicationSettings)
     .AddValidators()

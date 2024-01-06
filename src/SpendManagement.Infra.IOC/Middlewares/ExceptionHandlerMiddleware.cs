@@ -8,14 +8,9 @@ using System.Net;
 
 namespace SpendManagement.Infra.CrossCutting.Middlewares
 {
-    public class ExceptionHandlerMiddleware : AbstractExceptionHandlerMiddleware
+    public class ExceptionHandlerMiddleware(RequestDelegate next, ILogger logger) : AbstractExceptionHandlerMiddleware(next, logger)
     {
-        private readonly ILogger _logger;
-
-        public ExceptionHandlerMiddleware(RequestDelegate next, ILogger logger) : base(next, logger)
-        {
-            _logger = logger;
-        }
+        private readonly ILogger _logger = logger;
 
         public override (HttpStatusCode code, string message) GetResponse(Exception exception)
         {

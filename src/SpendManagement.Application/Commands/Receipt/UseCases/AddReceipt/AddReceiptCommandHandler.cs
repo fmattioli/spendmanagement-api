@@ -5,16 +5,10 @@ using SpendManagement.Application.Services;
 
 namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
 {
-    public class AddReceiptCommandHandler : IRequestHandler<AddReceiptCommand, Guid>
+    public class AddReceiptCommandHandler(ICommandProducer receiptProducer, IReceiptService receiptService) : IRequestHandler<AddReceiptCommand, Guid>
     {
-        private readonly ICommandProducer _receiptProducer;
-        private readonly IReceiptService _receiptService;
-
-        public AddReceiptCommandHandler(ICommandProducer receiptProducer, IReceiptService receiptService)
-        {
-            _receiptProducer = receiptProducer;
-            _receiptService = receiptService;
-        }
+        private readonly ICommandProducer _receiptProducer = receiptProducer;
+        private readonly IReceiptService _receiptService = receiptService;
 
         public async Task<Guid> Handle(AddReceiptCommand request, CancellationToken cancellationToken)
         {

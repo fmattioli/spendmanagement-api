@@ -1,31 +1,28 @@
 ﻿using Serilog;
 using SpendManagement.Client.Configuration;
 using SpendManagement.Client.Extensions;
-using Web.Contracts.Category;
-using Web.Contracts.Receipt;
+using SpendManagement.WebContracts.Category;
+using SpendManagement.WebContracts.Common;
+using SpendManagement.WebContracts.Receipt;
 
 namespace SpendManagement.Client.SpendManagementReadModel
 {
-    public class SpendManagementReadModelClient : BaseClient, ISpendManagementReadModelClient
+    public class SpendManagementReadModelClient(IApiConfiguration configuration, HttpClient httpClient, ILogger logger) : BaseClient(httpClient, configuration), ISpendManagementReadModelClient
     {
-        private readonly ILogger _logger;
-        public SpendManagementReadModelClient(IApiConfiguration configuration, HttpClient httpClient, ILogger logger) : base(httpClient, configuration)
-        {
-            _logger = logger;
-        }
+        private readonly ILogger _logger = logger;
 
-        public async Task<CategoryResponse> GetCategoryAsync(Guid categoryId)
+        public async Task<PagedResult<CategoryResponse>> GetCategoriesAsync(Guid categoryId)
         {
-            var category = await GetByIdAsync<CategoryResponse>("getCategory", categoryId).HandleExceptions("GetCategory");
+            var category = await GetByIdAsync<PagedResult<CategoryResponse>>("getCategories", categoryId, "categoryIds").HandleExceptions("GetCategories");
 
             _logger.Information("Successfully got Category: {@categoryId}", categoryId);
 
             return category;
         }
 
-        public async Task<ReceiptResponse> GetReceiptAsync(Guid receiptId)
+        public async Task<PagedResult<ReceiptResponse>> GetReceiptAsync(Guid receiptId)
         {
-            var receipt = await GetByIdAsync<ReceiptResponse>("getReceipt", receiptId).HandleExceptions("GetReceipt");
+            var receipt = await GetByIdAsync<PagedResult<ReceiptResponse>>("getReceipt", receiptId, "receiptIds").HandleExceptions("GetReceipt");
 
             _logger.Information("Successfully got receipt: {@receiptId}", receiptId);
 

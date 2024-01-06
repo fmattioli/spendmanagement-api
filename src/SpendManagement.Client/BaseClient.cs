@@ -1,32 +1,27 @@
-﻿using SpendManagement.Client.Configuration;
+﻿using Flurl;
+using SpendManagement.Client.Configuration;
 using System.Net.Http.Json;
 
 namespace SpendManagement.Client
 {
-    public class BaseClient
+    public class BaseClient(HttpClient httpClient, IApiConfiguration configuration)
     {
-        private readonly HttpClient _httpClient;
-        private readonly Uri baseUri;
-        public BaseClient(HttpClient httpClient, IApiConfiguration configuration)
-        {
-            _httpClient = httpClient;
-            this.baseUri = new Uri(
+        private readonly HttpClient _httpClient = httpClient;
+        private readonly Uri baseUri = new(
                 configuration.Endpoint + $"/{configuration.Version}");
-        }
 
         protected async Task<TResponse> GetByIdAsync<TResponse>(
             string path,
-            Guid id)
+            Guid id,
+            string queryParamName)
            where TResponse : class
         {
-            var uri = BuildUri(path, id);
-            return await this._httpClient.GetFromJsonAsync<TResponse>(uri);
-        }
 
-        private Uri BuildUri(string path, Guid id)
-        {
-            var uriString = $"{baseUri.AbsoluteUri}/{path.TrimStart('/')}/{id}";
-            return new Uri(uriString);
+            var uri = baseUri
+                .AppendPathSegment(path)
+                .AppendQueryParam(queryParamName, id);
+
+            return await this._httpClient.GetFromJsonAsync<TResponse>(uri);
         }
     }
 }

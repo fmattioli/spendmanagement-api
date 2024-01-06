@@ -4,7 +4,6 @@ using SpendManagement.Application.Commands.Category.InputModels;
 using SpendManagement.Application.Mappers;
 using SpendManagement.Contracts.V1.Commands.CategoryCommands;
 using SpendManagement.Contracts.V1.Entities;
-using Web.Contracts.Category;
 using CategoryCommand = SpendManagement.Application.Commands.Category.UseCases.DeleteCategory;
 
 namespace SpendManagement.Unit.Tests.Mappers

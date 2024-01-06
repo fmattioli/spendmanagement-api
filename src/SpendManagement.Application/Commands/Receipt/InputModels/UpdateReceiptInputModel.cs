@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.JsonPatch;
-using Web.Contracts.Receipt;
 using Microsoft.AspNetCore.Mvc;
+
+using SpendManagement.WebContracts.Receipt;
 
 namespace SpendManagement.Application.Commands.Receipt.InputModels
 {

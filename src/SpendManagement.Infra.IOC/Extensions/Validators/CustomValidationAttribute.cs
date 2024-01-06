@@ -21,7 +21,7 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Validators
                     Errors = errors
                 })
                 {
-                    StatusCode = 200
+                    StatusCode = 400
                 };
             }
         }
