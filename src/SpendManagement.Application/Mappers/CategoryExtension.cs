@@ -1,7 +1,7 @@
 ﻿using SpendManagement.Application.Commands.Category.InputModels;
 using SpendManagement.Contracts.V1.Commands.CategoryCommands;
 using SpendManagement.Contracts.V1.Entities;
-using Web.Contracts.Category;
+using SpendManagement.WebContracts.Category;
 
 namespace SpendManagement.Application.Mappers
 {

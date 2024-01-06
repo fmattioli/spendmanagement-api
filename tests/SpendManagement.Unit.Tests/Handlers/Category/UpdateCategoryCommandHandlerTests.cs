@@ -4,7 +4,6 @@ using Moq;
 using SpendManagement.Application.Commands.Category.InputModels;
 using SpendManagement.Application.Producers;
 using SpendManagement.Client.SpendManagementReadModel;
-using Web.Contracts.Category;
 using UpdateCategoryCommandHandler = SpendManagement.Application.Commands.Category.UseCases.UpdateCategory.UpdateCategoryCommand;
 using UpdateCategoryCommand = SpendManagement.Contracts.V1.Commands.CategoryCommands.UpdateCategoryCommand;
 using FluentValidation;
@@ -39,7 +38,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Category
             var categoryResponse = fixture.Create<CategoryResponse>();
 
             spendManagementReadModelClientMock
-                .Setup(x => x.GetCategoryAsync(It.IsAny<Guid>()))
+                .Setup(x => x.GetCategoriesAsync(It.IsAny<Guid>()))
                 .ReturnsAsync(categoryResponse);
 
             //Act
@@ -47,7 +46,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Category
 
             //Assert
             spendManagementReadModelClientMock
-                .Verify(x => x.GetCategoryAsync(It.IsAny<Guid>()),
+                .Verify(x => x.GetCategoriesAsync(It.IsAny<Guid>()),
                 Times.Once());
 
             commandProducerMock
@@ -74,7 +73,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Category
             var categoryResponse = fixture.Create<CategoryResponse>();
 
             spendManagementReadModelClientMock
-                .Setup(x => x.GetCategoryAsync(It.IsAny<Guid>()))
+                .Setup(x => x.GetCategoriesAsync(It.IsAny<Guid>()))
                 .ThrowsAsync(new NotFoundException());
 
             //Act

@@ -1,12 +1,13 @@
-﻿using Web.Contracts.Category;
-using Web.Contracts.Receipt;
+﻿using SpendManagement.WebContracts.Category;
+using SpendManagement.WebContracts.Common;
+using SpendManagement.WebContracts.Receipt;
 
 namespace SpendManagement.Client.SpendManagementReadModel
 {
     public interface ISpendManagementReadModelClient
     {
-        Task<ReceiptResponse> GetReceiptAsync(Guid receiptId);
+        Task<PagedResult<ReceiptResponse>> GetReceiptAsync(Guid receiptId);
 
-        Task<CategoryResponse> GetCategoryAsync(Guid categoryId);
+        Task<PagedResult<CategoryResponse>> GetCategoriesAsync(Guid categoryId);
     }
 }

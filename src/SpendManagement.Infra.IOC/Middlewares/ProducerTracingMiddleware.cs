@@ -9,16 +9,11 @@ using SpendManagement.Infra.CrossCutting.Conf;
 
 namespace SpendManagement.Infra.CrossCutting.Middlewares
 {
-    public class ProducerTracingMiddleware : IMessageMiddleware
+    public class ProducerTracingMiddleware(ISettings settings) : IMessageMiddleware
     {
         private static readonly ActivitySource Activity = new(Constants.ApplicationName);
         private static readonly TextMapPropagator Propagator = Propagators.DefaultTextMapPropagator;
-        private readonly string environment;
-
-        public ProducerTracingMiddleware(ISettings settings)
-        {
-            environment = settings!.KafkaSettings!.Environment;
-        }
+        private readonly string environment = settings!.KafkaSettings!.Environment;
 
         public async Task Invoke(IMessageContext context, MiddlewareDelegate next)
         {

@@ -9,38 +9,35 @@ using SpendManagement.Client.SpendManagementReadModel;
 
 namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
 {
-    public class UpdateReceiptCommandHandler : IRequestHandler<UpdateReceiptCommand, Unit>
+    public class UpdateReceiptCommandHandler(ICommandProducer receiptProducer,
+        ISpendManagementReadModelClient spendManagementReadModelClient,
+        IReceiptService receiptService,
+        IValidator<JsonPatchError> validator) : IRequestHandler<UpdateReceiptCommand, Unit>
     {
-        private readonly ICommandProducer _receiptProducer;
-        private readonly IReceiptService _receiptService;
-        private readonly ISpendManagementReadModelClient _spendManagementReadModelClient;
-        private readonly IValidator<JsonPatchError> _validator;
-
-        public UpdateReceiptCommandHandler(ICommandProducer receiptProducer,
-            ISpendManagementReadModelClient spendManagementReadModelClient,
-            IReceiptService receiptService,
-            IValidator<JsonPatchError> validator)
-        {
-            _receiptProducer = receiptProducer;
-            _spendManagementReadModelClient = spendManagementReadModelClient;
-            _receiptService = receiptService;
-            _validator = validator;
-        }
+        private readonly ICommandProducer _receiptProducer = receiptProducer;
+        private readonly IReceiptService _receiptService = receiptService;
+        private readonly ISpendManagementReadModelClient _spendManagementReadModelClient = spendManagementReadModelClient;
+        private readonly IValidator<JsonPatchError> _validator = validator;
 
         public async Task<Unit> Handle(UpdateReceiptCommand request, CancellationToken cancellationToken)
         {
-            var receipt = await _spendManagementReadModelClient
+            var receiptPagedResult = await _spendManagementReadModelClient
                 .GetReceiptAsync(request.UpdateReceiptInputModel.Id);
 
-            request
-                .UpdateReceiptInputModel
-                .ReceiptPatchDocument
-                .ApplyTo(receipt, JsonPatchExtension.HandlePatchErrors(_validator));
+            var receipt = receiptPagedResult.Results.FirstOrDefault();
 
-            await Task.WhenAll(
-                receipt.ReceiptItems.Select(x => _receiptService.ValidateIfCategoryExistAsync(x.CategoryId)));
+            if (receipt != null)
+            {
+                request
+                    .UpdateReceiptInputModel
+                    .ReceiptPatchDocument
+                    .ApplyTo(receipt, JsonPatchExtension.HandlePatchErrors(_validator));
 
-            await _receiptProducer.ProduceCommandAsync(receipt.ToCommand());
+                await Task.WhenAll(
+                    receipt.ReceiptItems.Select(x => _receiptService.ValidateIfCategoryExistAsync(x.CategoryId)));
+
+                await _receiptProducer.ProduceCommandAsync(receipt.ToCommand());
+            }
 
             return Unit.Value;
         }
