@@ -14,9 +14,7 @@ namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
         {
             var receiptCreateCommand = request.Receipt.ToCommand();
 
-            await Task.WhenAll(
-                request.Receipt.ReceiptItems.Select(x => _receiptService.ValidateIfCategoryExistAsync(x.CategoryId))
-                );
+            await _receiptService.ValidateIfCategoryExistAsync(receiptCreateCommand.Receipt.CategoryId);
 
             await _receiptProducer.ProduceCommandAsync(receiptCreateCommand);
 

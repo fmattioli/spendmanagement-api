@@ -4,14 +4,9 @@ using SpendManagement.Application.Producers;
 
 namespace SpendManagement.Application.Commands.Category.UseCases.AddCategory
 {
-    public class AddCategoryCommandHandler : IRequestHandler<AddCategoryRequestCommand, Guid>
+    public class AddCategoryCommandHandler(ICommandProducer receiptProducer) : IRequestHandler<AddCategoryRequestCommand, Guid>
     {
-        private readonly ICommandProducer _categoryProducer;
-
-        public AddCategoryCommandHandler(ICommandProducer receiptProducer)
-        {
-            _categoryProducer = receiptProducer;
-        }
+        private readonly ICommandProducer _categoryProducer = receiptProducer;
 
         public async Task<Guid> Handle(AddCategoryRequestCommand request, CancellationToken cancellationToken)
         {
