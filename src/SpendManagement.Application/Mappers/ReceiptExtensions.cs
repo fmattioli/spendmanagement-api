@@ -12,6 +12,7 @@ namespace SpendManagement.Application.Mappers
         public static CreateReceiptCommand ToCommand(this ReceiptInputModel receiptInputModel)
         {
             var receipt = new Receipt(receiptInputModel.Id == Guid.Empty ? Guid.NewGuid() : receiptInputModel.Id,
+                                    receiptInputModel.CategoryId,
                                     receiptInputModel.EstablishmentName,
                                     receiptInputModel.ReceiptDate);
 
@@ -21,7 +22,6 @@ namespace SpendManagement.Application.Mappers
                                         new ReceiptItem(
                                             x.Id == Guid.Empty ? Guid.NewGuid() : x.Id,
                                             x.ItemName,
-                                            x.CategoryId,
                                             x.Quantity,
                                             x.ItemPrice,
                                             x.Observation));
@@ -31,8 +31,8 @@ namespace SpendManagement.Application.Mappers
 
         public static UpdateReceiptCommand ToCommand(this ReceiptResponse receiptResponse)
         {
-            var receipt = new Receipt(receiptResponse.Id, receiptResponse.EstablishmentName, receiptResponse.ReceiptDate);
-            var receptItems = receiptResponse.ReceiptItems.Select(x => new ReceiptItem(x.Id, x.ItemName, Guid.Empty, x.Quantity, x.ItemPrice, x.Observation));
+            var receipt = new Receipt(receiptResponse.Id, receiptResponse.CategoryId, receiptResponse.EstablishmentName, receiptResponse.ReceiptDate);
+            var receptItems = receiptResponse.ReceiptItems.Select(x => new ReceiptItem(x.Id, x.ItemName, x.Quantity, x.ItemPrice, x.Observation));
 
             return new UpdateReceiptCommand(receipt, receptItems);
         }

@@ -7,6 +7,11 @@ namespace SpendManagement.Application.Validators
     {
         public AddReceiptValidator()
         {
+            RuleFor(x => x.CategoryId)
+                .NotNull()
+                .NotEmpty()
+                .WithMessage(ValidationsErrorsMessages.CategoryIdNameError);
+
             RuleFor(x => x.EstablishmentName)
                 .NotNull()
                 .NotEmpty()
@@ -38,11 +43,7 @@ namespace SpendManagement.Application.Validators
 
             RuleFor(x => x.Quantity).Must(x => x > 0)
                 .WithMessage(ValidationsErrorsMessages.ReceiptItemsItemQuantity);
-
-            RuleFor(x => x.CategoryId)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage(ValidationsErrorsMessages.ReceiptItemsCategoryId);
+            
         }
     }
 }
