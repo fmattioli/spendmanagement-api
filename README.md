@@ -10,7 +10,7 @@ Using concepts and technologies such as Microservices, CQRS, Event Sourcing, Rep
 
 
 # Related packages
-> https://github.com/fmattioli/spendmanagement-webcontracts
+> https://github.com/fmattioli/spendmanagement-webcontracts <br/>
 > https://github.com/fmattioli/spendmanagement-contracts <br/>
 > https://github.com/fmattioli/spendmanagement-topics
 
