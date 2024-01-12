@@ -15,7 +15,7 @@ Using concepts and technologies such as Microservices, CQRS, Event Sourcing, Rep
 > https://github.com/fmattioli/spendmanagement-topics
 
 # How does it works?
-![Alt text](src/SpendManagementDiagramFlow.jpg?raw=true "Title")
+![Alt text](src/SpendManagementDiagramFlow.png?raw=true "Title")
 
 # How to make it works on your machine?
 The entire project has docker support.
