@@ -5,7 +5,7 @@ namespace SpendManagement.Integration.Tests.Helpers
 {
     public sealed class KafkaMessageHelper : IMessageMiddleware
     {
-        private readonly Dictionary<Type, List<IMessageContext>> container = new();
+        private readonly Dictionary<Type, List<IMessageContext>> container = [];
 
         public async Task Invoke(IMessageContext context, MiddlewareDelegate next)
         {
@@ -22,7 +22,7 @@ namespace SpendManagement.Integration.Tests.Helpers
         }
 
         public TMessage TryTake<TMessage>(Func<TMessage, IMessageHeaders, bool> predicate, int timeout)
-            where TMessage : class
+            where TMessage : struct
         {
             var sw = Stopwatch.StartNew();
 
@@ -38,7 +38,7 @@ namespace SpendManagement.Integration.Tests.Helpers
 
                     if (elapsed > timeout || !Monitor.Wait(this.container, timeout - elapsed))
                     {
-                        return null!;
+                        return default;
                     }
                 }
 
@@ -54,7 +54,7 @@ namespace SpendManagement.Integration.Tests.Helpers
         {
             if (!this.container.TryGetValue(type, out var list))
             {
-                list = this.container[type] = new List<IMessageContext>();
+                list = this.container[type] = [];
             }
 
             return list;

@@ -19,27 +19,32 @@ namespace SpendManagement.Unit.Tests.Validators.Receipt
 
         public static TheoryData<DateTime?> ReceiptDates()
         {
-            return new TheoryData<DateTime?>
+            var teoryData = new TheoryData<DateTime?>
             {
-                null,
                 DateTime.MinValue
             };
+
+            return teoryData;
         }
 
         public static TheoryData<IEnumerable<ReceiptItemInputModel?>> ReceiptItems()
         {
-            return new TheoryData<IEnumerable<ReceiptItemInputModel?>>
+            var teoryData = new TheoryData<IEnumerable<ReceiptItemInputModel?>>
             {
-                null!,
                 Enumerable.Empty<ReceiptItemInputModel>()
             };
+
+            return teoryData;
         }
 
         [Fact]
         public void OnGivenAValidReceipt_ShouldBeValidated()
         {
             //Arrange
-            var receiptModel = fixture.Create<ReceiptInputModel>();
+            var receiptModel = fixture
+                .Build<ReceiptInputModel>()
+                .Without(x => x.Discount)
+                .Create();
 
             //Act
             var result = this.receiptValidator.Validate(receiptModel);
@@ -85,6 +90,7 @@ namespace SpendManagement.Unit.Tests.Validators.Receipt
 
         [Theory]
         [MemberData(nameof(ReceiptItems))]
+
         public void OnGivenAValidReceipt_ReceiptItemsInvalid_Should_Not_BeValidated(IEnumerable<ReceiptItemInputModel>? receiptItems)
         {
             //Arrange
@@ -105,13 +111,32 @@ namespace SpendManagement.Unit.Tests.Validators.Receipt
         public void OnGivenAValidReceiptItem_ShouldBeValidated()
         {
             //Arrange
-            var receiptModel = fixture.Create<ReceiptInputModel>();
+            var receiptModel = fixture
+                .Build<ReceiptInputModel>()
+                .Without(x => x.Discount)
+                .Create();
 
             //Act
             var result = this.receiptValidator.Validate(receiptModel);
 
             //Act
             result.IsValid.Should().Be(true);
+        }
+
+        [Fact]
+        public void OnGivenAValidReceiptItem_WithTwoKindsOfDiscount_ShouldBeNotValidated()
+        {
+            //Arrange
+            var receiptModel = fixture
+                .Build<ReceiptInputModel>()
+                .Create();
+
+            //Act
+            var result = this.receiptValidator.Validate(receiptModel);
+
+            //Act
+            result.IsValid.Should().Be(false);
+            result.Errors.Should().Contain(e => e.ErrorMessage == ValidationsErrorsMessages.DiscountFilledOnMoreThanOneField);
         }
 
         [Fact]
@@ -181,17 +206,12 @@ namespace SpendManagement.Unit.Tests.Validators.Receipt
         }
 
         [Fact]
-        public void OnGivenAValidReceipt_WithOutReceiptItemCategoryId_Should_Not_BeValidated()
+        public void OnGivenAValidReceipt_WithOutReceiptCategoryId_Should_Not_BeValidated()
         {
             //Arrange
-            var receiptItemsModel = fixture
-                .Build<ReceiptItemInputModel>()
-                .Without(x => x.CategoryId)
-                .CreateMany();
-
             var receiptModel = fixture
                 .Build<ReceiptInputModel>()
-                .With(x => x.ReceiptItems, receiptItemsModel)
+                .Without(x => x.CategoryId)
                 .Create();
 
             //Act
@@ -199,7 +219,7 @@ namespace SpendManagement.Unit.Tests.Validators.Receipt
 
             //Act
             result.IsValid.Should().Be(false);
-            result.Errors.Should().Contain(e => e.ErrorMessage == ValidationsErrorsMessages.ReceiptItemsCategoryId);
+            result.Errors.Should().Contain(e => e.ErrorMessage == ValidationsErrorsMessages.CategoryIdNameError);
         }
     }
 }

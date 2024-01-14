@@ -43,7 +43,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
 
             //Assert
             receiptServiceMock.Verify(
-                x => x.ValidateIfCategoryExistAsync(It.IsAny<Guid>()), Times.Exactly(receiptInputModel.ReceiptItems.Count()));
+                x => x.ValidateIfCategoryExistAsync(It.IsAny<Guid>()), Times.Exactly(1));
 
             commandProducerMock
                .Verify(

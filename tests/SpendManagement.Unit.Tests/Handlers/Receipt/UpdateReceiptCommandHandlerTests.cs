@@ -9,9 +9,9 @@ using SpendManagement.Application.Producers;
 using SpendManagement.Application.Services;
 using SpendManagement.Client.SpendManagementReadModel;
 using SpendManagement.Contracts.Exceptions;
+using SpendManagement.WebContracts.Common;
+using SpendManagement.WebContracts.Receipt;
 
-using Web.Contracts.Category;
-using Web.Contracts.Receipt;
 
 namespace SpendManagement.Unit.Tests.Handlers.Receipt
 {
@@ -41,7 +41,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
                 ReceiptPatchDocument = jsonPatchDocument
             });
 
-            var receiptResponse = fixture.Create<ReceiptResponse>();
+            var receiptResponse = fixture.Create<PagedResult<ReceiptResponse>>();
 
             spendManagementReadModelClientMock
                 .Setup(x => x.GetReceiptAsync(It.IsAny<Guid>()))
@@ -66,7 +66,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
 
             receiptService
                 .Verify(x => x.ValidateIfCategoryExistAsync(It.IsAny<Guid>()),
-                Times.Exactly(receiptResponse.ReceiptItems.Count()));
+                Times.Exactly(1));
 
             spendManagementReadModelClientMock.VerifyNoOtherCalls();
 
@@ -108,7 +108,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
                 ReceiptPatchDocument = jsonPatchDocument
             });
 
-            var receiptResponse = fixture.Create<ReceiptResponse>();
+            var receiptResponse = fixture.Create<PagedResult<ReceiptResponse>>();
 
             spendManagementReadModelClientMock
                 .Setup(x => x.GetReceiptAsync(It.IsAny<Guid>()))
