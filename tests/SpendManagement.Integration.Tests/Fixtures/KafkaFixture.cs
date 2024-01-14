@@ -53,7 +53,7 @@ namespace SpendManagement.Integration.Tests.Fixtures
         }
 
         public TMessage Consume<TMessage>(Func<TMessage, IMessageHeaders, bool> predicate)
-            where TMessage : class
+            where TMessage : struct
         {
             return this.kafkaMessage.TryTake(
                 predicate,

@@ -13,11 +13,9 @@ namespace SpendManagement.API.Controllers
     [Route("api/v1")]
     [ApiController]
     [Authorize]
-    public class ReceiptController : Controller
+    public class ReceiptController(IMediator mediator) : Controller
     {
-        private readonly IMediator _mediator;
-
-        public ReceiptController(IMediator mediator) => _mediator = mediator;
+        private readonly IMediator _mediator = mediator;
 
         /// <summary>
         /// Add a new receipt on the platform.

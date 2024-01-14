@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Mvc;
+
+using Newtonsoft.Json;
 
 namespace SpendManagement.Application.Commands.Receipt.InputModels
 {
@@ -6,8 +8,12 @@ namespace SpendManagement.Application.Commands.Receipt.InputModels
     {
         public Guid Id { get; set; }
         public Guid CategoryId { get; set; }
-        public string EstablishmentName { get; set; } = null!;
+        public string? EstablishmentName { get; set; }
         public DateTime ReceiptDate { get; set; }
-        public IEnumerable<ReceiptItemInputModel> ReceiptItems { get; set; } = null!;
+        public IEnumerable<ReceiptItemInputModel> ReceiptItems { get; set; } = Enumerable.Empty<ReceiptItemInputModel>();
+        public decimal Discount { get; set; }
+
+        [JsonIgnore]
+        public decimal Total { get; set; }
     }
 }

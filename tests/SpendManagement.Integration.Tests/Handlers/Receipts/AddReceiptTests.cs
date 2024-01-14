@@ -8,17 +8,11 @@ using SpendManagement.Integration.Tests.Helpers;
 namespace SpendManagement.Integration.Tests.Handlers.Receipts
 {
     [Collection(nameof(SharedFixtureCollection))]
-    public class AddReceiptTests : BaseTests<ReceiptInputModel>
+    public class AddReceiptTests(KafkaFixture kafkaFixture, MongoDbFixture mongoDbFixture) : BaseTests<ReceiptInputModel>
     {
         private readonly Fixture fixture = new();
-        private readonly KafkaFixture kafkaFixture;
-        private readonly MongoDbFixture mongoDbFixture;
-
-        public AddReceiptTests(KafkaFixture kafkaFixture, MongoDbFixture mongoDbFixture)
-        {
-            this.kafkaFixture = kafkaFixture;
-            this.mongoDbFixture = mongoDbFixture;
-        }
+        private readonly KafkaFixture kafkaFixture = kafkaFixture;
+        private readonly MongoDbFixture mongoDbFixture = mongoDbFixture;
 
         [Fact(DisplayName = "On adding a valid receipt, a Kafka command should be produced.")]
         public async Task OnGivenAValidReceiptToBeCreated_ShouldBeProducedACreateReceiptCommand()
@@ -33,7 +27,7 @@ namespace SpendManagement.Integration.Tests.Handlers.Receipts
                 .With(x => x.ReceiptItems, receipItems)
                 .Create();
 
-            var categories = receipItems.Select(x => new Fixtures.Category(x.CategoryId, fixture.Create<string>(), DateTime.UtcNow));
+            var categories = receipItems.Select(x => new Fixtures.Category(receipt.CategoryId, fixture.Create<string>(), DateTime.UtcNow));
 
             await mongoDbFixture.InsertCategories(categories);
 
@@ -70,7 +64,7 @@ namespace SpendManagement.Integration.Tests.Handlers.Receipts
                 .With(x => x.ReceiptItems, receipItems)
                 .Create();
 
-            var categories = receipItems.Select(x => new Fixtures.Category(x.CategoryId, fixture.Create<string>(), DateTime.UtcNow));
+            var categories = receipItems.Select(x => new Fixtures.Category(receipt.CategoryId, fixture.Create<string>(), DateTime.UtcNow));
 
             //Act
             var response = await PostAsync("/addReceipt", receipt);

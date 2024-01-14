@@ -8,17 +8,11 @@ using SpendManagement.Integration.Tests.Helpers;
 namespace SpendManagement.Integration.Tests.Handlers.Category
 {
     [Collection(nameof(SharedFixtureCollection))]
-    public class AddCategoryTests : BaseTests<CategoryInputModel>
+    public class AddCategoryTests(KafkaFixture kafkaFixture, MongoDbFixture mongoDbFixture) : BaseTests<CategoryInputModel>
     {
         private readonly Fixture fixture = new();
-        private readonly KafkaFixture kafkaFixture;
-        private readonly MongoDbFixture mongoDbFixture;
-
-        public AddCategoryTests(KafkaFixture kafkaFixture, MongoDbFixture mongoDbFixture)
-        {
-            this.kafkaFixture = kafkaFixture;
-            this.mongoDbFixture = mongoDbFixture;
-        }
+        private readonly KafkaFixture kafkaFixture = kafkaFixture;
+        private readonly MongoDbFixture mongoDbFixture = mongoDbFixture;
 
         [Fact(DisplayName = "On adding a valid category, a Kafka command should be produced.")]
         private async Task OnGivenAValidCategory_ShouldBeProducedACreateCategoryCommand()

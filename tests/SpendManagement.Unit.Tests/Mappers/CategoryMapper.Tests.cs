@@ -4,6 +4,8 @@ using SpendManagement.Application.Commands.Category.InputModels;
 using SpendManagement.Application.Mappers;
 using SpendManagement.Contracts.V1.Commands.CategoryCommands;
 using SpendManagement.Contracts.V1.Entities;
+using SpendManagement.WebContracts.Category;
+
 using CategoryCommand = SpendManagement.Application.Commands.Category.UseCases.DeleteCategory;
 
 namespace SpendManagement.Unit.Tests.Mappers
@@ -24,17 +26,33 @@ namespace SpendManagement.Unit.Tests.Mappers
                 .Create();
 
             var category = new Category(categoryInputModel.Id, categoryInputModel.Name);
+
             var expectedCommand = new CreateCategoryCommand(category);
 
             // Act
             var result = categoryInputModel.ToCreateCategoryCommand();
 
             // Assert
-            result.CommandCreatedDate.ToShortDateString().Should().Be(expectedCommand.CommandCreatedDate.ToShortDateString());
-            result.Should().BeEquivalentTo(expectedCommand, options
-                => options
-                    .Excluding(x => x.CommandCreatedDate)
-                    .Excluding(x => x.Category.CreatedDate));
+            result.CommandCreatedDate
+                .ToShortDateString()
+                .Should()
+                .Be(expectedCommand.CommandCreatedDate.ToShortDateString());
+
+            result.RoutingKey
+                .Should()
+                .Be(expectedCommand.RoutingKey);
+
+            result.Category.Name
+                .Should()
+                .Be(expectedCommand.Category.Name);
+
+            result.Category.Id
+                .Should()
+                .Be(expectedCommand.Category.Id);
+
+            result.Category.CreatedDate.ToShortDateString()
+                .Should()
+                .Be(expectedCommand.Category.CreatedDate.ToShortDateString());
         }
 
         [Fact]
@@ -67,11 +85,21 @@ namespace SpendManagement.Unit.Tests.Mappers
             var result = categoryResponse.ToUpdateCategoryCommand();
 
             // Assert
-            result.CommandCreatedDate.ToShortDateString().Should().Be(expectedCommand.CommandCreatedDate.ToShortDateString());
-            result.Should().BeEquivalentTo(expectedCommand, options
-                => options
-                    .Excluding(x => x.CommandCreatedDate)
-                    .Excluding(x => x.Category.CreatedDate));
+            result.CommandCreatedDate.ToShortDateString()
+                .Should()
+                .Be(expectedCommand.CommandCreatedDate.ToShortDateString());
+
+            result.RoutingKey
+                .Should()
+                .Be(expectedCommand.RoutingKey);
+
+            result.Category.Name
+                .Should()
+                .Be(expectedCommand.Category.Name);
+
+            result.Category.CreatedDate.ToShortDateString()
+                .Should()
+                .Be(expectedCommand.Category.CreatedDate.ToShortDateString());
         }
     }
 }

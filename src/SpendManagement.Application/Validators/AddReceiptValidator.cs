@@ -26,6 +26,11 @@ namespace SpendManagement.Application.Validators
                 .WithMessage(ValidationsErrorsMessages.ReceiptItemsError);
 
             RuleForEach(x => x.ReceiptItems).SetValidator(new ReceiptItemsValidator());
+
+            RuleFor(x => x)
+            .Must(SpecialValidations.OnlyOneOfDiscountTypeMustBeFilled)
+            .WithMessage(ValidationsErrorsMessages.DiscountFilledOnMoreThanOneField);
+
         }
     }
 
@@ -46,4 +51,19 @@ namespace SpendManagement.Application.Validators
             
         }
     }
+
+    public static class SpecialValidations
+    {
+        public static bool OnlyOneOfDiscountTypeMustBeFilled(ReceiptInputModel receiptInput)
+        {
+            bool discountFilledOnReceiptItems = receiptInput.ReceiptItems.Any(x => x.ItemDiscount != 0.0M);
+            bool descountFilledOnReceipt = receiptInput.Discount != 0.0M;
+
+            if (discountFilledOnReceiptItems && descountFilledOnReceipt)
+                return false;
+
+            return true;
+        }
+    }
+    
 }

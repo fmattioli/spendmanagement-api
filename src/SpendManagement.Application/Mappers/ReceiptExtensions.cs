@@ -3,8 +3,6 @@ using SpendManagement.Contracts.V1.Commands.ReceiptCommands;
 using SpendManagement.Contracts.V1.Entities;
 using SpendManagement.WebContracts.Receipt;
 
-using Web.Contracts.Receipt;
-
 namespace SpendManagement.Application.Mappers
 {
     public static class ReceiptExtensions
@@ -13,8 +11,9 @@ namespace SpendManagement.Application.Mappers
         {
             var receipt = new Receipt(receiptInputModel.Id == Guid.Empty ? Guid.NewGuid() : receiptInputModel.Id,
                                     receiptInputModel.CategoryId,
-                                    receiptInputModel.EstablishmentName,
-                                    receiptInputModel.ReceiptDate);
+                                    receiptInputModel.EstablishmentName!,
+                                    receiptInputModel.ReceiptDate,
+                                    receiptInputModel.Discount);
 
             var receiptItems = receiptInputModel
                                     .ReceiptItems
@@ -24,15 +23,16 @@ namespace SpendManagement.Application.Mappers
                                             x.ItemName,
                                             x.Quantity,
                                             x.ItemPrice,
-                                            x.Observation));
+                                            x.Observation!,
+                                            x.ItemDiscount));
 
             return new CreateReceiptCommand(receipt, receiptItems);
         }
 
         public static UpdateReceiptCommand ToCommand(this ReceiptResponse receiptResponse)
         {
-            var receipt = new Receipt(receiptResponse.Id, receiptResponse.CategoryId, receiptResponse.EstablishmentName, receiptResponse.ReceiptDate);
-            var receptItems = receiptResponse.ReceiptItems.Select(x => new ReceiptItem(x.Id, x.ItemName, x.Quantity, x.ItemPrice, x.Observation));
+            var receipt = new Receipt(receiptResponse.Id, receiptResponse.CategoryId, receiptResponse.EstablishmentName, receiptResponse.ReceiptDate, receiptResponse.Discount);
+            var receptItems = receiptResponse.ReceiptItems.Select(x => new ReceiptItem(x.Id, x.ItemName, x.Quantity, x.ItemPrice, x.Observation, x.ItemDiscount));
 
             return new UpdateReceiptCommand(receipt, receptItems);
         }

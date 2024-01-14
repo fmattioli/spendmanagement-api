@@ -9,6 +9,9 @@ using UpdateCategoryCommand = SpendManagement.Contracts.V1.Commands.CategoryComm
 using FluentValidation;
 using FluentAssertions;
 using SpendManagement.Contracts.Exceptions;
+using SpendManagement.WebContracts.Category;
+using SpendManagement.WebContracts.Common;
+using SpendManagement.WebContracts.Receipt;
 
 namespace SpendManagement.Unit.Tests.Handlers.Category
 {
@@ -35,7 +38,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Category
                 CategoryPatchDocument = jsonPatchDocument
             });
 
-            var categoryResponse = fixture.Create<CategoryResponse>();
+            var categoryResponse = fixture.Create<PagedResult<CategoryResponse>>();
 
             spendManagementReadModelClientMock
                 .Setup(x => x.GetCategoriesAsync(It.IsAny<Guid>()))
