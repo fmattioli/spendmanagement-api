@@ -13,7 +13,8 @@ namespace SpendManagement.Application.Mappers
                                     receiptInputModel.CategoryId,
                                     receiptInputModel.EstablishmentName!,
                                     receiptInputModel.ReceiptDate,
-                                    receiptInputModel.Discount);
+                                    receiptInputModel.Discount,
+                                    receiptInputModel.Total);
 
             var receiptItems = receiptInputModel
                                     .ReceiptItems
@@ -31,7 +32,13 @@ namespace SpendManagement.Application.Mappers
 
         public static UpdateReceiptCommand ToCommand(this ReceiptResponse receiptResponse)
         {
-            var receipt = new Receipt(receiptResponse.Id, receiptResponse.CategoryId, receiptResponse.EstablishmentName, receiptResponse.ReceiptDate, receiptResponse.Discount);
+            var receipt = new Receipt(receiptResponse.Id, 
+                receiptResponse.CategoryId, 
+                receiptResponse.EstablishmentName, 
+                receiptResponse.ReceiptDate, 
+                receiptResponse.Discount,
+                receiptResponse.Total);
+
             var receptItems = receiptResponse.ReceiptItems.Select(x => new ReceiptItem(x.Id, x.ItemName, x.Quantity, x.ItemPrice, x.Observation, x.ItemDiscount));
 
             return new UpdateReceiptCommand(receipt, receptItems);

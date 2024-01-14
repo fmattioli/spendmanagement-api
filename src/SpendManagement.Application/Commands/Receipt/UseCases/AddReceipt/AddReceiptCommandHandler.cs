@@ -1,8 +1,8 @@
 ﻿using MediatR;
+using SpendManagement.Application.Commands.Receipt.InputModels;
 using SpendManagement.Application.Mappers;
 using SpendManagement.Application.Producers;
 using SpendManagement.Application.Services;
-using SpendManagement.Contracts.V1.Commands.ReceiptCommands;
 
 namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
 {
@@ -13,13 +13,13 @@ namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
 
         public async Task<Guid> Handle(AddReceiptCommand request, CancellationToken cancellationToken)
         {
+            var totalDiscounts = CalculateTotalDiscounts(request.Receipt);
+
+            var receiptTotalPrice = request.Receipt.ReceiptItems.Sum(x => x.TotalPrice);
+
+            request.Receipt.Total = receiptTotalPrice - totalDiscounts;
+
             var receiptCreateCommand = request.Receipt.ToCommand();
-
-            var receiptTotalPrice = receiptCreateCommand.ReceiptItems.Sum(x => x.TotalPrice);
-
-            var totalDiscounts = CalculateTotalDiscounts(receiptCreateCommand);
-
-            receiptCreateCommand.Receipt.Total = receiptTotalPrice - totalDiscounts;
 
             await _receiptService.ValidateIfCategoryExistAsync(receiptCreateCommand.Receipt.CategoryId);
 
@@ -28,17 +28,17 @@ namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
             return receiptCreateCommand.Receipt.Id;
         }
 
-        private static decimal CalculateTotalDiscounts(CreateReceiptCommand receiptCreateCommand)
+        private static decimal CalculateTotalDiscounts(ReceiptInputModel receiptInputModel)
         {
-            var makeDiscountBasedOnReceiptItems = receiptCreateCommand.ReceiptItems.Any(x => x.ItemDiscount != 0.0M);
+            var makeDiscountBasedOnReceiptItems = receiptInputModel.ReceiptItems.Any(x => x.ItemDiscount != 0.0M);
 
             if (makeDiscountBasedOnReceiptItems)
             {
-                var totalDiscounts = receiptCreateCommand.ReceiptItems.Sum(x => x.ItemDiscount);
+                var totalDiscounts = receiptInputModel.ReceiptItems.Sum(x => x.ItemDiscount);
                 return totalDiscounts;
             }
 
-            return receiptCreateCommand.Receipt.Discount;
+            return receiptInputModel.Discount;
         }
     }
 }
