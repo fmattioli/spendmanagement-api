@@ -35,6 +35,7 @@ namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
             if (makeDiscountBasedOnReceiptItems)
             {
                 var totalDiscounts = receiptInputModel.ReceiptItems.Sum(x => x.ItemDiscount);
+                receiptInputModel.Discount = totalDiscounts;
                 return totalDiscounts;
             }
 
