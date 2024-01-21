@@ -34,13 +34,10 @@ namespace SpendManagement.Integration.Tests.Handlers.Receipts
                 .With(x => x.EstablishmentName, "Whatever name")
                 .Create();
 
-            var categories = receipt
-                .ReceiptItems
-                ?.Select(x =>
-                    new Fixtures.Category(x.CategoryId, categoryName, DateTime.UtcNow));
+            var category = new Fixtures.Category(receipt.CategoryId, categoryName, DateTime.UtcNow);
 
             await Task.WhenAll(
-                mongoDbFixture.InsertCategories(categories),
+                mongoDbFixture.InsertCategory(category),
                 mongoDbFixture.InsertReceipt(receipt));
 
             var newEstablishmentName = fixture.Create<string>();
@@ -81,12 +78,9 @@ namespace SpendManagement.Integration.Tests.Handlers.Receipts
                 .With(x => x.EstablishmentName, "Whatever name")
                 .Create();
 
-            var categories = receipt
-                .ReceiptItems
-                ?.Select(x =>
-                    new Fixtures.Category(x.CategoryId, categoryName, DateTime.UtcNow));
+            var category = new Fixtures.Category(receipt.CategoryId, categoryName, DateTime.UtcNow);
 
-            await mongoDbFixture.InsertCategories(categories);
+            await mongoDbFixture.InsertCategory(category);
 
             var newEstablishmentName = fixture.Create<string>();
 
@@ -118,10 +112,7 @@ namespace SpendManagement.Integration.Tests.Handlers.Receipts
                 .With(x => x.EstablishmentName, "Whatever name")
                 .Create();
 
-            var categories = receipt
-                .ReceiptItems
-                ?.Select(x =>
-                    new Fixtures.Category(x.CategoryId, categoryName, DateTime.UtcNow));
+            var categories = new Fixtures.Category(receipt.CategoryId, categoryName, DateTime.UtcNow);
 
             await mongoDbFixture.InsertReceipt(receipt);
 

@@ -8,7 +8,7 @@
   },
   "MongoSettings": {
     "Database": "spendmanagement",
-    "ConnectionString": "mongodb://root:root@localhost:27017/?retryWrites=true&w=majority"
+    "ConnectionString": "mongodb+srv://spendmanagement:fhsQH5QnIIszl3Bq@spendmanagement.v4tjxmn.mongodb.net/"
   },
   "Kafka": {
     "Brokers": [ "localhost:9094" ],
