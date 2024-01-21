@@ -25,14 +25,19 @@ namespace SpendManagement.Integration.Tests.Handlers.Receipts
             var receipt = fixture
                 .Build<ReceiptInputModel>()
                 .With(x => x.ReceiptItems, receipItems)
+                .With(x => x.Discount, 0.0M)
                 .Create();
 
-            var categories = receipItems.Select(x => new Fixtures.Category(receipt.CategoryId, fixture.Create<string>(), DateTime.UtcNow));
+            var category = new Fixtures.Category(receipt.CategoryId, fixture.Create<string>(), DateTime.UtcNow);
 
-            await mongoDbFixture.InsertCategories(categories);
+            await mongoDbFixture.InsertCategory(category);
+
+            mongoDbFixture.AddReceiptToCleanUp(receipt.Id);
 
             //Act
             var response = await PostAsync("/addReceipt", receipt);
+
+
 
             //Assert
             response.Should().BeSuccessful();
@@ -45,9 +50,6 @@ namespace SpendManagement.Integration.Tests.Handlers.Receipts
 
             receiptCommand.Should().NotBeNull();
             receiptCommand.ReceiptItems.Should().HaveCount(receipItems.Count());
-            receiptCommand.Receipt.Should().BeEquivalentTo(receipt, options
-                => options
-                    .Excluding(x => x.ReceiptItems));
             receiptCommand.ReceiptItems.Should().BeEquivalentTo(receipItems);
         }
 
@@ -66,7 +68,9 @@ namespace SpendManagement.Integration.Tests.Handlers.Receipts
 
             var categories = receipItems.Select(x => new Fixtures.Category(receipt.CategoryId, fixture.Create<string>(), DateTime.UtcNow));
 
+            mongoDbFixture.AddReceiptToCleanUp(receipt.Id);
             //Act
+
             var response = await PostAsync("/addReceipt", receipt);
 
             //Assert

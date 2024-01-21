@@ -33,7 +33,7 @@ namespace SpendManagement.Integration.Tests.Fixtures
                 var collection = this.database.GetCollection<Receipt>("Receipts");
 
                 var filter = new FilterDefinitionBuilder<Receipt>()
-                    .In(x => x.Id, categoryIds);
+                    .In(x => x.Id, receiptIds);
 
                 await collection.DeleteManyAsync(filter);
             }
@@ -44,6 +44,11 @@ namespace SpendManagement.Integration.Tests.Fixtures
         public void AddCategoryToCleanUp(Guid id)
         {
             this.categoryIds.Add(id);
+        }
+
+        public void AddReceiptToCleanUp(Guid id)
+        {
+            this.receiptIds.Add(id);
         }
 
         public async Task InsertReceipt(Receipt receipt)
@@ -70,7 +75,7 @@ namespace SpendManagement.Integration.Tests.Fixtures
 
     public record Category([property: BsonId] Guid Id, string? Name, DateTime CreatedDate);
 
-    public record Receipt([property: BsonId] Guid Id, string? EstablishmentName, DateTime ReceiptDate, IEnumerable<ReceiptItem>? ReceiptItems);
+    public record Receipt([property: BsonId] Guid Id, Guid CategoryId, string? EstablishmentName, DateTime ReceiptDate, IEnumerable<ReceiptItem>? ReceiptItems);
 
-    public record ReceiptItem(Guid Id, Guid CategoryId, string ItemName, short Quantity, decimal ItemPrice, decimal TotalPrice, string Observation);
+    public record ReceiptItem(Guid Id, string ItemName, short Quantity, decimal ItemPrice, decimal TotalPrice, string Observation);
 }

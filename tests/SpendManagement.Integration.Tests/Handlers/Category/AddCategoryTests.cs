@@ -22,6 +22,8 @@ namespace SpendManagement.Integration.Tests.Handlers.Category
                 .Build<CategoryInputModel>()
                 .Create();
 
+            mongoDbFixture.AddCategoryToCleanUp(categoryInputModel.Id);
+
             //Act
             var response = await PostAsync("/addCategory", categoryInputModel);
 

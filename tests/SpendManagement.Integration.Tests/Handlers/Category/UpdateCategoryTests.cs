@@ -1,12 +1,8 @@
 ﻿using AutoFixture;
-
 using FluentAssertions;
-
 using Newtonsoft.Json;
-
 using SpendManagement.Application.Commands.Category.InputModels;
 using SpendManagement.Contracts.V1.Commands.CategoryCommands;
-using SpendManagement.Contracts.V1.Entities;
 using SpendManagement.Integration.Tests.Fixtures;
 using SpendManagement.Integration.Tests.Helpers;
 
@@ -34,7 +30,7 @@ namespace SpendManagement.Integration.Tests.Handlers.Category
             var category = fixture
                 .Build<Fixtures.Category>()
                 .With(x => x.Id, categoryId)
-                .With(x => x.Name, "Whatever name")
+                .With(x => x.Name, "INTEGRATION_TESTES")
                 .With(x => x.CreatedDate, DateTime.Now)
                 .Create();
 
@@ -65,7 +61,7 @@ namespace SpendManagement.Integration.Tests.Handlers.Category
         }
 
         [Fact(DisplayName = "On updating a invalid category, an error should occur")]
-        public async Task OnGivenAInValidCategoryToBeUpdated_ShouldBeOccurAnError()
+        public async Task OnGivenAInvalidCategoryToBeUpdated_ShouldBeOccurAnError()
         {
             //Arrange
             var categoryId = fixture.Create<Guid>();
