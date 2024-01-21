@@ -406,4 +406,4 @@ FodyWeavers.xsd
 #Environmnet
 *.env
 
-*appsettings.Docker.json
+*testsettings.json
