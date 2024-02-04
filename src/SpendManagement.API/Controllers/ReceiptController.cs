@@ -7,6 +7,7 @@ using SpendManagement.Application.Commands.Receipt.UseCases.DeleteReceipt;
 using Microsoft.AspNetCore.Authorization;
 using SpendManagement.Infra.CrossCutting.Extensions.Filters;
 using SpendManagement.Application.Claims;
+using SpendManagement.Application.Commands.Receipt.UseCases.AddRecurringReceipt;
 
 namespace SpendManagement.API.Controllers
 {
@@ -62,6 +63,22 @@ namespace SpendManagement.API.Controllers
         public async Task<IActionResult> DeleteReceipt(Guid Id, CancellationToken cancellationToken)
         {
             await _mediator.Send(new DeleteReceiptCommand(Id), cancellationToken);
+            return Accepted();
+        }
+
+        /// <summary>
+        /// Add a new recurring receipt on the platform.
+        /// </summary>
+        /// <returns>A status code related to the operation.</returns>
+        [HttpPost]
+        [Route("addRecurringReceipt", Name = nameof(ReceiptController.AddRecurringReceipt))]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ClaimsAuthorizeAttribute(ClaimTypes.Receipt, "Insert")]
+        public async Task<IActionResult> AddRecurringReceipt([FromBody] RecurringReceiptInputModel recurringReceiptInputModel, CancellationToken cancellationToken)
+        {
+            await _mediator.Send(new AddRecurringReceiptCommand(recurringReceiptInputModel), cancellationToken);
             return Accepted();
         }
     }

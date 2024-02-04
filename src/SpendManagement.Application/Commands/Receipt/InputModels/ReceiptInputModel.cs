@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace SpendManagement.Application.Commands.Receipt.InputModels
 {
