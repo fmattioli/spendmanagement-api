@@ -13,11 +13,7 @@ namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
 
         public async Task<Guid> Handle(AddReceiptCommand request, CancellationToken cancellationToken)
         {
-            var totalDiscounts = CalculateTotalDiscounts(request.Receipt);
-
-            var receiptTotalPrice = request.Receipt.ReceiptItems.Sum(x => x.TotalPrice);
-
-            request.Receipt.Total = receiptTotalPrice - totalDiscounts;
+            request.Receipt = _receiptService.CalculateReceiptTotals(request.Receipt);
 
             var receiptCreateCommand = request.Receipt.ToCommand();
 
@@ -26,20 +22,6 @@ namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
             await _receiptProducer.ProduceCommandAsync(receiptCreateCommand);
 
             return receiptCreateCommand.Receipt.Id;
-        }
-
-        private static decimal CalculateTotalDiscounts(ReceiptInputModel receiptInputModel)
-        {
-            var makeDiscountBasedOnReceiptItems = receiptInputModel.ReceiptItems.Any(x => x.ItemDiscount != 0.0M);
-
-            if (makeDiscountBasedOnReceiptItems)
-            {
-                var totalDiscounts = receiptInputModel.ReceiptItems.Sum(x => x.ItemDiscount);
-                receiptInputModel.Discount = totalDiscounts;
-                return totalDiscounts;
-            }
-
-            return receiptInputModel.Discount;
         }
     }
 }
