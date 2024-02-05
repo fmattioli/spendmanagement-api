@@ -25,7 +25,8 @@ namespace SpendManagement.Application.Mappers
                                             x.Quantity,
                                             x.ItemPrice,
                                             x.Observation!,
-                                            x.ItemDiscount));
+                                            x.ItemDiscount,
+                                            x.TotalPrice));
 
             return new CreateReceiptCommand(receipt, receiptItems);
         }
@@ -39,7 +40,7 @@ namespace SpendManagement.Application.Mappers
                 receiptResponse.Discount,
                 receiptResponse.Total);
 
-            var receptItems = receiptResponse.ReceiptItems.Select(x => new ReceiptItem(x.Id, x.ItemName, x.Quantity, x.ItemPrice, x.Observation, x.ItemDiscount));
+            var receptItems = receiptResponse.ReceiptItems.Select(x => new ReceiptItem(x.Id, x.ItemName, x.Quantity, x.ItemPrice, x.Observation, x.ItemDiscount,x.TotalPrice));
 
             return new UpdateReceiptCommand(receipt, receptItems);
         }

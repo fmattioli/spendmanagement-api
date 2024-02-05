@@ -71,11 +71,11 @@ namespace SpendManagement.API.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpPost]
-        [Route("addRecurringReceipt", Name = nameof(ReceiptController.AddRecurringReceipt))]
+        [Route("addRecurringReceipt", Name = nameof(AddRecurringReceipt))]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ClaimsAuthorizeAttribute(ClaimTypes.Receipt, "Insert")]
+        [ClaimsAuthorize(ClaimTypes.Receipt, "Insert")]
         public async Task<IActionResult> AddRecurringReceipt([FromBody] RecurringReceiptInputModel recurringReceiptInputModel, CancellationToken cancellationToken)
         {
             await _mediator.Send(new AddRecurringReceiptCommand(recurringReceiptInputModel), cancellationToken);

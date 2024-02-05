@@ -3,5 +3,8 @@ using SpendManagement.Application.Commands.Receipt.InputModels;
 
 namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
 {
-    public record AddReceiptCommand(ReceiptInputModel Receipt) : IRequest<Guid>;
+    public class AddReceiptCommand(ReceiptInputModel Receipt) : IRequest<Guid>
+    {
+        public ReceiptInputModel Receipt { get; set; } = Receipt;
+    }
 }
