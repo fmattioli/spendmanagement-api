@@ -15,7 +15,7 @@ namespace SpendManagement.Client.SpendManagementReadModel
 
         public async Task<PagedResult<CategoryResponse>> GetCategoriesAsync(Guid categoryId)
         {
-            var category = await GetByIdAsync<PagedResult<CategoryResponse>>("getCategories", categoryId, "categoryIds")
+            var category = await GetAsync<PagedResult<CategoryResponse>>("getCategories", categoryId, "categoryIds")
                 .HandleExceptions("GetCategories");
 
             if(category.TotalResults == 0)
@@ -30,7 +30,7 @@ namespace SpendManagement.Client.SpendManagementReadModel
 
         public async Task<PagedResult<ReceiptResponse>> GetReceiptAsync(Guid receiptId)
         {
-            var receipt = await GetByIdAsync<PagedResult<ReceiptResponse>>("getReceipts", receiptId, "receiptIds").HandleExceptions("GetReceipt");
+            var receipt = await GetAsync<PagedResult<ReceiptResponse>>("getReceipts", receiptId, "receiptIds").HandleExceptions("GetReceipt");
 
             if (receipt.TotalResults == 0)
             {
