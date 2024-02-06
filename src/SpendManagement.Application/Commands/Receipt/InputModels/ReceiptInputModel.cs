@@ -10,8 +10,6 @@ namespace SpendManagement.Application.Commands.Receipt.InputModels
         public DateTime ReceiptDate { get; set; }
         public IEnumerable<ReceiptItemInputModel> ReceiptItems { get; set; } = Enumerable.Empty<ReceiptItemInputModel>();
         public decimal Discount { get; set; }
-
-        [JsonIgnore]
         public decimal Total { get; set; }
     }
 }

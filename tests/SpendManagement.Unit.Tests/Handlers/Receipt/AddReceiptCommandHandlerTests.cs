@@ -22,7 +22,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
         }
 
         [Fact]
-        public async Task Handle_ShouldProduceReceiptCommand()
+        public async Task Handle_ShouldProduceCreateReceiptCommand()
         {
             // Arrange
             var receiptInputModel = fixture
@@ -38,12 +38,19 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
                 .Setup(x => x.ValidateIfCategoryExistAsync(It.IsAny<Guid>()))
                 .Returns(Task.CompletedTask);
 
+            receiptServiceMock
+                .Setup(x => x.CalculateReceiptTotals(It.IsAny<ReceiptInputModel>()))
+                .Returns(receiptInputModel);
+
             //Act
             await handler.Handle(receiptCommand, CancellationToken.None);
 
             //Assert
             receiptServiceMock.Verify(
                 x => x.ValidateIfCategoryExistAsync(It.IsAny<Guid>()), Times.Exactly(1));
+            
+            receiptServiceMock.Verify(
+                x => x.CalculateReceiptTotals(It.IsAny<ReceiptInputModel>()), Times.Exactly(1));
 
             commandProducerMock
                .Verify(
@@ -56,12 +63,17 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
         {
             // Arrange
             var receiptInputModel = fixture.Create<ReceiptInputModel>();
-            var request = fixture.Build<AddReceiptCommand>()
-                                 .Create();
+            var request = fixture
+                .Build<AddReceiptCommand>()
+                .Create();
 
             commandProducerMock
                 .Setup(x => x.ProduceCommandAsync(It.IsAny<CreateReceiptCommand>()))
                 .Throws<Exception>();
+
+            receiptServiceMock
+                .Setup(x => x.CalculateReceiptTotals(It.IsAny<ReceiptInputModel>()))
+                .Returns(receiptInputModel);
 
             // Act
             Func<Task> act = async () => await handler.Handle(request, CancellationToken.None);

@@ -10,7 +10,7 @@ namespace SpendManagement.Client
         private readonly Uri baseUri = new(
                 configuration.Endpoint + $"/{configuration.Version}");
 
-        protected async Task<TResponse> GetByIdAsync<TResponse>(
+        protected async Task<TResponse> GetAsync<TResponse>(
             string path,
             Guid id,
             string queryParamName)
