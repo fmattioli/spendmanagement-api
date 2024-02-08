@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Serilog;
-using SpendManagement.Contracts.Exceptions;
-
 using System.Net;
+
+using Web.Contracts.Exceptions;
 
 namespace SpendManagement.Infra.CrossCutting.Middlewares
 {

@@ -1,17 +1,18 @@
 ﻿using AutoFixture;
+using FluentAssertions;
+using FluentValidation;
 using Microsoft.AspNetCore.JsonPatch;
 using Moq;
 using SpendManagement.Application.Commands.Category.InputModels;
 using SpendManagement.Application.Producers;
 using SpendManagement.Client.SpendManagementReadModel;
-using UpdateCategoryCommandHandler = SpendManagement.Application.Commands.Category.UseCases.UpdateCategory.UpdateCategoryCommand;
-using UpdateCategoryCommand = SpendManagement.Contracts.V1.Commands.CategoryCommands.UpdateCategoryCommand;
-using FluentValidation;
-using FluentAssertions;
-using SpendManagement.Contracts.Exceptions;
 using SpendManagement.WebContracts.Category;
 using SpendManagement.WebContracts.Common;
-using SpendManagement.WebContracts.Receipt;
+
+using Web.Contracts.Exceptions;
+
+using UpdateCategoryCommand = SpendManagement.Contracts.V1.Commands.CategoryCommands.UpdateCategoryCommand;
+using UpdateCategoryCommandHandler = SpendManagement.Application.Commands.Category.UseCases.UpdateCategory.UpdateCategoryCommand;
 
 namespace SpendManagement.Unit.Tests.Handlers.Category
 {

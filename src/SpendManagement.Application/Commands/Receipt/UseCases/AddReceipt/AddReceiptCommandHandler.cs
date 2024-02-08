@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using SpendManagement.Application.Commands.Receipt.InputModels;
 using SpendManagement.Application.Mappers;
 using SpendManagement.Application.Producers;
 using SpendManagement.Application.Services;
