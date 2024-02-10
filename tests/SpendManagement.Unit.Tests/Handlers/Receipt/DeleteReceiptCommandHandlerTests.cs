@@ -29,7 +29,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
                 .Create();
 
             // Act
-            await handler.Handle(request, CancellationToken.None);
+            await handler.Handle(request);
 
             // Assert
             commandProducerMock
@@ -56,7 +56,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
                 .Throws<Exception>();
 
             // Act
-            Func<Task> act = async () => await handler.Handle(request, CancellationToken.None);
+            Func<Task> act = async () => await handler.Handle(request);
 
             // Assert
             await act.Should().ThrowAsync<Exception>();

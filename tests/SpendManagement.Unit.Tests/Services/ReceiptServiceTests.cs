@@ -4,9 +4,10 @@ using Moq;
 using SpendManagement.Application.Commands.Receipt.InputModels;
 using SpendManagement.Application.Services;
 using SpendManagement.Client.SpendManagementReadModel;
-using SpendManagement.Contracts.Exceptions;
 using SpendManagement.WebContracts.Category;
 using SpendManagement.WebContracts.Common;
+
+using Web.Contracts.Exceptions;
 
 namespace SpendManagement.Unit.Tests.Services
 {

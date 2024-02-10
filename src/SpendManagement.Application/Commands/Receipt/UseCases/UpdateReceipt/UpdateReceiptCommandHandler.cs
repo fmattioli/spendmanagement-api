@@ -22,7 +22,7 @@ namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
         public async Task<Unit> Handle(UpdateReceiptCommand request, CancellationToken cancellationToken)
         {
             var receiptPagedResult = await _spendManagementReadModelClient
-                .GetReceiptAsync(request.UpdateReceiptInputModel.Id);
+                .GetReceiptAsync(request.Id);
 
             var receipt = receiptPagedResult.Results.FirstOrDefault();
 

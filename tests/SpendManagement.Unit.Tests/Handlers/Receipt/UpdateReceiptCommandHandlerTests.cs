@@ -8,9 +8,10 @@ using SpendManagement.Application.Commands.Receipt.UpdateReceipt;
 using SpendManagement.Application.Producers;
 using SpendManagement.Application.Services;
 using SpendManagement.Client.SpendManagementReadModel;
-using SpendManagement.Contracts.Exceptions;
 using SpendManagement.WebContracts.Common;
 using SpendManagement.WebContracts.Receipt;
+
+using Web.Contracts.Exceptions;
 
 
 namespace SpendManagement.Unit.Tests.Handlers.Receipt
@@ -35,9 +36,8 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
             //Arrange
             var jsonPatchDocument = new JsonPatchDocument<ReceiptResponse>();
 
-            var receiptCommand = new UpdateReceiptCommand(new UpdateReceiptInputModel
+            var receiptCommand = new UpdateReceiptCommand(Guid.NewGuid(), new UpdateReceiptInputModel
             {
-                Id = Guid.NewGuid(),
                 ReceiptPatchDocument = jsonPatchDocument
             });
 
@@ -79,9 +79,8 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
             //Arrange
             var jsonPatchDocument = new JsonPatchDocument<ReceiptResponse>();
 
-            var receiptCommand = new UpdateReceiptCommand(new UpdateReceiptInputModel
+            var receiptCommand = new UpdateReceiptCommand(Guid.NewGuid(), new UpdateReceiptInputModel
             {
-                Id = Guid.NewGuid(),
                 ReceiptPatchDocument = jsonPatchDocument
             });
 
@@ -102,9 +101,8 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
             //Arrange
             var jsonPatchDocument = new JsonPatchDocument<ReceiptResponse>();
 
-            var receiptCommand = new UpdateReceiptCommand(new UpdateReceiptInputModel
+            var receiptCommand = new UpdateReceiptCommand(Guid.NewGuid(), new UpdateReceiptInputModel
             {
-                Id = Guid.NewGuid(),
                 ReceiptPatchDocument = jsonPatchDocument
             });
 

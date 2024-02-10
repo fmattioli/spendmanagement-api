@@ -1,13 +1,15 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt;
+using SpendManagement.Application.Claims;
 using SpendManagement.Application.Commands.Receipt.InputModels;
 using SpendManagement.Application.Commands.Receipt.UpdateReceipt;
+using SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt;
 using SpendManagement.Application.Commands.Receipt.UseCases.DeleteReceipt;
-using Microsoft.AspNetCore.Authorization;
+using SpendManagement.Application.Commands.RecurringReceipt.InputModel;
+using SpendManagement.Application.Commands.RecurringReceipt.UseCases.AddRecurringReceipt;
+using SpendManagement.Application.Commands.RecurringReceipt.UseCases.DeleteRecurringReceipt;
 using SpendManagement.Infra.CrossCutting.Extensions.Filters;
-using SpendManagement.Application.Claims;
-using SpendManagement.Application.Commands.Receipt.UseCases.AddRecurringReceipt;
 
 namespace SpendManagement.API.Controllers
 {
@@ -35,23 +37,23 @@ namespace SpendManagement.API.Controllers
         }
 
         /// <summary>
-        /// Edit an existing receipt
+        /// Edit an existing receipt on the platform
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpPatch]
-        [Route("updateReceipt/{Id:guid}", Name = nameof(UpdateReceipt))]
+        [Route("updateReceipt/{Id}", Name = nameof(UpdateReceipt))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ClaimsAuthorize(ClaimTypes.Receipt, "Update")]
-        public async Task<IActionResult> UpdateReceipt(UpdateReceiptInputModel updateReceiptInputModel, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateReceipt(Guid Id, UpdateReceiptInputModel updateReceiptInputModel, CancellationToken cancellationToken)
         {
-            await _mediator.Send(new UpdateReceiptCommand(updateReceiptInputModel), cancellationToken);
+            await _mediator.Send(new UpdateReceiptCommand(Id, updateReceiptInputModel), cancellationToken);
             return NoContent();
         }
 
         /// <summary>
-        /// Delete an existing receipt
+        /// Delete an existing receipt on the platform
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpDelete]
@@ -79,6 +81,38 @@ namespace SpendManagement.API.Controllers
         public async Task<IActionResult> AddRecurringReceipt([FromBody] RecurringReceiptInputModel recurringReceiptInputModel, CancellationToken cancellationToken)
         {
             await _mediator.Send(new AddRecurringReceiptCommand(recurringReceiptInputModel), cancellationToken);
+            return Accepted();
+        }
+
+        /// <summary>
+        /// Edit an existing recurring  receipt on the platform
+        /// </summary>
+        /// <returns>A status code related to the operation.</returns>
+        [HttpPatch]
+        [Route("updateRecurringReceipt/{Id}", Name = nameof(UpdateRecurringReceipt))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ClaimsAuthorize(ClaimTypes.Receipt, "Update")]
+        public async Task<IActionResult> UpdateRecurringReceipt(Guid Id, UpdateReceiptInputModel updateReceiptInputModel, CancellationToken cancellationToken)
+        {
+            await _mediator.Send(new UpdateReceiptCommand(Id, updateReceiptInputModel), cancellationToken);
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Delete an existing recurring  receipt on the platform
+        /// </summary>
+        /// <returns>A status code related to the operation.</returns>
+        [HttpDelete]
+        [Route("deleteRecurringReceipt/{Id:guid}", Name = nameof(DeleteRecurringReceipt))]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ClaimsAuthorize(ClaimTypes.Receipt, "Delete")]
+        public async Task<IActionResult> DeleteRecurringReceipt(Guid Id, CancellationToken cancellationToken)
+        {
+            await _mediator.Send(new DeleteRecurringReceiptCommand(Id), cancellationToken);
             return Accepted();
         }
     }

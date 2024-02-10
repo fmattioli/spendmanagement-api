@@ -1,11 +1,11 @@
 ﻿using Serilog;
 using SpendManagement.Client.Configuration;
 using SpendManagement.Client.Extensions;
-using SpendManagement.Contracts.Exceptions;
-using SpendManagement.Contracts.V1.Entities;
 using SpendManagement.WebContracts.Category;
 using SpendManagement.WebContracts.Common;
 using SpendManagement.WebContracts.Receipt;
+
+using Web.Contracts.Exceptions;
 
 namespace SpendManagement.Client.SpendManagementReadModel
 {

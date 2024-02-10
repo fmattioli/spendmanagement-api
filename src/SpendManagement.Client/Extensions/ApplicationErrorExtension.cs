@@ -1,4 +1,4 @@
-﻿using SpendManagement.Contracts.Exceptions;
+﻿using Web.Contracts.Exceptions;
 
 namespace SpendManagement.Client.Extensions
 {
