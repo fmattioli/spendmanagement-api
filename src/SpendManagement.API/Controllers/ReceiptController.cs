@@ -9,6 +9,7 @@ using SpendManagement.Application.Commands.Receipt.UseCases.DeleteReceipt;
 using SpendManagement.Application.Commands.RecurringReceipt.InputModel;
 using SpendManagement.Application.Commands.RecurringReceipt.UseCases.AddRecurringReceipt;
 using SpendManagement.Application.Commands.RecurringReceipt.UseCases.DeleteRecurringReceipt;
+using SpendManagement.Application.Commands.RecurringReceipt.UseCases.UpdateRecurringReceipt;
 using SpendManagement.Infra.CrossCutting.Extensions.Filters;
 
 namespace SpendManagement.API.Controllers
@@ -94,9 +95,9 @@ namespace SpendManagement.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ClaimsAuthorize(ClaimTypes.Receipt, "Update")]
-        public async Task<IActionResult> UpdateRecurringReceipt(Guid Id, UpdateReceiptInputModel updateReceiptInputModel, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateRecurringReceipt(Guid Id, UpdateRecurringReceiptInputModel updateReceiptInputModel, CancellationToken cancellationToken)
         {
-            await _mediator.Send(new UpdateReceiptCommand(Id, updateReceiptInputModel), cancellationToken);
+            await _mediator.Send(new UpdateRecurringReceiptCommand(Id, updateReceiptInputModel), cancellationToken);
             return NoContent();
         }
 

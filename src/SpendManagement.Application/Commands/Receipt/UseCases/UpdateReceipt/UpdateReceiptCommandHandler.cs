@@ -12,14 +12,14 @@ namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
     public class UpdateReceiptCommandHandler(ICommandProducer receiptProducer,
         ISpendManagementReadModelClient spendManagementReadModelClient,
         IReceiptService receiptService,
-        IValidator<JsonPatchError> validator) : IRequestHandler<UpdateReceiptCommand, Unit>
+        IValidator<JsonPatchError> validator) : IRequestHandler<UpdateReceiptCommand>
     {
         private readonly ICommandProducer _receiptProducer = receiptProducer;
         private readonly IReceiptService _receiptService = receiptService;
         private readonly ISpendManagementReadModelClient _spendManagementReadModelClient = spendManagementReadModelClient;
         private readonly IValidator<JsonPatchError> _validator = validator;
 
-        public async Task<Unit> Handle(UpdateReceiptCommand request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateReceiptCommand request, CancellationToken cancellationToken)
         {
             var receiptPagedResult = await _spendManagementReadModelClient
                 .GetReceiptAsync(request.Id);
@@ -37,8 +37,6 @@ namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
 
                 await _receiptProducer.ProduceCommandAsync(receipt.ToCommand());
             }
-
-            return Unit.Value;
         }
     }
 }

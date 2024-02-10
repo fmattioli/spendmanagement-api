@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
+using SpendManagement.Application.Commands.RecurringReceipt.UseCases.AddRecurringReceipt;
 
 namespace SpendManagement.API.Extensions
 {
@@ -14,6 +15,7 @@ namespace SpendManagement.API.Extensions
             services.AddMediatR(
                     x => x.RegisterServicesFromAssemblies(
                         typeof(AddReceiptCommand).Assembly,
+                        typeof(AddRecurringReceiptCommand).Assembly,
                         typeof(UpdateReceiptCommand).Assembly));
 
             return services;
