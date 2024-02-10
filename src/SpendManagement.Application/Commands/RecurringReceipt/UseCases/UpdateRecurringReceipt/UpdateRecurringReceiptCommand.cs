@@ -1,6 +1,8 @@
-﻿namespace SpendManagement.Application.Commands.RecurringReceipt.UseCases.UpdateRecurringReceipt
+﻿using MediatR;
+using SpendManagement.Application.Commands.Receipt.InputModels;
+using SpendManagement.Application.Commands.RecurringReceipt.InputModel;
+
+namespace SpendManagement.Application.Commands.RecurringReceipt.UseCases.UpdateRecurringReceipt
 {
-    public class UpdateRecurringReceiptCommand
-    {
-    }
+    public record UpdateRecurringReceiptCommand(Guid Id, UpdateRecurringReceiptInputModel UpdateReceiptInputModel) : IRequest;
 }
