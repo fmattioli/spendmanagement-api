@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using SpendManagement.Application.Mappers;
 using SpendManagement.Application.Producers;
 using SpendManagement.Application.Services;
+using SpendManagement.Client.Extensions;
 using SpendManagement.Client.SpendManagementReadModel;
 
 namespace SpendManagement.Application.Commands.RecurringReceipt.UseCases.UpdateRecurringReceipt
@@ -21,20 +22,20 @@ namespace SpendManagement.Application.Commands.RecurringReceipt.UseCases.UpdateR
         public async Task Handle(UpdateRecurringReceiptCommand request, CancellationToken cancellationToken)
         {
             var receiptPagedResult = await _spendManagementReadModelClient
-                .GetReceiptAsync(request.Id);
+                .GetRecurringReceiptAsync(request.Id);
 
-            var receipt = receiptPagedResult.Results.FirstOrDefault();
+            var recurringReceipt = receiptPagedResult.Results.FirstOrDefault();
 
-            if (receipt != null)
+            if (recurringReceipt != null)
             {
-                //request
-                //    .UpdateReceiptInputModel
-                //    .ReceiptPatchDocument
-                //    .ApplyTo(receipt, JsonPatchExtension.HandlePatchErrors(_validator));
+                request
+                    .UpdateRecurringReceiptInputModel
+                    .RecurringReceiptPatchDocument
+                    .ApplyTo(recurringReceipt, JsonPatchExtension.HandlePatchErrors(_validator));
 
-                await _receiptService.ValidateIfCategoryExistAsync(receipt.CategoryId);
+                await _receiptService.ValidateIfCategoryExistAsync(recurringReceipt.CategoryId);
 
-                await _receiptProducer.ProduceCommandAsync(receipt.ToCommand());
+                await _receiptProducer.ProduceCommandAsync(recurringReceipt.ToCommand());
             }
         }
     }

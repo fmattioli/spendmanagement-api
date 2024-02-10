@@ -6,6 +6,7 @@ using SpendManagement.WebContracts.Common;
 using SpendManagement.WebContracts.Receipt;
 
 using Web.Contracts.Exceptions;
+using Web.Contracts.Receipt;
 
 namespace SpendManagement.Client.SpendManagementReadModel
 {
@@ -40,6 +41,11 @@ namespace SpendManagement.Client.SpendManagementReadModel
             _logger.Information("Successfully got receipt: {@receiptId}", receiptId);
 
             return receipt;
+        }
+
+        public async Task<PagedResult<RecurringReceiptResponse>> GetRecurringReceiptAsync(Guid receiptId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
