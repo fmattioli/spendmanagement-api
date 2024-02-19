@@ -3,7 +3,8 @@
     [CollectionDefinition(nameof(SharedFixtureCollection))]
     public class SharedFixtureCollection :
          ICollectionFixture<KafkaFixture>,
-         ICollectionFixture<MongoDbFixture>
+         ICollectionFixture<MongoDbFixture>,
+         ICollectionFixture<HttpFixture>
     {
     }
 }

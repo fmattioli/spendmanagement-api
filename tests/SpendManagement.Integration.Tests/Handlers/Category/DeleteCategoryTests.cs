@@ -3,22 +3,15 @@ using FluentAssertions;
 using SpendManagement.Application.Commands.Category.InputModels;
 using SpendManagement.Contracts.V1.Commands.CategoryCommands;
 using SpendManagement.Integration.Tests.Fixtures;
-using SpendManagement.Integration.Tests.Helpers;
 
 namespace SpendManagement.Integration.Tests.Handlers.Category
 {
     [Collection(nameof(SharedFixtureCollection))]
-    public class DeleteCategoryTests : BaseTests<CategoryInputModel>
+    public class DeleteCategoryTest(KafkaFixture kafkaFixture, HttpFixture httpFixture)
     {
         private readonly Fixture fixture = new();
-        private readonly KafkaFixture kafkaFixture;
-        private readonly MongoDbFixture mongoDbFixture;
-
-        public DeleteCategoryTests(KafkaFixture kafkaFixture, MongoDbFixture mongoDbFixture)
-        {
-            this.kafkaFixture = kafkaFixture;
-            this.mongoDbFixture = mongoDbFixture;
-        }
+        private readonly KafkaFixture kafkaFixture = kafkaFixture;
+        private readonly HttpFixture _httpFixture = httpFixture;
 
         [Fact(DisplayName = "On deleting a valid category Id, a Kafka command should be produced.")]
         private async Task OnGivenAValidCategoryId_ShouldBeProducedADeleteCategoryCommand()
@@ -29,7 +22,7 @@ namespace SpendManagement.Integration.Tests.Handlers.Category
                 .Create();
 
             //Act
-            var response = await DeleteAsync("/deleteCategory", categoryInputModel.Id);
+            var response = await _httpFixture.DeleteAsync("/deleteCategory", categoryInputModel.Id);
 
             //Assert
             response

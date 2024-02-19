@@ -9,11 +9,12 @@ using SpendManagement.Integration.Tests.Helpers;
 namespace SpendManagement.Integration.Tests.Handlers.Category
 {
     [Collection(nameof(SharedFixtureCollection))]
-    public class UpdateCategoryTests(KafkaFixture kafkaFixture, MongoDbFixture mongoDbFixture) : BaseTests<CategoryInputModel>
+    public class UpdateCategoryTests(KafkaFixture kafkaFixture, MongoDbFixture mongoDbFixture, HttpFixture httpFixture)
     {
         private readonly Fixture fixture = new();
         private readonly KafkaFixture kafkaFixture = kafkaFixture;
         private readonly MongoDbFixture mongoDbFixture = mongoDbFixture;
+        private readonly HttpFixture _httpFixture = httpFixture;
 
         [Fact(DisplayName = "On updating a valid category, a Kafka command should be produced.")]
         public async Task OnGivenAValidCategoryToBeUpdated_ShouldBeProducedAnUpdateCategoryCommand()
@@ -40,7 +41,7 @@ namespace SpendManagement.Integration.Tests.Handlers.Category
             string jsonString = JsonConvert.SerializeObject(jsonItems, Formatting.Indented);
 
             //Act
-            var response = await PatchAsync("/updateCategory", categoryId, jsonString);
+            var response = await _httpFixture.PatchAsync("/updateCategory", categoryId, jsonString);
 
             //Assert
             response.Should().BeSuccessful();
@@ -60,13 +61,6 @@ namespace SpendManagement.Integration.Tests.Handlers.Category
             //Arrange
             var categoryId = fixture.Create<Guid>();
 
-            var category = fixture
-                .Build<Fixtures.Category>()
-                .With(x => x.Id, categoryId)
-                .With(x => x.Name, "Whatever name")
-                .With(x => x.CreatedDate, DateTime.Now)
-                .Create();
-
             var categoryName = fixture.Create<string>();
 
             var jsonItems = new List<object>
@@ -77,7 +71,7 @@ namespace SpendManagement.Integration.Tests.Handlers.Category
             string jsonString = JsonConvert.SerializeObject(jsonItems, Formatting.Indented);
 
             //Act
-            var response = await PatchAsync("/updateCategory", categoryId, jsonString);
+            var response = await _httpFixture.PatchAsync("/updateCategory", categoryId, jsonString);
 
             //Assert
             response.Should().HaveClientError();

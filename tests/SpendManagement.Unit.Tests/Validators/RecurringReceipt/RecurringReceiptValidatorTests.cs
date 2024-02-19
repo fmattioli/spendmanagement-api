@@ -30,7 +30,7 @@ namespace SpendManagement.Unit.Tests.Validators.RecurringReceipt
             result.IsValid.Should().Be(false);
             result.Errors.Should().Contain(e => e.ErrorMessage == ValidationsErrorsMessages.CategoryIdNameError);
         }
-        
+
         [Fact]
         public void OnGivenAnInvalidReceiptRecurring_CategoryIdEmpty_ShouldBeNotValidated()
         {
@@ -99,7 +99,7 @@ namespace SpendManagement.Unit.Tests.Validators.RecurringReceipt
             result.IsValid.Should().Be(false);
             result.Errors.Should().Contain(e => e.ErrorMessage == ValidationsErrorsMessages.ReceiptDateMinValueError);
         }
-        
+
         [Fact]
         public void OnGivenAnInvalidReceiptRecurring_DateEndRecurrence_ShouldBeNotValidated()
         {
@@ -116,7 +116,7 @@ namespace SpendManagement.Unit.Tests.Validators.RecurringReceipt
             result.IsValid.Should().Be(false);
             result.Errors.Should().Contain(e => e.ErrorMessage == ValidationsErrorsMessages.ReceiptDateMinValueError);
         }
-        
+
         [Fact]
         public void OnGivenAnInvalidReceiptRecurring_RecurrenceTotalPrice_ShouldBeNotValidated()
         {
@@ -133,7 +133,7 @@ namespace SpendManagement.Unit.Tests.Validators.RecurringReceipt
             result.IsValid.Should().Be(false);
             result.Errors.Should().Contain(e => e.ErrorMessage == ValidationsErrorsMessages.RecurrenceTotalPriceInvalid);
         }
-        
+
         [Fact]
         public void OnGivenAnInvalidReceiptRecurring_RecurrenceDateIntervalInvalid_ShouldBeNotValidated()
         {

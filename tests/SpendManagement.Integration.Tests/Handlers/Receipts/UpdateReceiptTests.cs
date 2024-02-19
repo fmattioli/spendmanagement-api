@@ -1,25 +1,18 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using Newtonsoft.Json;
-using SpendManagement.Application.Commands.Receipt.InputModels;
 using SpendManagement.Contracts.V1.Commands.ReceiptCommands;
 using SpendManagement.Integration.Tests.Fixtures;
-using SpendManagement.Integration.Tests.Helpers;
 
 namespace SpendManagement.Integration.Tests.Handlers.Receipts
 {
     [Collection(nameof(SharedFixtureCollection))]
-    public class UpdateReceiptTests : BaseTests<ReceiptInputModel>
+    public class UpdateReceiptTests(KafkaFixture kafkaFixture, MongoDbFixture mongoDbFixture, HttpFixture httpFixture)
     {
         private readonly Fixture fixture = new();
-        private readonly KafkaFixture kafkaFixture;
-        private readonly MongoDbFixture mongoDbFixture;
-
-        public UpdateReceiptTests(KafkaFixture kafkaFixture, MongoDbFixture mongoDbFixture)
-        {
-            this.kafkaFixture = kafkaFixture;
-            this.mongoDbFixture = mongoDbFixture;
-        }
+        private readonly KafkaFixture kafkaFixture = kafkaFixture;
+        private readonly MongoDbFixture mongoDbFixture = mongoDbFixture;
+        private readonly HttpFixture _httpFixture = httpFixture;
 
         [Fact(DisplayName = "On updating a valid receipt, a Kafka command should be produced.")]
         public async Task OnGivenAValidReceiptToBeUpdated_ShouldBeProducedAnUpdateReceiptCommand()
@@ -50,7 +43,7 @@ namespace SpendManagement.Integration.Tests.Handlers.Receipts
             string jsonString = JsonConvert.SerializeObject(jsonItems, Formatting.Indented);
 
             //Act
-            var response = await PatchAsync("/updateReceipt", receiptId, jsonString);
+            var response = await _httpFixture.PatchAsync("/updateReceipt", receiptId, jsonString);
 
             //Assert
             response.Should().BeSuccessful();
@@ -92,7 +85,7 @@ namespace SpendManagement.Integration.Tests.Handlers.Receipts
             string jsonString = JsonConvert.SerializeObject(jsonItems, Formatting.Indented);
 
             //Act
-            var response = await PatchAsync("/updateReceipt", receiptId, jsonString);
+            var response = await _httpFixture.PatchAsync("/updateReceipt", receiptId, jsonString);
 
             //Assert
             response.Should().HaveClientError();
@@ -104,15 +97,12 @@ namespace SpendManagement.Integration.Tests.Handlers.Receipts
         {
             //Arrange
             var receiptId = fixture.Create<Guid>();
-            var categoryName = fixture.Create<string>();
 
             var receipt = fixture
                 .Build<Receipt>()
                 .With(x => x.Id, receiptId)
                 .With(x => x.EstablishmentName, "Whatever name")
                 .Create();
-
-            var categories = new Fixtures.Category(receipt.CategoryId, categoryName, DateTime.UtcNow);
 
             await mongoDbFixture.InsertReceipt(receipt);
 
@@ -126,7 +116,7 @@ namespace SpendManagement.Integration.Tests.Handlers.Receipts
             string jsonString = JsonConvert.SerializeObject(jsonItems, Formatting.Indented);
 
             //Act
-            var response = await PatchAsync("/updateReceipt", receiptId, jsonString);
+            var response = await _httpFixture.PatchAsync("/updateReceipt", receiptId, jsonString);
 
             //Assert
             response.Should().HaveClientError();

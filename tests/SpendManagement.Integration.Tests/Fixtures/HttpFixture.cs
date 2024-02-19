@@ -1,38 +1,38 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Flurl;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SpendManagement.Integration.Tests.Configuration;
+using SpendManagement.Integration.Tests.Constants;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using SpendManagement.Integration.Tests.Constants;
-using Flurl;
 
-namespace SpendManagement.Integration.Tests.Helpers
+namespace SpendManagement.Integration.Tests.Fixtures
 {
-    public class BaseTests<T> where T : class
+    public class HttpFixture
     {
         private readonly HttpClient _httpClient;
 
-        public BaseTests()
+        public HttpFixture()
         {
             Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Tests");
             var webAppFactory = new WebApplicationFactory<Program>();
             _httpClient = webAppFactory.CreateDefaultClient();
         }
 
-        protected async Task<HttpResponseMessage?> PostAsync(string resource, T body)
+        public async Task<HttpResponseMessage?> PostAsync<T>(string resource, T body) where T : class
         {
             var json = JsonConvert.SerializeObject(body);
             StringContent httpContent = new(json, Encoding.UTF8, "application/json");
 
             _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", GenerateJWToken());
             var url = ConstantsValues.APIVersion + resource;
-            using var response = await _httpClient.PostAsync(url, httpContent);
+            var response = await _httpClient.PostAsync(url, httpContent);
             return response;
         }
 
-        protected async Task<HttpResponseMessage?> DeleteAsync(string resource, Guid id)
+        public async Task<HttpResponseMessage?> DeleteAsync(string resource, Guid id)
         {
             _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", GenerateJWToken());
 
@@ -40,13 +40,13 @@ namespace SpendManagement.Integration.Tests.Helpers
                 .AppendPathSegment(resource)
                 .AppendPathSegment(id);
 
-            using var response = await _httpClient.DeleteAsync(url);
+            var response = await _httpClient.DeleteAsync(url);
             return response;
         }
 
-        protected async Task<HttpResponseMessage?> PatchAsync(string resource, Guid id, string jsonPatch)
+        public async Task<HttpResponseMessage?> PatchAsync(string resource, Guid id, string jsonPatch)
         {
-            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", BaseTests<T>.GenerateJWToken());
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", GenerateJWToken());
 
             var httpContent = new StringContent(jsonPatch, Encoding.UTF8, "application/json");
 
@@ -54,7 +54,7 @@ namespace SpendManagement.Integration.Tests.Helpers
                 .AppendPathSegment(resource)
                 .AppendPathSegment(id);
 
-            using var response = await _httpClient.PatchAsync(url, httpContent);
+            var response = await _httpClient.PatchAsync(url, httpContent);
             return response;
         }
 

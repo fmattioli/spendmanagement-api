@@ -24,7 +24,7 @@ namespace SpendManagement.Application.Validators
             RuleFor(x => x.DateEndRecurrence)
                 .Must(x => x != DateTime.MinValue)
                 .WithMessage(ValidationsErrorsMessages.ReceiptDateMinValueError);
-            
+
             RuleFor(x => x.RecurrenceTotalPrice)
                 .Must(x => x != 0.0M)
                 .WithMessage(ValidationsErrorsMessages.RecurrenceTotalPriceInvalid);

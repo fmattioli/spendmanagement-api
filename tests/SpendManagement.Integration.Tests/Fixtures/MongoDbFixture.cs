@@ -9,6 +9,7 @@ namespace SpendManagement.Integration.Tests.Fixtures
         public readonly IMongoDatabase database;
         private readonly List<Guid> categoryIds = [];
         private readonly List<Guid> receiptIds = [];
+        private readonly List<Guid> recurringReceiptIds = [];
 
         public MongoDbFixture()
         {
@@ -58,6 +59,13 @@ namespace SpendManagement.Integration.Tests.Fixtures
             this.receiptIds.Add(receipt.Id);
         }
 
+        public async Task InsertRecurringReceipt(RecurringReceipt recurringReceipt)
+        {
+            var collection = this.database.GetCollection<RecurringReceipt>("RecurringReceipts");
+            await collection.InsertOneAsync(recurringReceipt);
+            this.recurringReceiptIds.Add(recurringReceipt.Id);
+        }
+
         public async Task InsertCategory(Category category)
         {
             var collection = this.database.GetCollection<Category>("Categories");
@@ -75,7 +83,9 @@ namespace SpendManagement.Integration.Tests.Fixtures
 
     public record Category([property: BsonId] Guid Id, string? Name, DateTime CreatedDate);
 
-    public record Receipt([property: BsonId] Guid Id, Guid CategoryId, string? EstablishmentName, DateTime ReceiptDate, IEnumerable<ReceiptItem>? ReceiptItems);
+    public record Receipt([property: BsonId] Guid Id, Guid CategoryId, string? EstablishmentName, DateTime ReceiptDate, IEnumerable<ReceiptItem>? ReceiptItems, decimal Discount, decimal Total);
+
+    public record RecurringReceipt([property: BsonId] Guid Id, Guid CategoryId, string? EstablishmentName, DateTime DateInitialRecurrence, DateTime DateEndRecurrence, decimal RecurrenceTotalPrice, string Observation);
 
     public record ReceiptItem(Guid Id, string ItemName, short Quantity, decimal ItemPrice, decimal TotalPrice, string Observation);
 }

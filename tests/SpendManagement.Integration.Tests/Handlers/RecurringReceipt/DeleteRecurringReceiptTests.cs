@@ -1,12 +1,12 @@
 ﻿using AutoFixture;
 using FluentAssertions;
-using SpendManagement.Contracts.V1.Commands.ReceiptCommands;
+using SpendManagement.Contracts.V1.Commands.RecurringReceiptCommands;
 using SpendManagement.Integration.Tests.Fixtures;
 
-namespace SpendManagement.Integration.Tests.Handlers.Receipts
+namespace SpendManagement.Integration.Tests.Handlers.RecurringReceipt
 {
     [Collection(nameof(SharedFixtureCollection))]
-    public class DeleteReceiptTests(KafkaFixture kafkaFixture, HttpFixture httpFixture)
+    public class DeleteRecurringReceiptTests(KafkaFixture kafkaFixture, HttpFixture httpFixture)
     {
         private readonly Fixture fixture = new();
         private readonly KafkaFixture kafkaFixture = kafkaFixture;
@@ -25,11 +25,13 @@ namespace SpendManagement.Integration.Tests.Handlers.Receipts
             //Assert
             response.Should().BeSuccessful();
 
-            var receiptCommand = kafkaFixture.Consume<DeleteReceiptCommand>(
+            var recurringReceiptCommand = kafkaFixture.Consume<DeleteRecurringReceiptCommand>(
             (command, _) =>
                 command.RoutingKey == receiptId.ToString());
 
-            receiptCommand.Should().NotBeNull();
+            recurringReceiptCommand
+                .Should()
+                .NotBeNull();
         }
     }
 }

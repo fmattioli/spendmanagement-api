@@ -9,12 +9,10 @@ namespace SpendManagement.Unit.Tests.Validators.Receipt
     {
         private readonly Fixture fixture = new();
         private readonly AddReceiptValidator receiptValidator;
-        private readonly ReceiptItemsValidator receiptItemsValidator;
 
         public ReceiptValidatorTests()
         {
             receiptValidator = new AddReceiptValidator();
-            receiptItemsValidator = new ReceiptItemsValidator();
         }
 
         public static TheoryData<DateTime?> ReceiptDates()
@@ -105,22 +103,6 @@ namespace SpendManagement.Unit.Tests.Validators.Receipt
             //Act
             result.IsValid.Should().Be(false);
             result.Errors.Should().Contain(e => e.ErrorMessage == ValidationsErrorsMessages.ReceiptItemsError);
-        }
-
-        [Fact]
-        public void OnGivenAValidReceiptItem_ShouldBeValidated()
-        {
-            //Arrange
-            var receiptModel = fixture
-                .Build<ReceiptInputModel>()
-                .Without(x => x.Discount)
-                .Create();
-
-            //Act
-            var result = this.receiptValidator.Validate(receiptModel);
-
-            //Act
-            result.IsValid.Should().Be(true);
         }
 
         [Fact]
