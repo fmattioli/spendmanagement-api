@@ -48,7 +48,6 @@ namespace SpendManagement.Application.Validators
 
             RuleFor(x => x.Quantity).Must(x => x > 0)
                 .WithMessage(ValidationsErrorsMessages.ReceiptItemsItemQuantity);
-            
         }
     }
 
@@ -65,5 +64,5 @@ namespace SpendManagement.Application.Validators
             return true;
         }
     }
-    
+
 }

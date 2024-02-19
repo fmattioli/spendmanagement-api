@@ -2,6 +2,7 @@
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.Extensions.DependencyInjection;
+using SpendManagement.Application.Commands.Category.InputModels;
 using SpendManagement.Application.Commands.Receipt.InputModels;
 using SpendManagement.Application.Commands.RecurringReceipt.InputModel;
 using SpendManagement.Application.Commands.Validators;
@@ -17,6 +18,7 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Validators
             services.AddScoped<IValidator<JsonPatchError>, JsonPatchValidator>();
             services.AddScoped<IValidator<ReceiptInputModel>, AddReceiptValidator>();
             services.AddScoped<IValidator<RecurringReceiptInputModel>, AddRecurringReceiptValidator>();
+            services.AddScoped<IValidator<CategoryInputModel>, AddCategoryValidator>();
             return services;
         }
     }

@@ -4,7 +4,6 @@ using SpendManagement.Client.Extensions;
 using SpendManagement.WebContracts.Category;
 using SpendManagement.WebContracts.Common;
 using SpendManagement.WebContracts.Receipt;
-
 using Web.Contracts.Exceptions;
 using Web.Contracts.Receipt;
 
@@ -45,7 +44,16 @@ namespace SpendManagement.Client.SpendManagementReadModel
 
         public async Task<PagedResult<RecurringReceiptResponse>> GetRecurringReceiptAsync(Guid receiptId)
         {
-            throw new NotImplementedException();
+            var receipt = await GetAsync<PagedResult<RecurringReceiptResponse>>("getRecurringReceipts", receiptId, "recurringReceiptIds").HandleExceptions("GetRecurringReceipt");
+
+            if (receipt.TotalResults == 0)
+            {
+                throw new NotFoundException($"Invalid recurring receipt provided, the recurring receipt does not exists {receiptId}");
+            }
+
+            _logger.Information("Successfully got recuring receipt: {@receiptId}", receiptId);
+
+            return receipt;
         }
     }
 }

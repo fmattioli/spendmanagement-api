@@ -3,16 +3,16 @@ using FluentAssertions;
 using SpendManagement.Application.Commands.Receipt.InputModels;
 using SpendManagement.Contracts.V1.Commands.ReceiptCommands;
 using SpendManagement.Integration.Tests.Fixtures;
-using SpendManagement.Integration.Tests.Helpers;
 
 namespace SpendManagement.Integration.Tests.Handlers.Receipts
 {
     [Collection(nameof(SharedFixtureCollection))]
-    public class AddReceiptTests(KafkaFixture kafkaFixture, MongoDbFixture mongoDbFixture) : BaseTests<ReceiptInputModel>
+    public class AddReceiptTests(KafkaFixture kafkaFixture, MongoDbFixture mongoDbFixture, HttpFixture httpFixture)
     {
         private readonly Fixture fixture = new();
         private readonly KafkaFixture kafkaFixture = kafkaFixture;
         private readonly MongoDbFixture mongoDbFixture = mongoDbFixture;
+        private readonly HttpFixture _httpFixture = httpFixture;
 
         [Fact(DisplayName = "On adding a valid receipt, a Kafka command should be produced.")]
         public async Task OnGivenAValidReceiptToBeCreated_ShouldBeProducedACreateReceiptCommand()
@@ -32,12 +32,8 @@ namespace SpendManagement.Integration.Tests.Handlers.Receipts
 
             await mongoDbFixture.InsertCategory(category);
 
-            mongoDbFixture.AddReceiptToCleanUp(receipt.Id);
-
             //Act
-            var response = await PostAsync("/addReceipt", receipt);
-
-
+            var response = await _httpFixture.PostAsync("/addReceipt", receipt);
 
             //Assert
             response.Should().BeSuccessful();
@@ -66,12 +62,10 @@ namespace SpendManagement.Integration.Tests.Handlers.Receipts
                 .With(x => x.ReceiptItems, receipItems)
                 .Create();
 
-            var categories = receipItems.Select(x => new Fixtures.Category(receipt.CategoryId, fixture.Create<string>(), DateTime.UtcNow));
-
             mongoDbFixture.AddReceiptToCleanUp(receipt.Id);
-            //Act
 
-            var response = await PostAsync("/addReceipt", receipt);
+            //Act
+            var response = await _httpFixture.PostAsync("/addReceipt", receipt);
 
             //Assert
             response.Should().HaveClientError();
