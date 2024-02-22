@@ -20,6 +20,8 @@ namespace SpendManagement.Integration.Tests.Handlers.RecurringReceipt
             //Arrange
             var recurringReceipt = _fixture
                 .Build<RecurringReceiptInputModel>()
+                .With(x => x.DateInitialRecurrence, DateTime.Now)
+                .With(x => x.DateEndRecurrence, DateTime.Now.AddMonths(3))
                 .Create();
 
             var category = new Fixtures.Category(recurringReceipt.CategoryId, _fixture.Create<string>(), DateTime.UtcNow);
