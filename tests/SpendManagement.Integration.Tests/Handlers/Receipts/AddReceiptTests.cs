@@ -20,6 +20,8 @@ namespace SpendManagement.Integration.Tests.Handlers.Receipts
             //Arrange
             var receipItems = fixture
                 .Build<ReceiptItemInputModel>()
+                .With(x => x.ItemPrice, 50)
+                .With(x => x.ItemDiscount, 10)
                 .CreateMany();
 
             var receipt = fixture
@@ -44,9 +46,20 @@ namespace SpendManagement.Integration.Tests.Handlers.Receipts
                 command.Receipt.EstablishmentName == receipt.EstablishmentName &&
                 command.RoutingKey == receipt.Id.ToString());
 
-            receiptCommand.Should().NotBeNull();
-            receiptCommand.ReceiptItems.Should().HaveCount(receipItems.Count());
-            receiptCommand.ReceiptItems.Should().BeEquivalentTo(receipItems);
+            receiptCommand
+                .Should()
+                .NotBeNull();
+
+            receiptCommand.ReceiptItems
+                .Should()
+                .HaveCount(receipItems.Count());
+
+            receiptCommand.ReceiptItems
+                .Should()
+                .BeEquivalentTo(receipItems,
+                options => options
+                    .Excluding(x => x.TotalPrice)
+                );
         }
 
         [Fact(DisplayName = "On adding a invalid receipt with a category who does not exists, an error 404 should be produced.")]

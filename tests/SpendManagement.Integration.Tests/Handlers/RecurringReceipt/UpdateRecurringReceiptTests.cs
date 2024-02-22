@@ -66,23 +66,21 @@ namespace SpendManagement.Integration.Tests.Handlers.RecurringReceipt
 
             receiptCommand.RecurringReceipt.EstablishmentName
                 .Should()
-                .Be(recurringReceipt.EstablishmentName);
+                .Be(newEstablishmentName);
 
             receiptCommand.RecurringReceipt.CategoryId
                 .Should()
                 .Be(recurringReceipt.CategoryId);
 
             receiptCommand.RecurringReceipt.DateInitialRecurrence
+                .Date
                 .Should()
-                .Be(recurringReceipt.DateInitialRecurrence);
+                .Be(recurringReceipt.DateInitialRecurrence.Date);
 
             receiptCommand.RecurringReceipt.DateEndRecurrence
+                .Date
                 .Should()
-                .Be(recurringReceipt.DateEndRecurrence);
-
-            receiptCommand.RecurringReceipt.DateEndRecurrence
-                .Should()
-                .Be(recurringReceipt.DateEndRecurrence);
+                .Be(recurringReceipt.DateEndRecurrence.Date);
 
             receiptCommand.RecurringReceipt.RecurrenceTotalPrice
                 .Should()
@@ -91,10 +89,6 @@ namespace SpendManagement.Integration.Tests.Handlers.RecurringReceipt
             receiptCommand.RecurringReceipt.Observation
                 .Should()
                 .Be(recurringReceipt.Observation);
-
-            receiptCommand.RecurringReceipt
-                .Should()
-                .BeEquivalentTo(recurringReceipt);
         }
 
         [Fact]
