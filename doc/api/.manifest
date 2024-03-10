@@ -1,0 +1,21 @@
+{
+  "SpendManagement.API.Controllers": "SpendManagement.API.Controllers.yml",
+  "SpendManagement.API.Controllers.CategoryController": "SpendManagement.API.Controllers.CategoryController.yml",
+  "SpendManagement.API.Controllers.CategoryController.#ctor(MediatR.IMediator)": "SpendManagement.API.Controllers.CategoryController.yml",
+  "SpendManagement.API.Controllers.CategoryController.AddCategory(SpendManagement.Application.Commands.Category.InputModels.CategoryInputModel,System.Threading.CancellationToken)": "SpendManagement.API.Controllers.CategoryController.yml",
+  "SpendManagement.API.Controllers.CategoryController.DeleteCategory(System.Guid,System.Threading.CancellationToken)": "SpendManagement.API.Controllers.CategoryController.yml",
+  "SpendManagement.API.Controllers.CategoryController.UpdateCategory(SpendManagement.Application.Commands.Category.InputModels.UpdateCategoryInputModel,System.Threading.CancellationToken)": "SpendManagement.API.Controllers.CategoryController.yml",
+  "SpendManagement.API.Controllers.ReceiptController": "SpendManagement.API.Controllers.ReceiptController.yml",
+  "SpendManagement.API.Controllers.ReceiptController.#ctor(MediatR.IMediator)": "SpendManagement.API.Controllers.ReceiptController.yml",
+  "SpendManagement.API.Controllers.ReceiptController.AddReceipt(SpendManagement.Application.Commands.Receipt.InputModels.ReceiptInputModel,System.Threading.CancellationToken)": "SpendManagement.API.Controllers.ReceiptController.yml",
+  "SpendManagement.API.Controllers.ReceiptController.AddRecurringReceipt(SpendManagement.Application.Commands.RecurringReceipt.InputModel.RecurringReceiptInputModel,System.Threading.CancellationToken)": "SpendManagement.API.Controllers.ReceiptController.yml",
+  "SpendManagement.API.Controllers.ReceiptController.DeleteReceipt(System.Guid,System.Threading.CancellationToken)": "SpendManagement.API.Controllers.ReceiptController.yml",
+  "SpendManagement.API.Controllers.ReceiptController.DeleteRecurringReceipt(System.Guid,System.Threading.CancellationToken)": "SpendManagement.API.Controllers.ReceiptController.yml",
+  "SpendManagement.API.Controllers.ReceiptController.UpdateReceipt(System.Guid,SpendManagement.Application.Commands.Receipt.InputModels.UpdateReceiptInputModel,System.Threading.CancellationToken)": "SpendManagement.API.Controllers.ReceiptController.yml",
+  "SpendManagement.API.Controllers.ReceiptController.UpdateRecurringReceipt(System.Guid,SpendManagement.Application.Commands.RecurringReceipt.InputModel.UpdateRecurringReceiptInputModel,System.Threading.CancellationToken)": "SpendManagement.API.Controllers.ReceiptController.yml",
+  "SpendManagement.API.Extensions": "SpendManagement.API.Extensions.yml",
+  "SpendManagement.API.Extensions.DependencyInjection": "SpendManagement.API.Extensions.DependencyInjection.yml",
+  "SpendManagement.API.Extensions.DependencyInjection.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)": "SpendManagement.API.Extensions.DependencyInjection.yml",
+  "SpendManagement.API.Extensions.DependencyInjection.AddDependencyInjection(Microsoft.Extensions.DependencyInjection.IServiceCollection)": "SpendManagement.API.Extensions.DependencyInjection.yml",
+  "SpendManagement.API.Extensions.DependencyInjection.AddSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)": "SpendManagement.API.Extensions.DependencyInjection.yml"
+}

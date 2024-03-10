@@ -1,0 +1,482 @@
+### YamlMime:ManagedReference
+items:
+- uid: SpendManagement.API.Extensions.DependencyInjection
+  commentId: T:SpendManagement.API.Extensions.DependencyInjection
+  id: DependencyInjection
+  parent: SpendManagement.API.Extensions
+  children:
+  - SpendManagement.API.Extensions.DependencyInjection.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)
+  - SpendManagement.API.Extensions.DependencyInjection.AddDependencyInjection(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  - SpendManagement.API.Extensions.DependencyInjection.AddSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  langs:
+  - csharp
+  - vb
+  name: DependencyInjection
+  nameWithType: DependencyInjection
+  fullName: SpendManagement.API.Extensions.DependencyInjection
+  type: Class
+  source:
+    remote:
+      path: src/SpendManagement.API/Extensions/DependencyInjection.cs
+      branch: features
+      repo: https://github.com/fmattioli/spents-api.git
+    id: DependencyInjection
+    path: ../src/SpendManagement.API/Extensions/DependencyInjection.cs
+    startLine: 10
+  assemblies:
+  - SpendManagement.API
+  namespace: SpendManagement.API.Extensions
+  syntax:
+    content: public static class DependencyInjection
+    content.vb: Public Module DependencyInjection
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: SpendManagement.API.Extensions.DependencyInjection.AddDependencyInjection(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  commentId: M:SpendManagement.API.Extensions.DependencyInjection.AddDependencyInjection(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  id: AddDependencyInjection(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  isExtensionMethod: true
+  parent: SpendManagement.API.Extensions.DependencyInjection
+  langs:
+  - csharp
+  - vb
+  name: AddDependencyInjection(IServiceCollection)
+  nameWithType: DependencyInjection.AddDependencyInjection(IServiceCollection)
+  fullName: SpendManagement.API.Extensions.DependencyInjection.AddDependencyInjection(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  type: Method
+  source:
+    remote:
+      path: src/SpendManagement.API/Extensions/DependencyInjection.cs
+      branch: features
+      repo: https://github.com/fmattioli/spents-api.git
+    id: AddDependencyInjection
+    path: ../src/SpendManagement.API/Extensions/DependencyInjection.cs
+    startLine: 12
+  assemblies:
+  - SpendManagement.API
+  namespace: SpendManagement.API.Extensions
+  syntax:
+    content: public static IServiceCollection AddDependencyInjection(this IServiceCollection services)
+    parameters:
+    - id: services
+      type: Microsoft.Extensions.DependencyInjection.IServiceCollection
+    return:
+      type: Microsoft.Extensions.DependencyInjection.IServiceCollection
+    content.vb: Public Shared Function AddDependencyInjection(services As IServiceCollection) As IServiceCollection
+  overload: SpendManagement.API.Extensions.DependencyInjection.AddDependencyInjection*
+- uid: SpendManagement.API.Extensions.DependencyInjection.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)
+  commentId: M:SpendManagement.API.Extensions.DependencyInjection.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)
+  id: AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)
+  isExtensionMethod: true
+  parent: SpendManagement.API.Extensions.DependencyInjection
+  langs:
+  - csharp
+  - vb
+  name: AddAuthorization(IServiceCollection, string?)
+  nameWithType: DependencyInjection.AddAuthorization(IServiceCollection, string?)
+  fullName: SpendManagement.API.Extensions.DependencyInjection.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection, string?)
+  type: Method
+  source:
+    remote:
+      path: src/SpendManagement.API/Extensions/DependencyInjection.cs
+      branch: features
+      repo: https://github.com/fmattioli/spents-api.git
+    id: AddAuthorization
+    path: ../src/SpendManagement.API/Extensions/DependencyInjection.cs
+    startLine: 23
+  assemblies:
+  - SpendManagement.API
+  namespace: SpendManagement.API.Extensions
+  syntax:
+    content: public static IServiceCollection AddAuthorization(this IServiceCollection services, string? auth)
+    parameters:
+    - id: services
+      type: Microsoft.Extensions.DependencyInjection.IServiceCollection
+    - id: auth
+      type: System.String
+    return:
+      type: Microsoft.Extensions.DependencyInjection.IServiceCollection
+    content.vb: Public Shared Function AddAuthorization(services As IServiceCollection, auth As String) As IServiceCollection
+  overload: SpendManagement.API.Extensions.DependencyInjection.AddAuthorization*
+  nameWithType.vb: DependencyInjection.AddAuthorization(IServiceCollection, String)
+  fullName.vb: SpendManagement.API.Extensions.DependencyInjection.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection, String)
+  name.vb: AddAuthorization(IServiceCollection, String)
+- uid: SpendManagement.API.Extensions.DependencyInjection.AddSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  commentId: M:SpendManagement.API.Extensions.DependencyInjection.AddSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  id: AddSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  isExtensionMethod: true
+  parent: SpendManagement.API.Extensions.DependencyInjection
+  langs:
+  - csharp
+  - vb
+  name: AddSwagger(IServiceCollection)
+  nameWithType: DependencyInjection.AddSwagger(IServiceCollection)
+  fullName: SpendManagement.API.Extensions.DependencyInjection.AddSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  type: Method
+  source:
+    remote:
+      path: src/SpendManagement.API/Extensions/DependencyInjection.cs
+      branch: features
+      repo: https://github.com/fmattioli/spents-api.git
+    id: AddSwagger
+    path: ../src/SpendManagement.API/Extensions/DependencyInjection.cs
+    startLine: 48
+  assemblies:
+  - SpendManagement.API
+  namespace: SpendManagement.API.Extensions
+  syntax:
+    content: public static void AddSwagger(this IServiceCollection services)
+    parameters:
+    - id: services
+      type: Microsoft.Extensions.DependencyInjection.IServiceCollection
+    content.vb: Public Shared Sub AddSwagger(services As IServiceCollection)
+  overload: SpendManagement.API.Extensions.DependencyInjection.AddSwagger*
+references:
+- uid: SpendManagement.API.Extensions
+  commentId: N:SpendManagement.API.Extensions
+  href: SpendManagement.html
+  name: SpendManagement.API.Extensions
+  nameWithType: SpendManagement.API.Extensions
+  fullName: SpendManagement.API.Extensions
+  spec.csharp:
+  - uid: SpendManagement
+    name: SpendManagement
+    href: SpendManagement.html
+  - name: .
+  - uid: SpendManagement.API
+    name: API
+    href: SpendManagement.API.html
+  - name: .
+  - uid: SpendManagement.API.Extensions
+    name: Extensions
+    href: SpendManagement.API.Extensions.html
+  spec.vb:
+  - uid: SpendManagement
+    name: SpendManagement
+    href: SpendManagement.html
+  - name: .
+  - uid: SpendManagement.API
+    name: API
+    href: SpendManagement.API.html
+  - name: .
+  - uid: SpendManagement.API.Extensions
+    name: Extensions
+    href: SpendManagement.API.Extensions.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: SpendManagement.API.Extensions.DependencyInjection.AddDependencyInjection*
+  commentId: Overload:SpendManagement.API.Extensions.DependencyInjection.AddDependencyInjection
+  href: SpendManagement.API.Extensions.DependencyInjection.html#SpendManagement_API_Extensions_DependencyInjection_AddDependencyInjection_Microsoft_Extensions_DependencyInjection_IServiceCollection_
+  name: AddDependencyInjection
+  nameWithType: DependencyInjection.AddDependencyInjection
+  fullName: SpendManagement.API.Extensions.DependencyInjection.AddDependencyInjection
+- uid: Microsoft.Extensions.DependencyInjection.IServiceCollection
+  commentId: T:Microsoft.Extensions.DependencyInjection.IServiceCollection
+  parent: Microsoft.Extensions.DependencyInjection
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection
+  name: IServiceCollection
+  nameWithType: IServiceCollection
+  fullName: Microsoft.Extensions.DependencyInjection.IServiceCollection
+- uid: Microsoft.Extensions.DependencyInjection
+  commentId: N:Microsoft.Extensions.DependencyInjection
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft
+  name: Microsoft.Extensions.DependencyInjection
+  nameWithType: Microsoft.Extensions.DependencyInjection
+  fullName: Microsoft.Extensions.DependencyInjection
+  spec.csharp:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.DependencyInjection
+    name: DependencyInjection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection
+  spec.vb:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.DependencyInjection
+    name: DependencyInjection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection
+- uid: SpendManagement.API.Extensions.DependencyInjection.AddAuthorization*
+  commentId: Overload:SpendManagement.API.Extensions.DependencyInjection.AddAuthorization
+  href: SpendManagement.API.Extensions.DependencyInjection.html#SpendManagement_API_Extensions_DependencyInjection_AddAuthorization_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_String_
+  name: AddAuthorization
+  nameWithType: DependencyInjection.AddAuthorization
+  fullName: SpendManagement.API.Extensions.DependencyInjection.AddAuthorization
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: SpendManagement.API.Extensions.DependencyInjection.AddSwagger*
+  commentId: Overload:SpendManagement.API.Extensions.DependencyInjection.AddSwagger
+  href: SpendManagement.API.Extensions.DependencyInjection.html#SpendManagement_API_Extensions_DependencyInjection_AddSwagger_Microsoft_Extensions_DependencyInjection_IServiceCollection_
+  name: AddSwagger
+  nameWithType: DependencyInjection.AddSwagger
+  fullName: SpendManagement.API.Extensions.DependencyInjection.AddSwagger

@@ -1,0 +1,15 @@
+### YamlMime:TableOfContent
+items:
+- uid: SpendManagement.API.Controllers
+  name: SpendManagement.API.Controllers
+  items:
+  - uid: SpendManagement.API.Controllers.CategoryController
+    name: CategoryController
+  - uid: SpendManagement.API.Controllers.ReceiptController
+    name: ReceiptController
+- uid: SpendManagement.API.Extensions
+  name: SpendManagement.API.Extensions
+  items:
+  - uid: SpendManagement.API.Extensions.DependencyInjection
+    name: DependencyInjection
+memberLayout: SamePage
