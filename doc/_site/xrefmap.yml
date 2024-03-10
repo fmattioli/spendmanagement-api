@@ -1,0 +1,230 @@
+### YamlMime:XRefMap
+sorted: true
+references:
+- uid: SpendManagement.API.Controllers
+  name: SpendManagement.API.Controllers
+  href: api/SpendManagement.API.Controllers.html
+  commentId: N:SpendManagement.API.Controllers
+  fullName: SpendManagement.API.Controllers
+  nameWithType: SpendManagement.API.Controllers
+- uid: SpendManagement.API.Controllers.CategoryController
+  name: CategoryController
+  href: api/SpendManagement.API.Controllers.CategoryController.html
+  commentId: T:SpendManagement.API.Controllers.CategoryController
+  fullName: SpendManagement.API.Controllers.CategoryController
+  nameWithType: CategoryController
+- uid: SpendManagement.API.Controllers.CategoryController.#ctor(MediatR.IMediator)
+  name: CategoryController(IMediator)
+  href: api/SpendManagement.API.Controllers.CategoryController.html#SpendManagement_API_Controllers_CategoryController__ctor_MediatR_IMediator_
+  commentId: M:SpendManagement.API.Controllers.CategoryController.#ctor(MediatR.IMediator)
+  name.vb: New(IMediator)
+  fullName: SpendManagement.API.Controllers.CategoryController.CategoryController(MediatR.IMediator)
+  fullName.vb: SpendManagement.API.Controllers.CategoryController.New(MediatR.IMediator)
+  nameWithType: CategoryController.CategoryController(IMediator)
+  nameWithType.vb: CategoryController.New(IMediator)
+- uid: SpendManagement.API.Controllers.CategoryController.#ctor*
+  name: CategoryController
+  href: api/SpendManagement.API.Controllers.CategoryController.html#SpendManagement_API_Controllers_CategoryController__ctor_
+  commentId: Overload:SpendManagement.API.Controllers.CategoryController.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: SpendManagement.API.Controllers.CategoryController.CategoryController
+  fullName.vb: SpendManagement.API.Controllers.CategoryController.New
+  nameWithType: CategoryController.CategoryController
+  nameWithType.vb: CategoryController.New
+- uid: SpendManagement.API.Controllers.CategoryController.AddCategory(SpendManagement.Application.Commands.Category.InputModels.CategoryInputModel,System.Threading.CancellationToken)
+  name: AddCategory(CategoryInputModel, CancellationToken)
+  href: api/SpendManagement.API.Controllers.CategoryController.html#SpendManagement_API_Controllers_CategoryController_AddCategory_SpendManagement_Application_Commands_Category_InputModels_CategoryInputModel_System_Threading_CancellationToken_
+  commentId: M:SpendManagement.API.Controllers.CategoryController.AddCategory(SpendManagement.Application.Commands.Category.InputModels.CategoryInputModel,System.Threading.CancellationToken)
+  fullName: SpendManagement.API.Controllers.CategoryController.AddCategory(SpendManagement.Application.Commands.Category.InputModels.CategoryInputModel, System.Threading.CancellationToken)
+  nameWithType: CategoryController.AddCategory(CategoryInputModel, CancellationToken)
+- uid: SpendManagement.API.Controllers.CategoryController.AddCategory*
+  name: AddCategory
+  href: api/SpendManagement.API.Controllers.CategoryController.html#SpendManagement_API_Controllers_CategoryController_AddCategory_
+  commentId: Overload:SpendManagement.API.Controllers.CategoryController.AddCategory
+  isSpec: "True"
+  fullName: SpendManagement.API.Controllers.CategoryController.AddCategory
+  nameWithType: CategoryController.AddCategory
+- uid: SpendManagement.API.Controllers.CategoryController.DeleteCategory(System.Guid,System.Threading.CancellationToken)
+  name: DeleteCategory(Guid, CancellationToken)
+  href: api/SpendManagement.API.Controllers.CategoryController.html#SpendManagement_API_Controllers_CategoryController_DeleteCategory_System_Guid_System_Threading_CancellationToken_
+  commentId: M:SpendManagement.API.Controllers.CategoryController.DeleteCategory(System.Guid,System.Threading.CancellationToken)
+  fullName: SpendManagement.API.Controllers.CategoryController.DeleteCategory(System.Guid, System.Threading.CancellationToken)
+  nameWithType: CategoryController.DeleteCategory(Guid, CancellationToken)
+- uid: SpendManagement.API.Controllers.CategoryController.DeleteCategory*
+  name: DeleteCategory
+  href: api/SpendManagement.API.Controllers.CategoryController.html#SpendManagement_API_Controllers_CategoryController_DeleteCategory_
+  commentId: Overload:SpendManagement.API.Controllers.CategoryController.DeleteCategory
+  isSpec: "True"
+  fullName: SpendManagement.API.Controllers.CategoryController.DeleteCategory
+  nameWithType: CategoryController.DeleteCategory
+- uid: SpendManagement.API.Controllers.CategoryController.UpdateCategory(SpendManagement.Application.Commands.Category.InputModels.UpdateCategoryInputModel,System.Threading.CancellationToken)
+  name: UpdateCategory(UpdateCategoryInputModel, CancellationToken)
+  href: api/SpendManagement.API.Controllers.CategoryController.html#SpendManagement_API_Controllers_CategoryController_UpdateCategory_SpendManagement_Application_Commands_Category_InputModels_UpdateCategoryInputModel_System_Threading_CancellationToken_
+  commentId: M:SpendManagement.API.Controllers.CategoryController.UpdateCategory(SpendManagement.Application.Commands.Category.InputModels.UpdateCategoryInputModel,System.Threading.CancellationToken)
+  fullName: SpendManagement.API.Controllers.CategoryController.UpdateCategory(SpendManagement.Application.Commands.Category.InputModels.UpdateCategoryInputModel, System.Threading.CancellationToken)
+  nameWithType: CategoryController.UpdateCategory(UpdateCategoryInputModel, CancellationToken)
+- uid: SpendManagement.API.Controllers.CategoryController.UpdateCategory*
+  name: UpdateCategory
+  href: api/SpendManagement.API.Controllers.CategoryController.html#SpendManagement_API_Controllers_CategoryController_UpdateCategory_
+  commentId: Overload:SpendManagement.API.Controllers.CategoryController.UpdateCategory
+  isSpec: "True"
+  fullName: SpendManagement.API.Controllers.CategoryController.UpdateCategory
+  nameWithType: CategoryController.UpdateCategory
+- uid: SpendManagement.API.Controllers.ReceiptController
+  name: ReceiptController
+  href: api/SpendManagement.API.Controllers.ReceiptController.html
+  commentId: T:SpendManagement.API.Controllers.ReceiptController
+  fullName: SpendManagement.API.Controllers.ReceiptController
+  nameWithType: ReceiptController
+- uid: SpendManagement.API.Controllers.ReceiptController.#ctor(MediatR.IMediator)
+  name: ReceiptController(IMediator)
+  href: api/SpendManagement.API.Controllers.ReceiptController.html#SpendManagement_API_Controllers_ReceiptController__ctor_MediatR_IMediator_
+  commentId: M:SpendManagement.API.Controllers.ReceiptController.#ctor(MediatR.IMediator)
+  name.vb: New(IMediator)
+  fullName: SpendManagement.API.Controllers.ReceiptController.ReceiptController(MediatR.IMediator)
+  fullName.vb: SpendManagement.API.Controllers.ReceiptController.New(MediatR.IMediator)
+  nameWithType: ReceiptController.ReceiptController(IMediator)
+  nameWithType.vb: ReceiptController.New(IMediator)
+- uid: SpendManagement.API.Controllers.ReceiptController.#ctor*
+  name: ReceiptController
+  href: api/SpendManagement.API.Controllers.ReceiptController.html#SpendManagement_API_Controllers_ReceiptController__ctor_
+  commentId: Overload:SpendManagement.API.Controllers.ReceiptController.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: SpendManagement.API.Controllers.ReceiptController.ReceiptController
+  fullName.vb: SpendManagement.API.Controllers.ReceiptController.New
+  nameWithType: ReceiptController.ReceiptController
+  nameWithType.vb: ReceiptController.New
+- uid: SpendManagement.API.Controllers.ReceiptController.AddReceipt(SpendManagement.Application.Commands.Receipt.InputModels.ReceiptInputModel,System.Threading.CancellationToken)
+  name: AddReceipt(ReceiptInputModel, CancellationToken)
+  href: api/SpendManagement.API.Controllers.ReceiptController.html#SpendManagement_API_Controllers_ReceiptController_AddReceipt_SpendManagement_Application_Commands_Receipt_InputModels_ReceiptInputModel_System_Threading_CancellationToken_
+  commentId: M:SpendManagement.API.Controllers.ReceiptController.AddReceipt(SpendManagement.Application.Commands.Receipt.InputModels.ReceiptInputModel,System.Threading.CancellationToken)
+  fullName: SpendManagement.API.Controllers.ReceiptController.AddReceipt(SpendManagement.Application.Commands.Receipt.InputModels.ReceiptInputModel, System.Threading.CancellationToken)
+  nameWithType: ReceiptController.AddReceipt(ReceiptInputModel, CancellationToken)
+- uid: SpendManagement.API.Controllers.ReceiptController.AddReceipt*
+  name: AddReceipt
+  href: api/SpendManagement.API.Controllers.ReceiptController.html#SpendManagement_API_Controllers_ReceiptController_AddReceipt_
+  commentId: Overload:SpendManagement.API.Controllers.ReceiptController.AddReceipt
+  isSpec: "True"
+  fullName: SpendManagement.API.Controllers.ReceiptController.AddReceipt
+  nameWithType: ReceiptController.AddReceipt
+- uid: SpendManagement.API.Controllers.ReceiptController.AddRecurringReceipt(SpendManagement.Application.Commands.RecurringReceipt.InputModel.RecurringReceiptInputModel,System.Threading.CancellationToken)
+  name: AddRecurringReceipt(RecurringReceiptInputModel, CancellationToken)
+  href: api/SpendManagement.API.Controllers.ReceiptController.html#SpendManagement_API_Controllers_ReceiptController_AddRecurringReceipt_SpendManagement_Application_Commands_RecurringReceipt_InputModel_RecurringReceiptInputModel_System_Threading_CancellationToken_
+  commentId: M:SpendManagement.API.Controllers.ReceiptController.AddRecurringReceipt(SpendManagement.Application.Commands.RecurringReceipt.InputModel.RecurringReceiptInputModel,System.Threading.CancellationToken)
+  fullName: SpendManagement.API.Controllers.ReceiptController.AddRecurringReceipt(SpendManagement.Application.Commands.RecurringReceipt.InputModel.RecurringReceiptInputModel, System.Threading.CancellationToken)
+  nameWithType: ReceiptController.AddRecurringReceipt(RecurringReceiptInputModel, CancellationToken)
+- uid: SpendManagement.API.Controllers.ReceiptController.AddRecurringReceipt*
+  name: AddRecurringReceipt
+  href: api/SpendManagement.API.Controllers.ReceiptController.html#SpendManagement_API_Controllers_ReceiptController_AddRecurringReceipt_
+  commentId: Overload:SpendManagement.API.Controllers.ReceiptController.AddRecurringReceipt
+  isSpec: "True"
+  fullName: SpendManagement.API.Controllers.ReceiptController.AddRecurringReceipt
+  nameWithType: ReceiptController.AddRecurringReceipt
+- uid: SpendManagement.API.Controllers.ReceiptController.DeleteReceipt(System.Guid,System.Threading.CancellationToken)
+  name: DeleteReceipt(Guid, CancellationToken)
+  href: api/SpendManagement.API.Controllers.ReceiptController.html#SpendManagement_API_Controllers_ReceiptController_DeleteReceipt_System_Guid_System_Threading_CancellationToken_
+  commentId: M:SpendManagement.API.Controllers.ReceiptController.DeleteReceipt(System.Guid,System.Threading.CancellationToken)
+  fullName: SpendManagement.API.Controllers.ReceiptController.DeleteReceipt(System.Guid, System.Threading.CancellationToken)
+  nameWithType: ReceiptController.DeleteReceipt(Guid, CancellationToken)
+- uid: SpendManagement.API.Controllers.ReceiptController.DeleteReceipt*
+  name: DeleteReceipt
+  href: api/SpendManagement.API.Controllers.ReceiptController.html#SpendManagement_API_Controllers_ReceiptController_DeleteReceipt_
+  commentId: Overload:SpendManagement.API.Controllers.ReceiptController.DeleteReceipt
+  isSpec: "True"
+  fullName: SpendManagement.API.Controllers.ReceiptController.DeleteReceipt
+  nameWithType: ReceiptController.DeleteReceipt
+- uid: SpendManagement.API.Controllers.ReceiptController.DeleteRecurringReceipt(System.Guid,System.Threading.CancellationToken)
+  name: DeleteRecurringReceipt(Guid, CancellationToken)
+  href: api/SpendManagement.API.Controllers.ReceiptController.html#SpendManagement_API_Controllers_ReceiptController_DeleteRecurringReceipt_System_Guid_System_Threading_CancellationToken_
+  commentId: M:SpendManagement.API.Controllers.ReceiptController.DeleteRecurringReceipt(System.Guid,System.Threading.CancellationToken)
+  fullName: SpendManagement.API.Controllers.ReceiptController.DeleteRecurringReceipt(System.Guid, System.Threading.CancellationToken)
+  nameWithType: ReceiptController.DeleteRecurringReceipt(Guid, CancellationToken)
+- uid: SpendManagement.API.Controllers.ReceiptController.DeleteRecurringReceipt*
+  name: DeleteRecurringReceipt
+  href: api/SpendManagement.API.Controllers.ReceiptController.html#SpendManagement_API_Controllers_ReceiptController_DeleteRecurringReceipt_
+  commentId: Overload:SpendManagement.API.Controllers.ReceiptController.DeleteRecurringReceipt
+  isSpec: "True"
+  fullName: SpendManagement.API.Controllers.ReceiptController.DeleteRecurringReceipt
+  nameWithType: ReceiptController.DeleteRecurringReceipt
+- uid: SpendManagement.API.Controllers.ReceiptController.UpdateReceipt(System.Guid,SpendManagement.Application.Commands.Receipt.InputModels.UpdateReceiptInputModel,System.Threading.CancellationToken)
+  name: UpdateReceipt(Guid, UpdateReceiptInputModel, CancellationToken)
+  href: api/SpendManagement.API.Controllers.ReceiptController.html#SpendManagement_API_Controllers_ReceiptController_UpdateReceipt_System_Guid_SpendManagement_Application_Commands_Receipt_InputModels_UpdateReceiptInputModel_System_Threading_CancellationToken_
+  commentId: M:SpendManagement.API.Controllers.ReceiptController.UpdateReceipt(System.Guid,SpendManagement.Application.Commands.Receipt.InputModels.UpdateReceiptInputModel,System.Threading.CancellationToken)
+  fullName: SpendManagement.API.Controllers.ReceiptController.UpdateReceipt(System.Guid, SpendManagement.Application.Commands.Receipt.InputModels.UpdateReceiptInputModel, System.Threading.CancellationToken)
+  nameWithType: ReceiptController.UpdateReceipt(Guid, UpdateReceiptInputModel, CancellationToken)
+- uid: SpendManagement.API.Controllers.ReceiptController.UpdateReceipt*
+  name: UpdateReceipt
+  href: api/SpendManagement.API.Controllers.ReceiptController.html#SpendManagement_API_Controllers_ReceiptController_UpdateReceipt_
+  commentId: Overload:SpendManagement.API.Controllers.ReceiptController.UpdateReceipt
+  isSpec: "True"
+  fullName: SpendManagement.API.Controllers.ReceiptController.UpdateReceipt
+  nameWithType: ReceiptController.UpdateReceipt
+- uid: SpendManagement.API.Controllers.ReceiptController.UpdateRecurringReceipt(System.Guid,SpendManagement.Application.Commands.RecurringReceipt.InputModel.UpdateRecurringReceiptInputModel,System.Threading.CancellationToken)
+  name: UpdateRecurringReceipt(Guid, UpdateRecurringReceiptInputModel, CancellationToken)
+  href: api/SpendManagement.API.Controllers.ReceiptController.html#SpendManagement_API_Controllers_ReceiptController_UpdateRecurringReceipt_System_Guid_SpendManagement_Application_Commands_RecurringReceipt_InputModel_UpdateRecurringReceiptInputModel_System_Threading_CancellationToken_
+  commentId: M:SpendManagement.API.Controllers.ReceiptController.UpdateRecurringReceipt(System.Guid,SpendManagement.Application.Commands.RecurringReceipt.InputModel.UpdateRecurringReceiptInputModel,System.Threading.CancellationToken)
+  fullName: SpendManagement.API.Controllers.ReceiptController.UpdateRecurringReceipt(System.Guid, SpendManagement.Application.Commands.RecurringReceipt.InputModel.UpdateRecurringReceiptInputModel, System.Threading.CancellationToken)
+  nameWithType: ReceiptController.UpdateRecurringReceipt(Guid, UpdateRecurringReceiptInputModel, CancellationToken)
+- uid: SpendManagement.API.Controllers.ReceiptController.UpdateRecurringReceipt*
+  name: UpdateRecurringReceipt
+  href: api/SpendManagement.API.Controllers.ReceiptController.html#SpendManagement_API_Controllers_ReceiptController_UpdateRecurringReceipt_
+  commentId: Overload:SpendManagement.API.Controllers.ReceiptController.UpdateRecurringReceipt
+  isSpec: "True"
+  fullName: SpendManagement.API.Controllers.ReceiptController.UpdateRecurringReceipt
+  nameWithType: ReceiptController.UpdateRecurringReceipt
+- uid: SpendManagement.API.Extensions
+  name: SpendManagement.API.Extensions
+  href: api/SpendManagement.API.Extensions.html
+  commentId: N:SpendManagement.API.Extensions
+  fullName: SpendManagement.API.Extensions
+  nameWithType: SpendManagement.API.Extensions
+- uid: SpendManagement.API.Extensions.DependencyInjection
+  name: DependencyInjection
+  href: api/SpendManagement.API.Extensions.DependencyInjection.html
+  commentId: T:SpendManagement.API.Extensions.DependencyInjection
+  fullName: SpendManagement.API.Extensions.DependencyInjection
+  nameWithType: DependencyInjection
+- uid: SpendManagement.API.Extensions.DependencyInjection.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)
+  name: AddAuthorization(IServiceCollection, string?)
+  href: api/SpendManagement.API.Extensions.DependencyInjection.html#SpendManagement_API_Extensions_DependencyInjection_AddAuthorization_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_String_
+  commentId: M:SpendManagement.API.Extensions.DependencyInjection.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)
+  name.vb: AddAuthorization(IServiceCollection, String)
+  fullName: SpendManagement.API.Extensions.DependencyInjection.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection, string?)
+  fullName.vb: SpendManagement.API.Extensions.DependencyInjection.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection, String)
+  nameWithType: DependencyInjection.AddAuthorization(IServiceCollection, string?)
+  nameWithType.vb: DependencyInjection.AddAuthorization(IServiceCollection, String)
+- uid: SpendManagement.API.Extensions.DependencyInjection.AddAuthorization*
+  name: AddAuthorization
+  href: api/SpendManagement.API.Extensions.DependencyInjection.html#SpendManagement_API_Extensions_DependencyInjection_AddAuthorization_
+  commentId: Overload:SpendManagement.API.Extensions.DependencyInjection.AddAuthorization
+  isSpec: "True"
+  fullName: SpendManagement.API.Extensions.DependencyInjection.AddAuthorization
+  nameWithType: DependencyInjection.AddAuthorization
+- uid: SpendManagement.API.Extensions.DependencyInjection.AddDependencyInjection(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  name: AddDependencyInjection(IServiceCollection)
+  href: api/SpendManagement.API.Extensions.DependencyInjection.html#SpendManagement_API_Extensions_DependencyInjection_AddDependencyInjection_Microsoft_Extensions_DependencyInjection_IServiceCollection_
+  commentId: M:SpendManagement.API.Extensions.DependencyInjection.AddDependencyInjection(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  fullName: SpendManagement.API.Extensions.DependencyInjection.AddDependencyInjection(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  nameWithType: DependencyInjection.AddDependencyInjection(IServiceCollection)
+- uid: SpendManagement.API.Extensions.DependencyInjection.AddDependencyInjection*
+  name: AddDependencyInjection
+  href: api/SpendManagement.API.Extensions.DependencyInjection.html#SpendManagement_API_Extensions_DependencyInjection_AddDependencyInjection_
+  commentId: Overload:SpendManagement.API.Extensions.DependencyInjection.AddDependencyInjection
+  isSpec: "True"
+  fullName: SpendManagement.API.Extensions.DependencyInjection.AddDependencyInjection
+  nameWithType: DependencyInjection.AddDependencyInjection
+- uid: SpendManagement.API.Extensions.DependencyInjection.AddSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  name: AddSwagger(IServiceCollection)
+  href: api/SpendManagement.API.Extensions.DependencyInjection.html#SpendManagement_API_Extensions_DependencyInjection_AddSwagger_Microsoft_Extensions_DependencyInjection_IServiceCollection_
+  commentId: M:SpendManagement.API.Extensions.DependencyInjection.AddSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  fullName: SpendManagement.API.Extensions.DependencyInjection.AddSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+  nameWithType: DependencyInjection.AddSwagger(IServiceCollection)
+- uid: SpendManagement.API.Extensions.DependencyInjection.AddSwagger*
+  name: AddSwagger
+  href: api/SpendManagement.API.Extensions.DependencyInjection.html#SpendManagement_API_Extensions_DependencyInjection_AddSwagger_
+  commentId: Overload:SpendManagement.API.Extensions.DependencyInjection.AddSwagger
+  isSpec: "True"
+  fullName: SpendManagement.API.Extensions.DependencyInjection.AddSwagger
+  nameWithType: DependencyInjection.AddSwagger

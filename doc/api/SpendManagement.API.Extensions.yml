@@ -1,0 +1,23 @@
+### YamlMime:ManagedReference
+items:
+- uid: SpendManagement.API.Extensions
+  commentId: N:SpendManagement.API.Extensions
+  id: SpendManagement.API.Extensions
+  children:
+  - SpendManagement.API.Extensions.DependencyInjection
+  langs:
+  - csharp
+  - vb
+  name: SpendManagement.API.Extensions
+  nameWithType: SpendManagement.API.Extensions
+  fullName: SpendManagement.API.Extensions
+  type: Namespace
+  assemblies:
+  - SpendManagement.API
+references:
+- uid: SpendManagement.API.Extensions.DependencyInjection
+  commentId: T:SpendManagement.API.Extensions.DependencyInjection
+  href: SpendManagement.API.Extensions.DependencyInjection.html
+  name: DependencyInjection
+  nameWithType: DependencyInjection
+  fullName: SpendManagement.API.Extensions.DependencyInjection

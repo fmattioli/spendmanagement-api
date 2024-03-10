@@ -1,0 +1,30 @@
+### YamlMime:ManagedReference
+items:
+- uid: SpendManagement.API.Controllers
+  commentId: N:SpendManagement.API.Controllers
+  id: SpendManagement.API.Controllers
+  children:
+  - SpendManagement.API.Controllers.CategoryController
+  - SpendManagement.API.Controllers.ReceiptController
+  langs:
+  - csharp
+  - vb
+  name: SpendManagement.API.Controllers
+  nameWithType: SpendManagement.API.Controllers
+  fullName: SpendManagement.API.Controllers
+  type: Namespace
+  assemblies:
+  - SpendManagement.API
+references:
+- uid: SpendManagement.API.Controllers.CategoryController
+  commentId: T:SpendManagement.API.Controllers.CategoryController
+  href: SpendManagement.API.Controllers.CategoryController.html
+  name: CategoryController
+  nameWithType: CategoryController
+  fullName: SpendManagement.API.Controllers.CategoryController
+- uid: SpendManagement.API.Controllers.ReceiptController
+  commentId: T:SpendManagement.API.Controllers.ReceiptController
+  href: SpendManagement.API.Controllers.ReceiptController.html
+  name: ReceiptController
+  nameWithType: ReceiptController
+  fullName: SpendManagement.API.Controllers.ReceiptController

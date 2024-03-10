@@ -1,0 +1,633 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Data API builder CLI | spendmanagement-api-doc </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Data API builder CLI | spendmanagement-api-doc ">
+      
+      <meta name="description" content="This document defines the dab CLI.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/fmattioli/spents-api/blob/features/doc/docs/introduction.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="spendmanagement-api-doc">
+            spendmanagement-api-doc
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="about-dab-cli">About <code>dab</code> CLI</h1>
+
+<p>The Data API builder CLI (<strong>dab CLI</strong> or <code>dab</code>) is a command line tool that streamlines the local development experience for applications using Data API builder.</p>
+<h2 id="key-features-of-dab-cli">Key Features of <code>dab</code> CLI</h2>
+<ul>
+<li>Initialize the configuration file for REST and GraphQL endpoints</li>
+<li>Add new entities</li>
+<li>Update entity details</li>
+<li>Add/update entity relationships</li>
+<li>Configure roles and their permissions</li>
+<li>Configure cross-origin requests (CORS)</li>
+<li>Run the Data API builder engine</li>
+</ul>
+<h2 id="cli-command-line">CLI command line</h2>
+<p>DAB CLI comes with an integrated help system. To get a list of what commands are available, use the <code>--help</code> option on the <code>dab</code> command.</p>
+<pre><code class="lang-shell">dab --help
+</code></pre>
+<p>To get help on a specific command, use the <code>--help</code> option. For example, to learn more about the <code>init</code> command:</p>
+<pre><code class="lang-shell">dab init --help
+</code></pre>
+<h2 id="cli-command-line-verbs-and-options">CLI command line verbs and options</h2>
+<h3 id="init"><strong><code>init</code></strong></h3>
+<p>Initializes the runtime configuration for the Data API builder runtime engine. It creates a new JSON file with the properties provided as options.</p>
+<p><strong>Syntax:</strong> <code>dab init [options]</code></p>
+<p><strong>Example:</strong> <code>dab init --config &quot;dab-config.MsSql.json&quot; --database-type mssql --connection-string &quot;Server=tcp:127.0.0.1,1433;User ID=sa;Password=REPLACEME;Connection Timeout=5;&quot;</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Options</th>
+<th style="text-align: left;">Option Required</th>
+<th style="text-align: left;">Default Value</th>
+<th style="text-align: left;">Value Required</th>
+<th style="text-align: left;">Value Type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>--database-type</strong></td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Type of database to connect. Supported values: mssql, cosmosdb_nosql, cosmosdb_postgresql, mysql, postgresql</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--connection-string</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">&quot;&quot;</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Connection details to connect to the database.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--cosmosdb_nosql-database</strong></td>
+<td style="text-align: left;">true when databaseType=cosmosdb_nosql</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Database name for Cosmos DB for NoSql.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--cosmosdb_nosql-container</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Container name for Cosmos DB for NoSql.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--graphql-schema</strong></td>
+<td style="text-align: left;">true when databaseType=cosmosdb_nosql</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">GraphQL schema Path</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--set-session-context</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">Enable sending data to MsSql using session context.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--host-mode</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">production</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Specify the Host mode - development or production</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--cors-origin</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">&quot;&quot;</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Specify the list of allowed origins.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--auth.provider</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">StaticWebApps</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Specify the Identity Provider.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--rest.path</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">/api</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Specify the REST endpoint's prefix.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--rest.disabled</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">Disables REST endpoint for all entities.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--rest.enabled</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">Enables REST endpoint for all entities.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--rest.request-body-strict</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">Does not allow extraneous fields in request body.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--graphql.path</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">/graphql</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Specify the GraphQL endpoint's prefix.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--graphql.disabled</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">Disables GraphQL endpoint for all entities.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--graphql.enabled</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">Enables GraphQL endpoint for all entities.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--auth.audience</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Identifies the recipients that the JWT is intended for.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--auth.issuer</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Specify the party that issued the JWT token.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>-c,--config</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">dab-config.json</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Path to config file.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="add"><strong><code>add</code></strong></h3>
+<p>Add new database entity to the configuration file. Make sure you already have a configuration file before executing this command, otherwise it returns an error.</p>
+<p><strong>Syntax</strong>: <code>dab add [entity-name] [options]</code></p>
+<p><strong>Example:</strong>: <code>dab add Book -c &quot;dab-config.MsSql.json&quot; --source dbo.books --permissions &quot;anonymous:*&quot;</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Options</th>
+<th style="text-align: left;">Option Required</th>
+<th style="text-align: left;">Default Value</th>
+<th style="text-align: left;">Value Required</th>
+<th style="text-align: left;">Value Type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>-s,--source</strong></td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Name of the source table or container.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--permissions</strong></td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Permissions required to access the source table or container. Format &quot;[role]:[actions]&quot;.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--source.type</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">table</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Type of the database object. Must be one of: [table, view, stored-procedure].</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--source.params</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Dictionary of parameters and their values for Source object.&quot;param1:val1,param2:value2,...&quot; for Stored-Procedures.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--source.key-fields</strong></td>
+<td style="text-align: left;">true when  <code>--source.type</code>  is view</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">The field(s) to be used as primary keys for tables and views only. Comma separated values. Example <code>--source.key-fields &quot;id,name,type&quot;</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--rest</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">case sensitive entity name.</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Route for REST API. Example: <br><code>--rest: false</code> -&gt; Disables REST API  calls for this entity.<br><code>--rest: true</code> -&gt; Entity name becomes the rest path. <br><code>--rest: &quot;customPathName&quot;</code> -&gt; Provided customPathName becomes the REST path.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--rest.methods</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">post</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">HTTP actions to be supported for stored procedure. Specify the actions as a comma separated list. Valid HTTP actions are:[get, post, put, patch, delete].</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--graphql</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">case sensitive entity name</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">Bool/String</td>
+<td style="text-align: left;">Entity type exposed for GraphQL. Example: <br><code>--graphql: false</code> -&gt; disables graphql calls for this entity. <br><code>--graphql: true</code> -&gt; Exposes the entity for GraphQL with default names. The singular form of the entity name is considered for the query and mutation names. <br><code>--graphql: &quot;customQueryName&quot;</code> -&gt; Lets the user customize the singular and plural name for queries and mutations.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--graphql.operation</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">mutation</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">GraphQL operation to be supported for stored procedure. Valid operations are: [query, mutation].</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--fields.include</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Fields with permission to access.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--fields.exclude</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Fields excluded from the action lists.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>--policy-database</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Specify an OData style filter rule that is injected in the query sent to the database.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>-c,--config</strong></td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">dab-config.json</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Path to config file.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update"><strong><code>update</code></strong></h3>
+<p>Update the properties of any database entity in the configuration file.</p>
+<p><strong>Syntax</strong>: <code>dab update [entity-name] [options]</code></p>
+<p><strong>Example:</strong> <code>dab update Publisher --permissions &quot;authenticated:*&quot;</code></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>dab update</code> supports all the options that are supported by <code>dab add</code>. Additionally, it also supports the below listed options.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th>Option Required</th>
+<th>Default Value</th>
+<th>Value Required</th>
+<th>Value Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>--relationship</strong></td>
+<td>false</td>
+<td>-</td>
+<td>true</td>
+<td>String</td>
+<td>Specify relationship between two entities. Provide the name of the relationship.</td>
+</tr>
+<tr>
+<td><strong>--cardinality</strong></td>
+<td>true when <code>--relationship</code> option is used</td>
+<td>-</td>
+<td>true</td>
+<td>String</td>
+<td>Specify cardinality between two entities. Could be one or many.</td>
+</tr>
+<tr>
+<td><strong>--target.entity</strong></td>
+<td>true when <code>--relationship</code> option is used</td>
+<td>-</td>
+<td>true</td>
+<td>String</td>
+<td>Another exposed entity that the source entity relates to.</td>
+</tr>
+<tr>
+<td><strong>--linking.object</strong></td>
+<td>false</td>
+<td>-</td>
+<td>true</td>
+<td>String</td>
+<td>Database object that is used to support an M:N relationship.</td>
+</tr>
+<tr>
+<td><strong>--linking.source.fields</strong></td>
+<td>false</td>
+<td>-</td>
+<td>true</td>
+<td>String</td>
+<td>Database fields in the linking object to connect to the related item in the source entity. Comma separated fields.</td>
+</tr>
+<tr>
+<td><strong>--linking.target.fields</strong></td>
+<td>false</td>
+<td>-</td>
+<td>true</td>
+<td>String</td>
+<td>Database fields in the linking object to connect to the related item in the target entity. Comma separated fields.</td>
+</tr>
+<tr>
+<td><strong>--relationship.fields</strong></td>
+<td>false</td>
+<td>-</td>
+<td>true</td>
+<td>String</td>
+<td>Specify fields to be used for mapping the entities. Example: <code>--relationship.fields &quot;id:book_id&quot;</code>. Here <code>id</code> represents column from sourceEntity, while <code>book_id</code> from targetEntity. Foreign keys are required between the underlying sources if not specified.</td>
+</tr>
+<tr>
+<td><strong>-m,--map</strong></td>
+<td>false</td>
+<td>-</td>
+<td>true</td>
+<td>String</td>
+<td>Specify mappings between database fields and GraphQL and REST fields. Format: --map &quot;backendName1:exposedName1, backendName2:exposedName2,...&quot;.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="export"><strong><code>export</code></strong></h3>
+<p>Export the required schema as a file and save to disk based on the options.</p>
+<p><strong>Syntax</strong>: <code>dab export [options]</code></p>
+<p><strong>Example</strong>: <code>dab export --graphql -o ./schemas</code></p>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th>Option Required</th>
+<th>Default Value</th>
+<th>Value Required</th>
+<th>Value Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>--graphql</strong></td>
+<td>false</td>
+<td>false</td>
+<td>false</td>
+<td>-</td>
+<td>Export GraphQL schema.</td>
+</tr>
+<tr>
+<td><strong>-o,--output</strong></td>
+<td>true</td>
+<td>-</td>
+<td>true</td>
+<td>String</td>
+<td>Specify the directory to save the schema file.</td>
+</tr>
+<tr>
+<td><strong>-g,--graphql-schema-file</strong></td>
+<td>false</td>
+<td>schema.graphql</td>
+<td>true</td>
+<td>String</td>
+<td>Specify the name of the Graphql schema file.</td>
+</tr>
+<tr>
+<td><strong>-c,--config</strong></td>
+<td>false</td>
+<td>dab-config.json</td>
+<td>true</td>
+<td>String</td>
+<td>Path to config file.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="start"><strong><code>start</code></strong></h3>
+<p>Start the runtime engine with the provided configuration file for serving REST and GraphQL requests.</p>
+<p><strong>Syntax</strong>: <code>dab start [options]</code></p>
+<p><strong>Example</strong>: <code>dab start</code></p>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th>Option Required</th>
+<th>Default Value</th>
+<th>Value Required</th>
+<th>Value Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>--verbose</strong></td>
+<td>false</td>
+<td>-</td>
+<td>false</td>
+<td>-</td>
+<td>Specify logging level as informational.</td>
+</tr>
+<tr>
+<td><strong>--LogLevel</strong></td>
+<td>false</td>
+<td>Debug when hostMode=development, else Error when HostMode=Production</td>
+<td>true</td>
+<td>String</td>
+<td>Specify logging level as provided value. example: debug, error, information, etc.</td>
+</tr>
+<tr>
+<td><strong>--no-https-redirect</strong></td>
+<td>false</td>
+<td>false</td>
+<td>true</td>
+<td>String</td>
+<td>Disables automatic https redirects.</td>
+</tr>
+<tr>
+<td><strong>-c,--config</strong></td>
+<td>false</td>
+<td>dab-config.json</td>
+<td>true</td>
+<td>String</td>
+<td>Path to config file.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>You can't use <code>--verbose</code> and <code>--LogLevel</code> at the same time. Learn more about different logging levels <a href="/dotnet/api/microsoft.extensions.logging.loglevel?view=dotnet-plat-ext-6.0&amp;preserve-view=true">here</a>.</p>
+</div>
+<h3 id="using-data-api-builder-with-two-configuration-files">Using Data API builder with two configuration files</h3>
+<p>You can maintain multiple pairs of baseline and environment specific configuration files to simplify management of your environment specific settings. The following steps demonstrate how to set up a base configuration file with two environment specific configuration files (<strong>development</strong> and <strong>production</strong>):</p>
+<ol>
+<li>Create a base configuration file <code>dab-config.json</code> with all of your settings common across each of your environments.</li>
+<li>Create two environemnt specific configuration files: <code>dab-config.development.json</code> and <code>dab-config.production.json</code>. These two configuration files should only include settings which differ from the base configuration file such as connection strings.</li>
+<li>Next, set the <code>DAB_ENVIRONMENT</code> variable based on the environment configuration you want Data API builder to consume. For this example, set <code>DAB_ENVIRONMENT=development</code> so the <code>development</code> environment configuration file selected.</li>
+<li>Start Data API builder with the command <code>dab start</code>. The engine checks the value of <code>DAB_ENVIRONMENT</code> and uses the base file <code>dab-config.json</code> and the environment specific file <code>dab-config.development.json</code>. When the engine detects the presence of both files, it merges the files into a third file: <code>dab-config.development.merged.json</code>.</li>
+<li>(Optional) Set the <code>DAB_ENVIRONMENT</code> environment variable value to <code>production</code> when you want the production environment specific settings to be merged with your base configuration file.</li>
+</ol>
+<div class="NOTE">
+<h5>Note</h5>
+<ol>
+<li>By default, <strong>dab-config.json</strong> is used to start the engine when the <code>DAB_ENVIRONMENT</code> environment variable isn't set.</li>
+<li>A user provided config file is used regardless of the <code>DAB_ENVIRONMENT</code> environment variable's value. For example, the file <code>my-config.json</code> is used when Data API builder is started using <code>dab start -c my-config.json</code></li>
+</ol>
+</div>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/fmattioli/spents-api/blob/features/doc/docs/introduction.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

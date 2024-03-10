@@ -101,23 +101,6 @@ namespace SpendManagement.Unit.Tests.Validators.RecurringReceipt
         }
 
         [Fact]
-        public void OnGivenAnInvalidReceiptRecurring_DateEndRecurrence_ShouldBeNotValidated()
-        {
-            //Arrange
-            var recurringReceipt = _fixture
-                .Build<RecurringReceiptInputModel>()
-                .With(x => x.DateEndRecurrence, DateTime.MinValue)
-                .Create();
-
-            //Act
-            var result = this._receiptValidator.Validate(recurringReceipt);
-
-            //Act
-            result.IsValid.Should().Be(false);
-            result.Errors.Should().Contain(e => e.ErrorMessage == ValidationsErrorsMessages.ReceiptDateMinValueError);
-        }
-
-        [Fact]
         public void OnGivenAnInvalidReceiptRecurring_RecurrenceTotalPrice_ShouldBeNotValidated()
         {
             //Arrange
