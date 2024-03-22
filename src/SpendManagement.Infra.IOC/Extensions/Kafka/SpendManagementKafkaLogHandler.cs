@@ -2,9 +2,9 @@
 using Newtonsoft.Json;
 using System.Diagnostics;
 
-namespace SpendManagement.Integration.Tests.Helpers
+namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
 {
-    public class ConsoleLogHandler : ILogHandler
+    public class SpendManagementKafkaLogHandler : ILogHandler
     {
         public void Error(string message, Exception ex, object data)
         {

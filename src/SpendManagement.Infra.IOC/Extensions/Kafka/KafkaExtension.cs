@@ -5,6 +5,8 @@ using KafkaFlow.Configuration;
 using KafkaFlow.Serializer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualBasic;
+
 using SpendManagement.Application.Producers;
 using SpendManagement.Contracts.V1.Interfaces;
 using SpendManagement.Infra.CrossCutting.Conf;
@@ -21,6 +23,7 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
         {
             services.AddKafka(
                 k => k
+                    .UseLogHandler<SpendManagementKafkaLogHandler>()
                     .UseConsoleLog()
                     .AddCluster(
                         cluster => cluster
@@ -43,11 +46,11 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
                     .WithBrokers(settings.Sasl_Brokers)
                     .WithSecurityInformation(si =>
                     {
-                        si.SecurityProtocol = KafkaFlow.Configuration.SecurityProtocol.Plaintext;
+                        si.SaslMechanism = KafkaFlow.Configuration.SaslMechanism.ScramSha256;
                         si.SaslUsername = settings.Sasl_UserName;
                         si.SaslPassword = settings.Sasl_Password;
-                        si.SaslMechanism = KafkaFlow.Configuration.SaslMechanism.Plain;
-                        si.SslCaLocation = string.Empty;
+                        si.SecurityProtocol = KafkaFlow.Configuration.SecurityProtocol.SaslSsl;
+                        si.EnableSslCertificateVerification = true;
                     });
             }
             else
