@@ -5,6 +5,8 @@ using KafkaFlow.Configuration;
 using KafkaFlow.Serializer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualBasic;
+
 using SpendManagement.Application.Producers;
 using SpendManagement.Contracts.V1.Interfaces;
 using SpendManagement.Infra.CrossCutting.Conf;
@@ -43,11 +45,10 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
                     .WithBrokers(settings.Sasl_Brokers)
                     .WithSecurityInformation(si =>
                     {
-                        si.SecurityProtocol = KafkaFlow.Configuration.SecurityProtocol.Plaintext;
+                        si.SecurityProtocol = KafkaFlow.Configuration.SecurityProtocol.Ssl;
                         si.SaslUsername = settings.Sasl_UserName;
                         si.SaslPassword = settings.Sasl_Password;
-                        si.SaslMechanism = KafkaFlow.Configuration.SaslMechanism.Plain;
-                        si.SslCaLocation = string.Empty;
+                        si.SaslMechanism = KafkaFlow.Configuration.SaslMechanism.ScramSha256;
                     });
             }
             else
@@ -65,6 +66,11 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
             var producerConfig = new ProducerConfig
             {
                 MessageTimeoutMs = settings?.MessageTimeoutMs,
+                BootstrapServers = "busy-buck-7074-us1-kafka.upstash.io:9092",
+                SaslMechanism = Confluent.Kafka.SaslMechanism.ScramSha256,
+                SecurityProtocol = Confluent.Kafka.SecurityProtocol.SaslSsl,
+                SaslUsername = "YnVzeS1idWNrLTcwNzQk4_x1aupe-jrYfbWKGBVemAxrJ_JnW8X1bg3LKVXOfUo",
+                SaslPassword = "YTNjYmNjNWMtNTE0Ni00ZmJiLWFhNTgtYTVlY2Y0MjY1MmE1"
             };
 
             builder
