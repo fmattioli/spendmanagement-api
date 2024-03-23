@@ -1,7 +1,6 @@
 ﻿using SpendManagement.WebContracts.Category;
 using SpendManagement.WebContracts.Common;
 using SpendManagement.WebContracts.Receipt;
-using Web.Contracts.Receipt;
 
 namespace SpendManagement.Client.SpendManagementReadModel
 {

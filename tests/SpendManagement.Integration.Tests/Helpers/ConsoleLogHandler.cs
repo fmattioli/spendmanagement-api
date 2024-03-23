@@ -25,5 +25,10 @@ namespace SpendManagement.Integration.Tests.Helpers
         {
             Debug.WriteLine($"[KafkaBus] - Warning: {message} | Data: {JsonConvert.SerializeObject(data)}");
         }
+
+        public void Warning(string message, Exception ex, object data)
+        {
+            Debug.WriteLine($"[KafkaBus] - Warning: {ex.StackTrace} | Data: {JsonConvert.SerializeObject(data)}");
+        }
     }
 }

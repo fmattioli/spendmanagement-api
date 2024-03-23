@@ -24,7 +24,8 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
                     .UseConsoleLog()
                     .AddCluster(
                         cluster => cluster
-                        .AddBrokers(kafkaSettings)
+                        .WithBrokers(new string[] { kafkaSettings!.Broker })
+                        .CreateTopicIfNotExists(KafkaTopics.Commands.GetReceiptCommands(kafkaSettings!.Environment), 2, 1)
                         .AddProducers(kafkaSettings)
                         ));
 
@@ -33,42 +34,16 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
             return services;
         }
 
-        private static IClusterConfigurationBuilder AddBrokers(
-            this IClusterConfigurationBuilder builder,
-            KafkaSettings? settings)
-        {
-            if (settings?.Sasl_Enabled == true)
-            {
-                builder
-                    .WithBrokers(settings.Sasl_Brokers)
-                    .WithSecurityInformation(si =>
-                    {
-                        si.SecurityProtocol = KafkaFlow.Configuration.SecurityProtocol.Plaintext;
-                        si.SaslUsername = settings.Sasl_UserName;
-                        si.SaslPassword = settings.Sasl_Password;
-                        si.SaslMechanism = KafkaFlow.Configuration.SaslMechanism.Plain;
-                        si.SslCaLocation = string.Empty;
-                    });
-            }
-            else
-            {
-                builder.WithBrokers(new[] { settings?.Broker });
-            }
-
-            return builder;
-        }
-
         private static IClusterConfigurationBuilder AddProducers(
            this IClusterConfigurationBuilder builder,
            KafkaSettings? settings)
         {
             var producerConfig = new ProducerConfig
             {
-                MessageTimeoutMs = settings?.MessageTimeoutMs,
+                MessageTimeoutMs = settings?.MessageTimeoutMs
             };
 
             builder
-                .CreateTopicIfNotExists(KafkaTopics.Commands.GetReceiptCommands(settings!.Environment), 2, 1)
                 .AddProducer<ICommand>(
                     p => p
                         .DefaultTopic(KafkaTopics.Commands.GetReceiptCommands(settings!.Environment))
