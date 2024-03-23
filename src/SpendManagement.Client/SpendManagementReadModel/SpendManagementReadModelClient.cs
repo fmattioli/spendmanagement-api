@@ -3,9 +3,8 @@ using SpendManagement.Client.Configuration;
 using SpendManagement.Client.Extensions;
 using SpendManagement.WebContracts.Category;
 using SpendManagement.WebContracts.Common;
+using SpendManagement.WebContracts.Exceptions;
 using SpendManagement.WebContracts.Receipt;
-using Web.Contracts.Exceptions;
-using Web.Contracts.Receipt;
 
 namespace SpendManagement.Client.SpendManagementReadModel
 {
@@ -30,7 +29,7 @@ namespace SpendManagement.Client.SpendManagementReadModel
 
         public async Task<PagedResult<ReceiptResponse>> GetReceiptAsync(Guid receiptId)
         {
-            var receipt = await GetAsync<PagedResult<ReceiptResponse>>("getReceipts", receiptId, "receiptIds").HandleExceptions("GetReceipt");
+            var receipt = await GetAsync<PagedResult<ReceiptResponse>>("getVariableReceipts", receiptId, "receiptIds").HandleExceptions("GetReceipt");
 
             if (receipt.TotalResults == 0)
             {

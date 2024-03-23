@@ -6,8 +6,7 @@ using SpendManagement.Application.Services;
 using SpendManagement.Client.SpendManagementReadModel;
 using SpendManagement.WebContracts.Category;
 using SpendManagement.WebContracts.Common;
-
-using Web.Contracts.Exceptions;
+using SpendManagement.WebContracts.Exceptions;
 
 namespace SpendManagement.Unit.Tests.Services
 {

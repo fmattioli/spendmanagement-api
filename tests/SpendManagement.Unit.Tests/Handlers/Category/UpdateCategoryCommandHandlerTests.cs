@@ -8,8 +8,7 @@ using SpendManagement.Application.Producers;
 using SpendManagement.Client.SpendManagementReadModel;
 using SpendManagement.WebContracts.Category;
 using SpendManagement.WebContracts.Common;
-
-using Web.Contracts.Exceptions;
+using SpendManagement.WebContracts.Exceptions;
 
 using UpdateCategoryCommand = SpendManagement.Contracts.V1.Commands.CategoryCommands.UpdateCategoryCommand;
 using UpdateCategoryCommandHandler = SpendManagement.Application.Commands.Category.UseCases.UpdateCategory.UpdateCategoryCommand;

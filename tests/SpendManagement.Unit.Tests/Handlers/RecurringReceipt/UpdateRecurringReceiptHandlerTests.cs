@@ -9,8 +9,8 @@ using SpendManagement.Application.Producers;
 using SpendManagement.Application.Services;
 using SpendManagement.Client.SpendManagementReadModel;
 using SpendManagement.WebContracts.Common;
-using Web.Contracts.Exceptions;
-using Web.Contracts.Receipt;
+using SpendManagement.WebContracts.Exceptions;
+using SpendManagement.WebContracts.Receipt;
 
 namespace SpendManagement.Unit.Tests.Handlers.RecurringReceipt
 {

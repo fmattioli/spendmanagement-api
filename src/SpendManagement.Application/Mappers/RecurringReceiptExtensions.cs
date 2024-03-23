@@ -1,12 +1,9 @@
 ﻿using SpendManagement.Application.Commands.RecurringReceipt.InputModel;
 using SpendManagement.Contracts.Contracts.V1.Entities;
 using SpendManagement.Contracts.V1.Commands.RecurringReceiptCommands;
-using SpendManagement.Contracts.V1.Entities;
 using SpendManagement.WebContracts.Receipt;
-
-using Web.Contracts.Receipt;
-
 using MediatRCommands = SpendManagement.Application.Commands.RecurringReceipt.UseCases.DeleteRecurringReceipt;
+
 namespace SpendManagement.Application.Mappers
 {
     public static class RecurringReceiptExtensions
