@@ -27,7 +27,7 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
                         .WithBrokers(new string[] { "unique-camel-8345-eu2-kafka.upstash.io:9092" })
                         .WithSecurityInformation(information =>
                         {
-                            information.SaslMechanism = KafkaFlow.Configuration.SaslMechanism.Plain;
+                            information.SaslMechanism = KafkaFlow.Configuration.SaslMechanism.ScramSha256;
                             information.SaslUsername = "dW5pcXVlLWNhbWVsLTgzNDUk8RLsTQoJ7i1X5nGz0HNWvMirQdh7ldh4--2vvmY";
                             information.SaslPassword = "ZmExNzIwZDgtYTI4ZC00OTFhLWI5YzgtMzMyMzFkYjBiMjEz";
                             information.SecurityProtocol = KafkaFlow.Configuration.SecurityProtocol.SaslSsl;
