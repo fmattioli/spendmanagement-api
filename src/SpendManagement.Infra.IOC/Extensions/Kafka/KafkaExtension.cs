@@ -31,7 +31,7 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
                             information.SaslUsername = "dW5pcXVlLWNhbWVsLTgzNDUk8RLsTQoJ7i1X5nGz0HNWvMirQdh7ldh4--2vvmY";
                             information.SaslPassword = "ZmExNzIwZDgtYTI4ZC00OTFhLWI5YzgtMzMyMzFkYjBiMjEz";
                             information.SecurityProtocol = KafkaFlow.Configuration.SecurityProtocol.SaslSsl;
-                            information.EnableSslCertificateVerification = true;
+                            information.SecurityProtocol = KafkaFlow.Configuration.SecurityProtocol.SaslSsl;
                         })
                         .CreateTopicIfNotExists(KafkaTopics.Commands.GetReceiptCommands(kafkaSettings!.Environment), 2, 1)
                         .AddProducers(kafkaSettings)
