@@ -32,6 +32,7 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
                             information.SaslPassword = "ZmExNzIwZDgtYTI4ZC00OTFhLWI5YzgtMzMyMzFkYjBiMjEz";
                             information.SecurityProtocol = KafkaFlow.Configuration.SecurityProtocol.SaslSsl;
                             information.SecurityProtocol = KafkaFlow.Configuration.SecurityProtocol.SaslSsl;
+                            information.EnableSslCertificateVerification = true;
                         })
                         .CreateTopicIfNotExists(KafkaTopics.Commands.GetReceiptCommands(kafkaSettings!.Environment), 2, 1)
                         .AddProducers(kafkaSettings)
