@@ -7,7 +7,7 @@
         public int RetryNumber { get; set; }
         public IEnumerable<string> Sasl_Brokers { get; set; } = null!;
         public bool Sasl_Enabled { get; set; }
-        public string Sasl_UserName { get; set; } = null!;
+        public string Sasl_Username { get; set; } = null!;
         public string Sasl_Password { get; set; } = null!;
         public string DependencyName { get; set; } = null!;
         public int ProducerRetryCount { get; set; } 
