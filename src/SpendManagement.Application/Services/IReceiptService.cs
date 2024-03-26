@@ -1,4 +1,4 @@
-﻿using SpendManagement.Application.Commands.Receipt.InputModels;
+﻿using SpendManagement.Application.Commands.Receipt.VariableReceipt.InputModels;
 
 namespace SpendManagement.Application.Services
 {

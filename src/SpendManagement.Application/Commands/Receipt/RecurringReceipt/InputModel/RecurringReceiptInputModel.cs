@@ -1,4 +1,4 @@
-﻿namespace SpendManagement.Application.Commands.RecurringReceipt.InputModel
+﻿namespace SpendManagement.Application.Commands.Receipt.RecurringReceipt.InputModel
 {
     public class RecurringReceiptInputModel
     {

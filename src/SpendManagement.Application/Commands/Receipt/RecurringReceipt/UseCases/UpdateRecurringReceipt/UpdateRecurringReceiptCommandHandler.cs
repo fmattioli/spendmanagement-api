@@ -7,7 +7,7 @@ using SpendManagement.Application.Services;
 using SpendManagement.Client.Extensions;
 using SpendManagement.Client.SpendManagementReadModel;
 
-namespace SpendManagement.Application.Commands.RecurringReceipt.UseCases.UpdateRecurringReceipt
+namespace SpendManagement.Application.Commands.Receipt.RecurringReceipt.UseCases.UpdateRecurringReceipt
 {
     public class UpdateRecurringReceiptCommandHandler(ICommandProducer receiptProducer,
         ISpendManagementReadModelClient spendManagementReadModelClient,

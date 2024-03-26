@@ -1,4 +1,5 @@
-﻿using SpendManagement.Application.Commands.Receipt.InputModels;
+﻿using SpendManagement.Application.Commands.Receipt.VariableReceipt.InputModels;
+using SpendManagement.Application.Commands.Receipt.VariableReceipt.UseCases.DeleteReceipt;
 using SpendManagement.Contracts.V1.Commands.ReceiptCommands;
 using SpendManagement.Contracts.V1.Entities;
 using SpendManagement.WebContracts.Receipt;
@@ -45,7 +46,7 @@ namespace SpendManagement.Application.Mappers
             return new UpdateReceiptCommand(receipt, receptItems);
         }
 
-        public static DeleteReceiptCommand ToCommand(this Commands.Receipt.UseCases.DeleteReceipt.DeleteReceiptCommand deleteReceiptCommand)
+        public static DeleteReceiptCommand ToCommand(this DeleteVariableReceiptCommand deleteReceiptCommand)
         {
             return new DeleteReceiptCommand(deleteReceiptCommand.Id);
         }

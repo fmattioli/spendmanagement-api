@@ -7,19 +7,19 @@ using SpendManagement.Application.Services;
 using SpendManagement.Client.Extensions;
 using SpendManagement.Client.SpendManagementReadModel;
 
-namespace SpendManagement.Application.Commands.Receipt.UpdateReceipt
+namespace SpendManagement.Application.Commands.Receipt.VariableReceipt.UseCases.UpdateReceipt
 {
-    public class UpdateReceiptCommandHandler(ICommandProducer receiptProducer,
+    public class UpdateVariableReceiptCommandHandler(ICommandProducer receiptProducer,
         ISpendManagementReadModelClient spendManagementReadModelClient,
         IReceiptService receiptService,
-        IValidator<JsonPatchError> validator) : IRequestHandler<UpdateReceiptCommand>
+        IValidator<JsonPatchError> validator) : IRequestHandler<UpdateVariableReceiptCommand>
     {
         private readonly ICommandProducer _receiptProducer = receiptProducer;
         private readonly IReceiptService _receiptService = receiptService;
         private readonly ISpendManagementReadModelClient _spendManagementReadModelClient = spendManagementReadModelClient;
         private readonly IValidator<JsonPatchError> _validator = validator;
 
-        public async Task Handle(UpdateReceiptCommand request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateVariableReceiptCommand request, CancellationToken cancellationToken)
         {
             var receiptPagedResult = await _spendManagementReadModelClient
                 .GetReceiptAsync(request.Id);

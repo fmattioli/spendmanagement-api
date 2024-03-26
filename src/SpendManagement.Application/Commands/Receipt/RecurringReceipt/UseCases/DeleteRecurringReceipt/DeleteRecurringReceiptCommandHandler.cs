@@ -2,7 +2,7 @@
 using SpendManagement.Application.Mappers;
 using SpendManagement.Application.Producers;
 
-namespace SpendManagement.Application.Commands.RecurringReceipt.UseCases.DeleteRecurringReceipt
+namespace SpendManagement.Application.Commands.Receipt.RecurringReceipt.UseCases.DeleteRecurringReceipt
 {
     public class DeleteRecurringReceiptCommandHandler(ICommandProducer commandProducer) : IRequestHandler<DeleteRecurringReceiptCommand>
     {

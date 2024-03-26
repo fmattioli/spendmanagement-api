@@ -3,7 +3,7 @@ using SpendManagement.Application.Mappers;
 using SpendManagement.Application.Producers;
 using SpendManagement.Application.Services;
 
-namespace SpendManagement.Application.Commands.RecurringReceipt.UseCases.AddRecurringReceipt
+namespace SpendManagement.Application.Commands.Receipt.RecurringReceipt.UseCases.AddRecurringReceipt
 {
     public class AddRecurringReceiptCommandHandler(ICommandProducer receiptProducer, IReceiptService receiptService) : IRequestHandler<AddRecurringReceiptCommand, Guid>
     {

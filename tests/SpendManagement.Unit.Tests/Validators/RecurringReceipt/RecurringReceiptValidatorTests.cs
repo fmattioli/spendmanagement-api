@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
 using FluentAssertions;
-using SpendManagement.Application.Commands.RecurringReceipt.InputModel;
+using SpendManagement.Application.Commands.Receipt.RecurringReceipt.InputModel;
 using SpendManagement.Application.Validators;
 
 namespace SpendManagement.Unit.Tests.Validators.RecurringReceipt

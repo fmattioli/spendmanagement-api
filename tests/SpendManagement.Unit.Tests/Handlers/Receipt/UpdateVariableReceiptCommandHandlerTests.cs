@@ -3,8 +3,9 @@ using FluentAssertions;
 using FluentValidation;
 using Microsoft.AspNetCore.JsonPatch;
 using Moq;
-using SpendManagement.Application.Commands.Receipt.InputModels;
-using SpendManagement.Application.Commands.Receipt.UpdateReceipt;
+
+using SpendManagement.Application.Commands.Receipt.VariableReceipt.InputModels;
+using SpendManagement.Application.Commands.Receipt.VariableReceipt.UseCases.UpdateReceipt;
 using SpendManagement.Application.Producers;
 using SpendManagement.Application.Services;
 using SpendManagement.Client.SpendManagementReadModel;
@@ -15,16 +16,16 @@ using SpendManagement.WebContracts.Receipt;
 
 namespace SpendManagement.Unit.Tests.Handlers.Receipt
 {
-    public class UpdateReceiptCommandHandlerTests
+    public class UpdateVariableReceiptCommandHandlerTests
     {
-        private readonly UpdateReceiptCommandHandler _handler;
+        private readonly UpdateVariableReceiptCommandHandler _handler;
         private readonly Fixture fixture = new();
         private readonly Mock<ICommandProducer> commandProducerMock = new();
         private readonly Mock<IReceiptService> receiptService = new();
         private readonly Mock<ISpendManagementReadModelClient> spendManagementReadModelClientMock = new();
         private readonly Mock<IValidator<JsonPatchError>> _validatorMock = new();
 
-        public UpdateReceiptCommandHandlerTests()
+        public UpdateVariableReceiptCommandHandlerTests()
         {
             _handler = new(commandProducerMock.Object, spendManagementReadModelClientMock.Object, receiptService.Object, _validatorMock.Object);
         }
@@ -35,7 +36,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
             //Arrange
             var jsonPatchDocument = new JsonPatchDocument<ReceiptResponse>();
 
-            var receiptCommand = new UpdateReceiptCommand(Guid.NewGuid(), new UpdateReceiptInputModel
+            var receiptCommand = new UpdateVariableReceiptCommand(Guid.NewGuid(), new UpdateVariableReceiptInputModel
             {
                 ReceiptPatchDocument = jsonPatchDocument
             });
@@ -78,7 +79,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
             //Arrange
             var jsonPatchDocument = new JsonPatchDocument<ReceiptResponse>();
 
-            var receiptCommand = new UpdateReceiptCommand(Guid.NewGuid(), new UpdateReceiptInputModel
+            var receiptCommand = new UpdateVariableReceiptCommand(Guid.NewGuid(), new UpdateVariableReceiptInputModel
             {
                 ReceiptPatchDocument = jsonPatchDocument
             });
@@ -100,7 +101,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
             //Arrange
             var jsonPatchDocument = new JsonPatchDocument<ReceiptResponse>();
 
-            var receiptCommand = new UpdateReceiptCommand(Guid.NewGuid(), new UpdateReceiptInputModel
+            var receiptCommand = new UpdateVariableReceiptCommand(Guid.NewGuid(), new UpdateVariableReceiptInputModel
             {
                 ReceiptPatchDocument = jsonPatchDocument
             });

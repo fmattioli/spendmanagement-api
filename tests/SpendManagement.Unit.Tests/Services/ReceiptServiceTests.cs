@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using Moq;
-using SpendManagement.Application.Commands.Receipt.InputModels;
+using SpendManagement.Application.Commands.Receipt.VariableReceipt.InputModels;
 using SpendManagement.Application.Services;
 using SpendManagement.Client.SpendManagementReadModel;
 using SpendManagement.WebContracts.Category;
