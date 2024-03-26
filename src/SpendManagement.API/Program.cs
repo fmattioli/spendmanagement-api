@@ -18,7 +18,7 @@ builder.Configuration
     .AddJsonFile($"appsettings.{enviroment}.json", true, reloadOnChange: true)
     .AddEnvironmentVariables();
 
-var applicationSettings = builder.Configuration.GetSection("Settings").Get<Settings>();
+var applicationSettings = builder.Configuration.GetApplicationSettings(builder.Environment);
 
 builder.Logging
     .ClearProviders()
