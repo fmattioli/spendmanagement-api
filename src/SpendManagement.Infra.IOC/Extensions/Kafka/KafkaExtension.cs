@@ -24,16 +24,7 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
                     .UseConsoleLog()
                     .AddCluster(
                         cluster => cluster
-                        .WithBrokers(new string[] { "unique-camel-8345-eu2-kafka.upstash.io:9092" })
-                        .WithSecurityInformation(information =>
-                        {
-                            information.SaslMechanism = KafkaFlow.Configuration.SaslMechanism.ScramSha256;
-                            information.SaslUsername = "dW5pcXVlLWNhbWVsLTgzNDUk8RLsTQoJ7i1X5nGz0HNWvMirQdh7ldh4--2vvmY";
-                            information.SaslPassword = "ZmExNzIwZDgtYTI4ZC00OTFhLWI5YzgtMzMyMzFkYjBiMjEz";
-                            information.SecurityProtocol = KafkaFlow.Configuration.SecurityProtocol.SaslSsl;
-                            information.SecurityProtocol = KafkaFlow.Configuration.SecurityProtocol.SaslSsl;
-                            information.EnableSslCertificateVerification = true;
-                        })
+                        .AddBrokers(kafkaSettings)
                         .CreateTopicIfNotExists(KafkaTopics.Commands.GetReceiptCommands(kafkaSettings!.Environment), 2, 1)
                         .AddProducers(kafkaSettings)
                         ));
@@ -41,6 +32,31 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
             services.AddSingleton<ICommandProducer, CommandProducer>();
 
             return services;
+        }
+
+        private static IClusterConfigurationBuilder AddBrokers(
+            this IClusterConfigurationBuilder builder,
+            KafkaSettings? settings)
+        {
+            if (settings?.Sasl_Enabled ?? false)
+            {
+                builder
+                    .WithBrokers(settings.Sasl_Brokers)
+                    .WithSecurityInformation(information =>
+                    {
+                        information.SaslMechanism = KafkaFlow.Configuration.SaslMechanism.ScramSha256;
+                        information.SaslUsername = settings.Sasl_UserName;
+                        information.SaslPassword = settings.Sasl_Password;
+                        information.SecurityProtocol = KafkaFlow.Configuration.SecurityProtocol.SaslSsl;
+                        information.EnableSslCertificateVerification = true;
+                    });
+            }
+            else
+            {
+                builder.WithBrokers(new[] { settings?.Broker });
+            }
+
+            return builder;
         }
 
         private static IClusterConfigurationBuilder AddProducers(
