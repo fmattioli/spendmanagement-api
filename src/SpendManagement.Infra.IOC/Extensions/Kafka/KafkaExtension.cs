@@ -24,7 +24,7 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
                     .UseConsoleLog()
                     .AddCluster(
                         cluster => cluster
-                        .WithBrokers(new string[] { kafkaSettings!.Broker })
+                        .WithBrokers(new string[] { "unique-camel-8345-eu2-kafka.upstash.io:9092" })
                         .WithSecurityInformation(information =>
                         {
                             information.SaslMechanism = KafkaFlow.Configuration.SaslMechanism.Plain;
