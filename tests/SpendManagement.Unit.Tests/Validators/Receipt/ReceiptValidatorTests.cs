@@ -1,18 +1,18 @@
 ﻿using AutoFixture;
 using SpendManagement.Application.Validators;
-using SpendManagement.Application.Commands.Receipt.InputModels;
 using FluentAssertions;
+using SpendManagement.Application.Commands.Receipt.VariableReceipt.InputModels;
 
 namespace SpendManagement.Unit.Tests.Validators.Receipt
 {
     public class ReceiptValidatorTests
     {
         private readonly Fixture fixture = new();
-        private readonly AddReceiptValidator receiptValidator;
+        private readonly AddVariableReceiptValidator receiptValidator;
 
         public ReceiptValidatorTests()
         {
-            receiptValidator = new AddReceiptValidator();
+            receiptValidator = new AddVariableReceiptValidator();
         }
 
         public static TheoryData<DateTime?> ReceiptDates()

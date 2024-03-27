@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SpendManagement.Application.Claims;
-using SpendManagement.Application.Commands.Receipt.InputModels;
-using SpendManagement.Application.Commands.Receipt.UpdateReceipt;
-using SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt;
-using SpendManagement.Application.Commands.Receipt.UseCases.DeleteReceipt;
-using SpendManagement.Application.Commands.RecurringReceipt.InputModel;
-using SpendManagement.Application.Commands.RecurringReceipt.UseCases.AddRecurringReceipt;
-using SpendManagement.Application.Commands.RecurringReceipt.UseCases.DeleteRecurringReceipt;
-using SpendManagement.Application.Commands.RecurringReceipt.UseCases.UpdateRecurringReceipt;
+using SpendManagement.Application.Commands.Receipt.RecurringReceipt.InputModel;
+using SpendManagement.Application.Commands.Receipt.RecurringReceipt.UseCases.AddRecurringReceipt;
+using SpendManagement.Application.Commands.Receipt.RecurringReceipt.UseCases.DeleteRecurringReceipt;
+using SpendManagement.Application.Commands.Receipt.RecurringReceipt.UseCases.UpdateRecurringReceipt;
+using SpendManagement.Application.Commands.Receipt.VariableReceipt.InputModels;
+using SpendManagement.Application.Commands.Receipt.VariableReceipt.UseCases.AddReceipt;
+using SpendManagement.Application.Commands.Receipt.VariableReceipt.UseCases.DeleteReceipt;
+using SpendManagement.Application.Commands.Receipt.VariableReceipt.UseCases.UpdateReceipt;
 using SpendManagement.Infra.CrossCutting.Extensions.Filters;
 
 namespace SpendManagement.API.Controllers
@@ -26,15 +26,15 @@ namespace SpendManagement.API.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpPost]
-        [Route("addReceipt", Name = nameof(ReceiptController.AddReceipt))]
+        [Route("addVariableReceipt", Name = nameof(ReceiptController.AddVariableReceipt))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ClaimsAuthorize(ClaimTypes.Receipt, "Insert")]
-        public async Task<IActionResult> AddReceipt([FromBody] ReceiptInputModel addSpentInputModel, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddVariableReceipt([FromBody] ReceiptInputModel addSpentInputModel, CancellationToken cancellationToken)
         {
-            var receiptId = await _mediator.Send(new AddReceiptCommand(addSpentInputModel), cancellationToken);
-            return Created("/addReceipt", receiptId);
+            var receiptId = await _mediator.Send(new AddVariableReceiptCommand(addSpentInputModel), cancellationToken);
+            return Created("/addVariableReceipt", receiptId);
         }
 
         /// <summary>
@@ -42,14 +42,14 @@ namespace SpendManagement.API.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpPatch]
-        [Route("updateReceipt/{Id}", Name = nameof(UpdateReceipt))]
+        [Route("updateVariableReceipt/{Id}", Name = nameof(UpdateVariableReceipt))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ClaimsAuthorize(ClaimTypes.Receipt, "Update")]
-        public async Task<IActionResult> UpdateReceipt(Guid Id, UpdateReceiptInputModel updateReceiptInputModel, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateVariableReceipt(Guid Id, UpdateVariableReceiptInputModel updateReceiptInputModel, CancellationToken cancellationToken)
         {
-            await _mediator.Send(new UpdateReceiptCommand(Id, updateReceiptInputModel), cancellationToken);
+            await _mediator.Send(new UpdateVariableReceiptCommand(Id, updateReceiptInputModel), cancellationToken);
             return NoContent();
         }
 
@@ -58,14 +58,14 @@ namespace SpendManagement.API.Controllers
         /// </summary>
         /// <returns>A status code related to the operation.</returns>
         [HttpDelete]
-        [Route("deleteReceipt/{Id:guid}", Name = nameof(DeleteReceipt))]
+        [Route("deleteVariableReceipt/{Id:guid}", Name = nameof(DeleteVariableReceipt))]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ClaimsAuthorizeAttribute(ClaimTypes.Receipt, "Delete")]
-        public async Task<IActionResult> DeleteReceipt(Guid Id, CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteVariableReceipt(Guid Id, CancellationToken cancellationToken)
         {
-            await _mediator.Send(new DeleteReceiptCommand(Id), cancellationToken);
+            await _mediator.Send(new DeleteVariableReceiptCommand(Id), cancellationToken);
             return Accepted();
         }
 

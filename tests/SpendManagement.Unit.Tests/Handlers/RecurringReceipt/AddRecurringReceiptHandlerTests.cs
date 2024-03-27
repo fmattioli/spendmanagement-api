@@ -1,8 +1,8 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using Moq;
-using SpendManagement.Application.Commands.RecurringReceipt.InputModel;
-using SpendManagement.Application.Commands.RecurringReceipt.UseCases.AddRecurringReceipt;
+using SpendManagement.Application.Commands.Receipt.RecurringReceipt.InputModel;
+using SpendManagement.Application.Commands.Receipt.RecurringReceipt.UseCases.AddRecurringReceipt;
 using SpendManagement.Application.Producers;
 using SpendManagement.Application.Services;
 using SpendManagement.Contracts.V1.Commands.ReceiptCommands;

@@ -1,9 +1,8 @@
 ﻿using AutoFixture;
 using FluentAssertions;
-
 using Moq;
-using SpendManagement.Application.Commands.Receipt.InputModels;
-using SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt;
+using SpendManagement.Application.Commands.Receipt.VariableReceipt.InputModels;
+using SpendManagement.Application.Commands.Receipt.VariableReceipt.UseCases.AddReceipt;
 using SpendManagement.Application.Producers;
 using SpendManagement.Application.Services;
 using CreateReceiptCommand = SpendManagement.Contracts.V1.Commands.ReceiptCommands.CreateReceiptCommand;
@@ -11,7 +10,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
 {
     public class AddReceiptCommandHandlerTests
     {
-        private readonly AddReceiptCommandHandler handler;
+        private readonly AddVariableReceiptCommandHandler handler;
         private readonly Fixture fixture = new();
         private readonly Mock<ICommandProducer> commandProducerMock = new();
         private readonly Mock<IReceiptService> receiptServiceMock = new();
@@ -30,17 +29,17 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
                 .Create();
 
             var receiptCommand = fixture
-                .Build<AddReceiptCommand>()
+                .Build<AddVariableReceiptCommand>()
                 .With(x => x.Receipt, receiptInputModel)
                 .Create();
 
             receiptServiceMock
-                .Setup(x => x.ValidateIfCategoryExistAsync(It.IsAny<Guid>()))
-                .Returns(Task.CompletedTask);
+               .Setup(x => x.CalculateReceiptTotals(It.IsAny<ReceiptInputModel>()))
+               .Returns(receiptInputModel);
 
             receiptServiceMock
-                .Setup(x => x.CalculateReceiptTotals(It.IsAny<ReceiptInputModel>()))
-                .Returns(receiptInputModel);
+                .Setup(x => x.ValidateIfCategoryExistAsync(It.IsAny<Guid>()))
+                .Returns(Task.CompletedTask);
 
             //Act
             await handler.Handle(receiptCommand, CancellationToken.None);
@@ -64,7 +63,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
             // Arrange
             var receiptInputModel = fixture.Create<ReceiptInputModel>();
             var request = fixture
-                .Build<AddReceiptCommand>()
+                .Build<AddVariableReceiptCommand>()
                 .Create();
 
             commandProducerMock

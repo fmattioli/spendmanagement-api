@@ -3,14 +3,14 @@ using SpendManagement.Application.Mappers;
 using SpendManagement.Application.Producers;
 using SpendManagement.Application.Services;
 
-namespace SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt
+namespace SpendManagement.Application.Commands.Receipt.VariableReceipt.UseCases.AddReceipt
 {
-    public class AddReceiptCommandHandler(ICommandProducer receiptProducer, IReceiptService receiptService) : IRequestHandler<AddReceiptCommand, Guid>
+    public class AddVariableReceiptCommandHandler(ICommandProducer receiptProducer, IReceiptService receiptService) : IRequestHandler<AddVariableReceiptCommand, Guid>
     {
         private readonly ICommandProducer _receiptProducer = receiptProducer;
         private readonly IReceiptService _receiptService = receiptService;
 
-        public async Task<Guid> Handle(AddReceiptCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(AddVariableReceiptCommand request, CancellationToken cancellationToken)
         {
             request.Receipt = _receiptService.CalculateReceiptTotals(request.Receipt);
 

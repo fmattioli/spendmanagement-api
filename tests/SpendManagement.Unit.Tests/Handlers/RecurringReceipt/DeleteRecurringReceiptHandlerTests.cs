@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using Moq;
-using SpendManagement.Application.Commands.RecurringReceipt.UseCases.DeleteRecurringReceipt;
+using SpendManagement.Application.Commands.Receipt.RecurringReceipt.UseCases.DeleteRecurringReceipt;
 using SpendManagement.Application.Producers;
 
 namespace SpendManagement.Unit.Tests.Handlers.RecurringReceipt

@@ -1,10 +1,10 @@
-﻿using SpendManagement.Application.Commands.Receipt.UseCases.AddReceipt;
-using SpendManagement.Application.Commands.Receipt.UpdateReceipt;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
-using SpendManagement.Application.Commands.RecurringReceipt.UseCases.AddRecurringReceipt;
+using SpendManagement.Application.Commands.Receipt.VariableReceipt.UseCases.UpdateReceipt;
+using SpendManagement.Application.Commands.Receipt.VariableReceipt.UseCases.AddReceipt;
+using SpendManagement.Application.Commands.Receipt.RecurringReceipt.UseCases.AddRecurringReceipt;
 
 namespace SpendManagement.API.Extensions
 {
@@ -14,9 +14,9 @@ namespace SpendManagement.API.Extensions
         {
             services.AddMediatR(
                     x => x.RegisterServicesFromAssemblies(
-                        typeof(AddReceiptCommand).Assembly,
+                        typeof(AddVariableReceiptCommand).Assembly,
                         typeof(AddRecurringReceiptCommand).Assembly,
-                        typeof(UpdateReceiptCommand).Assembly));
+                        typeof(UpdateVariableReceiptCommand).Assembly));
 
             return services;
         }
