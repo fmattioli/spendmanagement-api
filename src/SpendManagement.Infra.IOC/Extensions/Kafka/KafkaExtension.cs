@@ -25,7 +25,7 @@ namespace SpendManagement.Infra.CrossCutting.Extensions.Kafka
                     .AddCluster(
                         cluster => cluster
                         .AddBrokers(kafkaSettings)
-                        .CreateTopicIfNotExists(KafkaTopics.Commands.GetReceiptCommands(kafkaSettings!.Environment), 2, 1)
+                        .CreateTopicIfNotExists(KafkaTopics.Commands.GetReceiptCommands(kafkaSettings!.Environment), 6, 1)
                         .AddProducers(kafkaSettings)
                         ));
 
