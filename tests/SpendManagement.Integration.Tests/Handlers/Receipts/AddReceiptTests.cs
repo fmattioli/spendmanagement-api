@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
 using FluentAssertions;
-using SpendManagement.Application.Commands.Receipt.InputModels;
+using SpendManagement.Application.Commands.Receipt.VariableReceipt.InputModels;
 using SpendManagement.Contracts.V1.Commands.ReceiptCommands;
 using SpendManagement.Integration.Tests.Fixtures;
 

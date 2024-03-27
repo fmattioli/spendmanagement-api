@@ -1,8 +1,8 @@
-﻿using SpendManagement.Application.Commands.RecurringReceipt.InputModel;
+﻿using SpendManagement.Application.Commands.Receipt.RecurringReceipt.InputModel;
+using SpendManagement.Application.Commands.Receipt.RecurringReceipt.UseCases.DeleteRecurringReceipt;
 using SpendManagement.Contracts.Contracts.V1.Entities;
 using SpendManagement.Contracts.V1.Commands.RecurringReceiptCommands;
 using SpendManagement.WebContracts.Receipt;
-using MediatRCommands = SpendManagement.Application.Commands.RecurringReceipt.UseCases.DeleteRecurringReceipt;
 
 namespace SpendManagement.Application.Mappers
 {
@@ -35,9 +35,9 @@ namespace SpendManagement.Application.Mappers
             return new UpdateRecurringReceiptCommand(recurringReceipt);
         }
 
-        public static DeleteRecurringReceiptCommand ToCommand(this MediatRCommands.DeleteRecurringReceiptCommand deleteReceiptCommand)
+        public static Contracts.V1.Commands.RecurringReceiptCommands.DeleteRecurringReceiptCommand ToCommand(this SpendManagement.Application.Commands.Receipt.RecurringReceipt.UseCases.DeleteRecurringReceipt.DeleteRecurringReceiptCommand deleteReceiptCommand)
         {
-            return new DeleteRecurringReceiptCommand(deleteReceiptCommand.Id);
+            return new Contracts.V1.Commands.RecurringReceiptCommands.DeleteRecurringReceiptCommand(deleteReceiptCommand.Id);
         }
     }
 }

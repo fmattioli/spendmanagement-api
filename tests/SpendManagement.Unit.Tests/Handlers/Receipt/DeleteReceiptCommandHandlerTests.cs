@@ -1,14 +1,14 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using Moq;
-using SpendManagement.Application.Commands.Receipt.UseCases.DeleteReceipt;
+using SpendManagement.Application.Commands.Receipt.VariableReceipt.UseCases.DeleteReceipt;
 using SpendManagement.Application.Producers;
 
 namespace SpendManagement.Unit.Tests.Handlers.Receipt
 {
     public class DeleteReceiptCommandHandlerTests
     {
-        private readonly DeleteReceiptCommandHandler handler;
+        private readonly DeleteVariableReceiptCommandHandler handler;
         private readonly Mock<ICommandProducer> commandProducerMock = new();
         private readonly Fixture fixture = new();
 
@@ -24,7 +24,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
             var receiptId = fixture.Create<Guid>();
 
             var request = fixture
-                .Build<DeleteReceiptCommand>()
+                .Build<DeleteVariableReceiptCommand>()
                 .With(x => x.Id, receiptId)
                 .Create();
 
@@ -47,7 +47,7 @@ namespace SpendManagement.Unit.Tests.Handlers.Receipt
             var receiptId = fixture.Create<Guid>();
 
             var request = fixture
-                .Build<DeleteReceiptCommand>()
+                .Build<DeleteVariableReceiptCommand>()
                 .With(x => x.Id, receiptId)
                 .Create();
 

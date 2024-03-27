@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SpendManagement.Application.Commands.Receipt.InputModels
+namespace SpendManagement.Application.Commands.Receipt.VariableReceipt.InputModels
 {
     public class ReceiptInputModel
     {

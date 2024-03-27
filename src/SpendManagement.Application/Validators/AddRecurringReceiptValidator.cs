@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using SpendManagement.Application.Commands.RecurringReceipt.InputModel;
+using SpendManagement.Application.Commands.Receipt.RecurringReceipt.InputModel;
 
 namespace SpendManagement.Application.Validators
 {

@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using SpendManagement.Application.Commands.Receipt.InputModels;
+using SpendManagement.Application.Commands.Receipt.VariableReceipt.InputModels;
 
 namespace SpendManagement.Application.Validators
 {
-    public class AddReceiptValidator : AbstractValidator<ReceiptInputModel>
+    public class AddVariableReceiptValidator : AbstractValidator<ReceiptInputModel>
     {
-        public AddReceiptValidator()
+        public AddVariableReceiptValidator()
         {
             RuleFor(x => x.CategoryId)
                 .NotNull()
